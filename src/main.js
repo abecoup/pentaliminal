@@ -758,7 +758,8 @@
     // Each half carries data-fx (set in tools/build.py):
     //   "decode": the words resolve out of drafting marks, one letter at a time, left to right; again on hover.
     //   "label":  an ink tag wipes in behind the words (a copy of them in paper color sits on the tag).
-    // Order on load: the decode runs first, then the tag wipes in once it has finished.
+    // Order on load: the decode runs first, then the tag wipes in once it has finished. Each half reacts
+    // only to the pointer over its own words.
     mount("tagline", function () {
       var line = document.querySelector(".tagline"); if (!line) return;
       var MARKS = "/\\|+×◇─╱╲·#=";
@@ -774,8 +775,19 @@
           var ink = document.createElement("span"); ink.className = "tl-ink"; ink.setAttribute("aria-hidden", "true"); ink.textContent = text;
           host.appendChild(ink);
           labels.push(host);
+          // a mouse lifts it on hover (CSS); a tap lifts it briefly
+          var drop = 0;
+          on(host, "pointerdown", function (e) {
+            if (e.pointerType === "mouse") return;
+            host.classList.add("lift"); clearTimeout(drop);
+            drop = setTimeout(function () { host.classList.remove("lift"); }, 450);
+          });
         } else if (fx === "decode") {
-          decoders.push(decoder(host, text));
+          var d = decoder(host, text);
+          decoders.push(d);
+          // each half reacts only to its own words: pointing at (or tapping) these runs the decode again
+          on(host, "pointerenter", function (e) { if (e.pointerType === "mouse" && !d.busy()) d.run(); });
+          on(host, "pointerdown", function (e) { if (e.pointerType !== "mouse" && !d.busy()) d.run(); });
         }
       });
 
@@ -818,10 +830,6 @@
         };
       }
 
-      on(line, "pointerenter", function (e) {
-        if (e.pointerType !== "mouse") return;
-        decoders.forEach(function (d) { if (!d.busy()) d.run(); });
-      });
       (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(function () {
         if (!alive()) return;
         decoders.forEach(function (d) { d.lock(); });

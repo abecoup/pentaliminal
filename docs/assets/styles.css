@@ -205,7 +205,8 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 /* label: an ink tag wipes in behind the words, which turn to paper; on hover it lifts like the buttons */
 .tagline [data-fx="label"] { position: relative; display: inline-block; margin-left: .05em; padding: 0 .22em; transition: transform .16s var(--ease-out), box-shadow .16s var(--ease-out); }
 .tagline [data-fx="label"] .tl-ink { position: absolute; inset: 0; padding: 0 .22em; color: var(--paper); background: var(--ink); }
-.tagline:hover [data-fx="label"] { transform: translate(-2px, -2px); box-shadow: 2px 2px 0 var(--ink-3); }
+@media (hover: hover) { .tagline [data-fx="label"]:hover { transform: translate(-2px, -2px); box-shadow: 2px 2px 0 var(--ink-3); } }
+.tagline [data-fx="label"].lift { transform: translate(-2px, -2px); box-shadow: 2px 2px 0 var(--ink-3); }
 @media (prefers-reduced-motion: no-preference) {
   .tagline [data-fx="label"] .tl-ink { clip-path: inset(0 100% 0 0); }
   .tagline [data-fx="label"].in .tl-ink { clip-path: inset(0 0 0 0); transition: clip-path .75s var(--ease-io); }
