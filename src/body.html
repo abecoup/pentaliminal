@@ -289,7 +289,15 @@
         <div class="ask-intro">
           <h2 id="askTitle">Your turn.</h2>
           <p>Ask us something: a question you’re stuck on, one you think we’re missing, or one you’d like to work on with us. Or skip the question and just say hello. Researchers, builders, funders and the plainly curious are all welcome.</p>
-          <p class="ask-promise cap">A person reads every one</p>
+          <div class="promise">
+            <h3>Nothing you send goes into the void.</h3>
+            <ol class="promise-path">
+              <li><span class="pp-n cap" aria-hidden="true">01</span><p><b>A person reads it.</b> Not a filter, not a bot, not an auto-reply.</p></li>
+              <li><span class="pp-n cap" aria-hidden="true">02</span><p><b>We think it through.</b> Properly, across the five lenses, and with the time it needs.</p></li>
+              <li><span class="pp-n cap" aria-hidden="true">03</span><p><b>We write back.</b> With where we got to, and what we still don’t know.</p></li>
+              <li><span class="pp-n cap" aria-hidden="true">04</span><p><b>Then we work on it together.</b> Your question becomes shared work, and you stay part of it.</p></li>
+            </ol>
+          </div>
         </div>
 
         <form class="ask-form" id="askForm" action="https://formsubmit.co/{{FORM_ID}}" method="POST" data-endpoint="https://formsubmit.co/ajax/{{FORM_ID}}" data-mail="{{FALLBACK_MAIL}}">
@@ -311,36 +319,58 @@
             <p class="ask-hint" id="askHint"><span class="hint-q">We add the question mark for you. Not a question? <button type="button" class="ask-switch" data-kind="note">Leave a note instead.</button></span><span class="hint-n" hidden>No question mark needed. “Hello” is a perfectly good note.</span></p>
           </div>
 
-          <fieldset class="ask-step ask-more" id="askMore">
-            <legend class="ask-k cap"><span class="ask-n">B</span>Who’s asking?</legend>
-            <div class="ask-chips">
-              <label><input type="radio" name="asking_as" value="Builder"><span>I build things</span></label>
-              <label><input type="radio" name="asking_as" value="Researcher"><span>I do research</span></label>
-              <label><input type="radio" name="asking_as" value="Funder"><span>I fund things</span></label>
-              <label><input type="radio" name="asking_as" value="Curious"><span>Just curious</span></label>
-            </div>
-            <div class="ask-fields">
-              <label class="ask-field"><span>Where should the answer go?</span><input type="email" name="email" required autocomplete="email" inputmode="email" placeholder="you@somewhere.com"></label>
-              <label class="ask-field"><span>Your name <i>(optional)</i></span><input type="text" name="name" autocomplete="name" placeholder="So we know who to thank"></label>
-            </div>
-            <input type="text" name="_honey" class="ask-honey" tabindex="-1" autocomplete="off" aria-hidden="true">
-            <input type="hidden" name="_subject" value="New question from pentaliminal.ai">
-            <input type="hidden" name="_template" value="table">
-            <input type="hidden" name="_next" value="https://pentaliminal.ai/#ask">
-            <div class="ask-send">
-              <button class="btn" type="submit"><span class="ask-send-label">Send the question</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>
-              <p class="ask-status" id="askStatus" role="status" aria-live="polite"></p>
-            </div>
-          </fieldset>
+          <div class="ask-more" id="askMore">
+            <fieldset class="ask-step ask-map">
+              <legend class="ask-k cap"><span class="ask-n">B</span>Where does it sit? <span class="ask-opt">Optional</span></legend>
+              <p class="ask-sub">Put it on the map of our five lenses: close to a corner if it belongs to one field, toward the middle if it needs several. It tells us where to start thinking.</p>
+              <div class="map-wrap">
+                <svg class="map" id="askMap" viewBox="0 0 400 300" tabindex="0" role="group" aria-roledescription="map" aria-label="The five lenses, one at each corner of a pentagon" aria-describedby="askMapHow askMapRead"></svg>
+                <div class="map-side">
+                  <p class="map-read" id="askMapRead" aria-live="polite">Not placed yet.</p>
+                  <p class="map-how" id="askMapHow">Tap or click inside the shape. With a keyboard, use the arrow keys.</p>
+                  <button type="button" class="map-clear" id="askMapClear" hidden>Take it off the map</button>
+                </div>
+              </div>
+            </fieldset>
+
+            <fieldset class="ask-step ask-who">
+              <legend class="ask-k cap"><span class="ask-n">C</span>Who’s asking?</legend>
+              <div class="ask-chips">
+                <label><input type="radio" name="asking_as" value="Builder"><span>I build things</span></label>
+                <label><input type="radio" name="asking_as" value="Researcher"><span>I do research</span></label>
+                <label><input type="radio" name="asking_as" value="Funder"><span>I fund things</span></label>
+                <label><input type="radio" name="asking_as" value="Curious"><span>Just curious</span></label>
+              </div>
+              <div class="ask-fields">
+                <label class="ask-field"><span>Where should we write back?</span><input type="email" name="email" required autocomplete="email" inputmode="email" placeholder="you@somewhere.com"></label>
+                <label class="ask-field"><span>Your name <i>(optional)</i></span><input type="text" name="name" autocomplete="name" placeholder="So we know who we’re working with"></label>
+              </div>
+              <input type="hidden" name="where_it_sits" id="askSits" value="">
+              <input type="text" name="_honey" class="ask-honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+              <input type="hidden" name="_subject" value="New question from pentaliminal.ai">
+              <input type="hidden" name="_template" value="table">
+              <input type="hidden" name="_next" value="https://pentaliminal.ai/#ask">
+              <div class="ask-send">
+                <button class="btn" type="submit"><span class="ask-send-label">Send the question</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>
+                <p class="ask-status" id="askStatus" role="status" aria-live="polite"></p>
+              </div>
+            </fieldset>
+          </div>
         </form>
 
         <div class="ask-done" id="askDone" hidden tabindex="-1">
           <div class="ticket">
             <div class="t-head"><span class="cap" id="askKind">Question received</span><span class="cap t-open">Status: open</span></div>
             <p class="t-q" id="askEcho"></p>
-            <div class="t-foot"><span class="cap">From</span><span id="askFrom"></span><span class="cap">Reply to</span><span id="askTo"></span></div>
+            <ol class="t-steps" aria-label="What happens next">
+              <li class="on"><span>Received</span></li>
+              <li><span>Read by a person</span></li>
+              <li><span>Thought through</span></li>
+              <li><span>Worked on together</span></li>
+            </ol>
+            <div class="t-foot"><span class="cap">From</span><span id="askFrom"></span><span class="cap">Reply to</span><span id="askTo"></span><span class="cap t-sits-k" hidden>Sits</span><span id="askSitsEcho" class="t-sits" hidden></span></div>
           </div>
-          <p class="ask-after">Thank you. It’s in the pile we work from now, and a person will write back.</p>
+          <p class="ask-after" id="askAfter">Thank you. A person will read it and think it through, then write back, and from there we work on it together.</p>
           <button class="btn ghost" type="button" id="askAgain">Ask another</button>
         </div>
       </div>

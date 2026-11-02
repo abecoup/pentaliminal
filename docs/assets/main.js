@@ -861,6 +861,111 @@
             "Count me in for Labs.", "Hello. That’s it, just hello."]
         }
       };
+      /* B. Where does it sit? A pentagon with one lens at each corner. The visitor drops a pin; the corners it is
+         closest to are drawn solid and named in plain words. Touch: tap to place (swiping still scrolls).
+         Mouse: click or drag. Keyboard: arrow keys move it, Home centers it, Delete removes it. */
+      var map = (function () {
+        var svg = document.getElementById("askMap"), read = document.getElementById("askMapRead");
+        var clear = document.getElementById("askMapClear"), field = document.getElementById("askSits");
+        var CX = 200, CY = 156, R = 112;
+        // same order as the lens drawing in section 04, clockwise from the top
+        var LENSES = [
+          { label: "Cognitive science", name: "cognitive science" },
+          { label: "Psychology", name: "psychology" },
+          { label: "Anthropology", name: "anthropology" },
+          { label: "Philosophy", name: "philosophy" },
+          { label: "History &\nsystems", name: "systems thinking" }
+        ];
+        var V = LENSES.map(function (l, i) { var a = -Math.PI / 2 + i * 2 * Math.PI / 5; return [CX + R * Math.cos(a), CY + R * Math.sin(a)]; });
+        svg.innerHTML = "";
+        svg.setAttribute("viewBox", "0 0 400 300");
+        svgEl(svg, "polygon", { "class": "mp-out", points: pts(V) });
+        [0.5].forEach(function (k) { svgEl(svg, "polygon", { "class": "mp-in", points: pts(V.map(function (p) { return [CX + (p[0] - CX) * k, CY + (p[1] - CY) * k]; })) }); });
+        svgEl(svg, "line", { "class": "mp-ctr", x1: CX - 6, y1: CY, x2: CX + 6, y2: CY });
+        svgEl(svg, "line", { "class": "mp-ctr", x1: CX, y1: CY - 6, x2: CX, y2: CY + 6 });
+        var rays = V.map(function (p) { return svgEl(svg, "line", { "class": "mp-ray", x1: CX, y1: CY, x2: p[0].toFixed(1), y2: p[1].toFixed(1) }); });
+        var nodes = V.map(function (p) { return svgEl(svg, "circle", { "class": "mp-node", cx: p[0].toFixed(1), cy: p[1].toFixed(1), r: 5.5 }); });
+        var labels = V.map(function (p, i) {
+          var dx = p[0] - CX, dy = p[1] - CY, l = Math.hypot(dx, dy);
+          var x = p[0] + dx / l * 16, y = p[1] + dy / l * 16 + 4;
+          var anchor = Math.abs(dx) < 10 ? "middle" : dx > 0 ? "start" : "end";
+          if (i === 0) y -= 4; if (i === 2 || i === 3) y += 8;
+          var lines = LENSES[i].label.split("\n"), t = svgEl(svg, "text", { "class": "mp-lab", x: x.toFixed(1), y: (y - (lines.length - 1) * 7).toFixed(1), "text-anchor": anchor });
+          lines.forEach(function (line, k) { svgEl(t, "tspan", { x: x.toFixed(1), dy: k ? 14 : 0 }, line); });
+          return t;
+        });
+        var hint = svgEl(svg, "text", { "class": "mp-hint", x: CX, y: CY + 30, "text-anchor": "middle" }, "drop your question here");
+        var pin = svgEl(svg, "g", { "class": "mp-pin" }); pin.style.display = "none";
+        svgEl(pin, "circle", { "class": "mp-ring", r: 13 });
+        svgEl(pin, "circle", { "class": "mp-dot", r: 5 });
+        svgEl(pin, "line", { "class": "mp-ctr", x1: -20, y1: 0, x2: -14, y2: 0 }); svgEl(pin, "line", { "class": "mp-ctr", x1: 14, y1: 0, x2: 20, y2: 0 });
+        svgEl(pin, "line", { "class": "mp-ctr", x1: 0, y1: -20, x2: 0, y2: -14 }); svgEl(pin, "line", { "class": "mp-ctr", x1: 0, y1: 14, x2: 0, y2: 20 });
+
+        var at = null, dragging = false;
+        function inside(p) {
+          var c = false;
+          for (var i = 0, j = 4; i < 5; j = i++) {
+            if ((V[i][1] > p[1]) !== (V[j][1] > p[1]) && p[0] < (V[j][0] - V[i][0]) * (p[1] - V[i][1]) / (V[j][1] - V[i][1]) + V[i][0]) c = !c;
+          }
+          return c;
+        }
+        // a point outside the shape slides in toward the center until it is inside
+        function keepInside(p) {
+          if (inside(p)) return p;
+          var lo = 0, hi = 1;
+          for (var k = 0; k < 18; k++) { var mid = (lo + hi) / 2; if (inside([CX + (p[0] - CX) * mid, CY + (p[1] - CY) * mid])) lo = mid; else hi = mid; }
+          return [CX + (p[0] - CX) * lo * 0.97, CY + (p[1] - CY) * lo * 0.97];
+        }
+        function describe(p) {
+          if (Math.hypot(p[0] - CX, p[1] - CY) < R * 0.2) return { text: "Right in the middle: it needs all five lenses.", near: [0, 1, 2, 3, 4] };
+          var w = V.map(function (v, i) { return { i: i, w: 1 / (Math.hypot(p[0] - v[0], p[1] - v[1]) + 1) }; }).sort(function (a, b) { return b.w - a.w; });
+          var a = LENSES[w[0].i].name, b = LENSES[w[1].i].name;
+          if (w[1].w / w[0].w > 0.78) return { text: "Between " + a + " and " + b + ".", near: [w[0].i, w[1].i] };
+          if (w[1].w / w[0].w < 0.45) return { text: "Squarely in " + a + ".", near: [w[0].i] };
+          return { text: "Mostly " + a + ", with some " + b + ".", near: [w[0].i, w[1].i] };
+        }
+        function place(p) {
+          at = keepInside(p);
+          var d = describe(at), text = d.text.charAt(0).toUpperCase() + d.text.slice(1);
+          pin.style.display = ""; hint.style.display = "none";
+          pin.setAttribute("transform", "translate(" + at[0].toFixed(1) + "," + at[1].toFixed(1) + ")");
+          rays.forEach(function (r, i) { r.setAttribute("x1", at[0].toFixed(1)); r.setAttribute("y1", at[1].toFixed(1)); r.classList.toggle("near", d.near.indexOf(i) >= 0); });
+          nodes.forEach(function (n, i) { n.classList.toggle("near", d.near.indexOf(i) >= 0); });
+          labels.forEach(function (n, i) { n.classList.toggle("near", d.near.indexOf(i) >= 0); });
+          read.textContent = text; read.classList.remove("empty");
+          field.value = text; clear.hidden = false;
+        }
+        function reset() {
+          at = null; pin.style.display = "none"; hint.style.display = "";
+          rays.forEach(function (r) { r.setAttribute("x1", CX); r.setAttribute("y1", CY); r.classList.remove("near"); });
+          nodes.concat(labels).forEach(function (n) { n.classList.remove("near"); });
+          read.textContent = "Not placed yet."; read.classList.add("empty"); field.value = ""; clear.hidden = true;
+        }
+        function fromEvent(e) {
+          var r = svg.getBoundingClientRect(), vb = svg.viewBox.baseVal;
+          return [vb.x + (e.clientX - r.left) / r.width * vb.width, vb.y + (e.clientY - r.top) / r.height * vb.height];
+        }
+        on(svg, "pointerdown", function (e) {
+          place(fromEvent(e));
+          if (e.pointerType === "mouse") { dragging = true; svg.setPointerCapture(e.pointerId); pin.style.transition = "none"; }
+        });
+        on(svg, "pointermove", function (e) { if (dragging) place(fromEvent(e)); });
+        function stop() { dragging = false; pin.style.transition = ""; }
+        on(svg, "pointerup", stop); on(svg, "pointercancel", stop);
+        on(svg, "keydown", function (e) {
+          var step = e.shiftKey ? 30 : 12, p = at || [CX, CY];
+          var move = { ArrowLeft: [-step, 0], ArrowRight: [step, 0], ArrowUp: [0, -step], ArrowDown: [0, step] }[e.key];
+          if (move) place([p[0] + move[0], p[1] + move[1]]);
+          else if (e.key === "Home") place([CX, CY]);
+          else if (e.key === "Delete" || e.key === "Backspace") reset();
+          else return;
+          e.preventDefault();
+        });
+        on(clear, "click", function () { reset(); svg.focus(); });
+        reset();
+        return { reset: reset, value: function () { return field.value; } };
+      })();
+
       function kind() { var r = form.querySelector('input[name="kind"]:checked'); return r ? r.value : "question"; }
       function K() { return KINDS[kind()]; }
       function written() { return q.value.trim(); }
@@ -935,6 +1040,10 @@
         document.getElementById("askEcho").textContent = message;
         document.getElementById("askFrom").textContent = from;
         document.getElementById("askTo").textContent = to;
+        var sits = map.value(), sitsEl = document.getElementById("askSitsEcho");
+        sitsEl.textContent = sits; sitsEl.hidden = !sits; done.querySelector(".t-sits-k").hidden = !sits;
+        document.getElementById("askAfter").textContent = "Thank you. A person will read your " + (kind() === "question" ? "question" : "note") +
+          " and think it through, then write back to " + to + ". From there, we work on it together.";
         form.hidden = true; done.hidden = false;
         done.classList.remove("in"); void done.offsetWidth; done.classList.add("in");
         done.focus({ preventScroll: true });
@@ -952,7 +1061,7 @@
         var from = name || (role ? role.parentNode.textContent.trim() : "Someone curious");
         if (form.elements._honey.value) { showDone(message, from, reply); return; } // a bot filled the hidden field
         form.classList.add("sending"); sendLabel.textContent = "Sending…"; say("");
-        var payload = { kind: noun, message: message, asking_as: role ? role.value : "", name: name, email: reply,
+        var payload = { kind: noun, message: message, where_it_sits: map.value(), asking_as: role ? role.value : "", name: name, email: reply,
           _subject: "New " + noun + " from pentaliminal.ai", _template: "table", _replyto: reply };
         fetch(form.getAttribute("data-endpoint"), {
           method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify(payload),
@@ -968,7 +1077,7 @@
       });
 
       on(document.getElementById("askAgain"), "click", function () {
-        form.reset(); form.hidden = false; done.hidden = true; setKind(); q.focus();
+        form.reset(); map.reset(); form.hidden = false; done.hidden = true; setKind(); q.focus();
       });
       form.noValidate = true; // our own messages replace the browser bubbles; without this script the browser checks still apply
       form.hidden = false; done.hidden = true;

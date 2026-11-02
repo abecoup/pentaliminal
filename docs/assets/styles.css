@@ -519,8 +519,6 @@ section::after { right: -5px; }
 .ask-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr); gap: 2.5rem 4rem; align-items: start; }
 .ask-intro h2 { font-size: clamp(2rem, 1.2rem + 2.8vw, 3.4rem); line-height: 1.04; letter-spacing: -.025em; font-weight: 560; font-stretch: 112%; }
 .ask-intro p { max-width: 26rem; margin-top: 1.25rem; color: var(--ink-2); }
-.ask-intro .ask-promise { display: flex; align-items: center; gap: .6rem; margin-top: 1.75rem; font-size: .875rem; color: var(--ink); }
-.ask-promise::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--ink); box-shadow: 0 0 0 4px var(--paper), 0 0 0 5px var(--ink); margin: 0 .3rem 0 5px; }
 
 .ask-form { display: grid; gap: 2.25rem; }
 .ask-step { min-width: 0; margin: 0; padding: 0; border: 0; }
@@ -558,7 +556,7 @@ section::after { right: -5px; }
 .ask-hint { margin-top: .6rem; font-size: .875rem; color: var(--ink-3); }
 
 /* who's asking */
-.ask-more { transition: opacity .5s var(--ease-soft); }
+.ask-more { display: grid; gap: 2.25rem; transition: opacity .5s var(--ease-soft); }
 .ask-form.waiting .ask-more { opacity: .32; }
 .ask-chips { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1.5rem; }
 .ask-chips label { position: relative; }
@@ -583,6 +581,42 @@ section::after { right: -5px; }
 .ask-status { font-size: .9375rem; color: var(--ink-2); }
 .ask-status a { color: var(--ink); }
 
+/* the promise: what happens to every message */
+.promise { max-width: 28rem; margin-top: 2.25rem; border: 1.5px solid var(--ink); background: var(--paper); }
+.promise h3 { padding: .8rem 1rem; font-size: 1.2rem; line-height: 1.25; font-weight: 600; font-stretch: 104%; letter-spacing: -.01em; color: var(--paper); background: var(--ink); }
+.promise-path { padding: 1.1rem 1rem .4rem; }
+.promise-path li { position: relative; display: grid; grid-template-columns: 2rem minmax(0, 1fr); gap: .85rem; padding-bottom: 1rem; }
+.promise-path li:not(:last-child)::before { content: ""; position: absolute; left: calc(1rem - .5px); top: 2rem; bottom: 0; width: 1px; background: var(--ink); }
+.pp-n { display: grid; place-items: center; width: 2rem; height: 2rem; border: 1.5px solid var(--ink); border-radius: 50%; font-size: .75rem; background: var(--paper); }
+.promise-path li:last-child .pp-n { color: var(--paper); background: var(--ink); }
+.ask-intro .promise-path p { max-width: none; margin-top: 0; padding-top: .25rem; font-size: .9375rem; line-height: 1.5; color: var(--ink-2); }
+.promise-path b { color: var(--ink); font-weight: 600; }
+
+/* where it sits: a pentagon with a lens at each corner */
+.ask-opt { padding: .05rem .4rem; border: 1px solid var(--ink-3); font-size: .7rem; color: var(--ink-3); }
+.ask-sub { max-width: 34rem; margin-bottom: 1rem; font-size: .9375rem; color: var(--ink-2); }
+.map-wrap { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 1rem 1.5rem; align-items: center; }
+.map { display: block; width: 100%; height: auto; cursor: crosshair; touch-action: pan-y pinch-zoom; outline-offset: 4px; }
+.mp-in { fill: none; stroke: var(--rule); stroke-width: 1; stroke-dasharray: 3 4; }
+.mp-out { fill: var(--paper); fill-opacity: .6; stroke: var(--ink); stroke-width: 1.5; }
+.mp-ctr { stroke: var(--ink-3); stroke-width: 1; }
+.mp-ray { stroke: var(--ink-3); stroke-width: 1; stroke-dasharray: 3 4; transition: stroke .2s ease; }
+.mp-ray.near { stroke: var(--ink); stroke-width: 1.5; stroke-dasharray: none; }
+.mp-node { fill: var(--paper); stroke: var(--ink); stroke-width: 1.5; transition: fill .2s ease; }
+.mp-node.near { fill: var(--ink); }
+.mp-lab { fill: var(--ink-3); font-family: var(--sans); font-stretch: 75%; font-weight: 600; font-size: 12.5px; text-transform: uppercase; letter-spacing: .02em; transition: fill .2s ease; }
+.mp-lab.near { fill: var(--ink); }
+.mp-hint { fill: var(--ink-3); font-family: var(--sans); font-size: 12px; }
+.mp-ring { fill: none; stroke: var(--ink); stroke-width: 1; }
+.mp-dot { fill: var(--ink); }
+.mp-pin { transition: transform .35s var(--ease-out); }
+.map-read { font-size: 1.15rem; line-height: 1.35; font-weight: 500; }
+.map-read.empty { color: var(--ink-3); font-weight: 400; }
+.map-how { margin-top: .5rem; font-size: .8125rem; color: var(--ink-3); }
+.map-clear { margin-top: .6rem; padding: 0; border: 0; background: none; color: var(--ink-2); font-size: .875rem; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+@media (max-width: 560px) { .map-wrap { grid-template-columns: minmax(0, 1fr); } }
+@media (prefers-reduced-motion: reduce) { .mp-pin { transition: none; } }
+
 /* after sending: the question, filed like a drawing tag */
 .ask-done { max-width: 34rem; outline: none; }
 .ticket { border: 1.5px solid var(--ink); background: var(--paper); }
@@ -593,6 +627,13 @@ section::after { right: -5px; }
 .t-foot .cap { font-size: .75rem; color: var(--ink-3); }
 .t-foot span:not(.cap) { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .ask-after { margin: 1.25rem 0; color: var(--ink-2); }
+.t-steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); padding: .9rem .9rem 1rem; border-top: 1px solid var(--rule); }
+.t-steps li { position: relative; display: grid; justify-items: start; align-content: start; gap: .45rem; padding-right: .5rem; font-size: .75rem; line-height: 1.25; color: var(--ink-3); font-stretch: 80%; font-weight: 600; text-transform: uppercase; letter-spacing: .02em; }
+.t-steps li::before { content: ""; position: relative; z-index: 1; width: 11px; height: 11px; border: 1.5px solid var(--ink); border-radius: 50%; background: var(--paper); }
+.t-steps li:not(:last-child)::after { content: ""; position: absolute; left: 11px; right: 0; top: 5px; border-top: 1px dashed var(--ink-3); }
+.t-steps li.on { color: var(--ink); }
+.t-steps li.on::before { background: var(--ink); }
+.t-sits { grid-column: 2 / -1; white-space: normal !important; }
 @media (prefers-reduced-motion: no-preference) {
   .ask-done.in .ticket { animation: ticketIn .8s var(--ease-out) both; }
   .ask-done.in .ask-after, .ask-done.in > .btn { animation: fadeIn .6s ease .45s both; }
