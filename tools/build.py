@@ -22,7 +22,7 @@ SITE_URL = "https://pentaliminal.ai/"
 # FALLBACK_MAIL: an address shown as an email link if sending ever fails; leave empty to keep every address
 #          out of the page (people are then asked to try again).
 FORM_ID = "783e6483245d4136aafd0ce7d705c0b8"
-FALLBACK_MAIL = "783e6483245d4136aafd0ce7d705c0b8"
+FALLBACK_MAIL = ""
 TITLE = "Pentaliminal: Infrastructure for wise intelligence"
 DESCRIPTION = ("Pentaliminal advances the science and engineering of wise intelligence: infrastructure that helps AI "
                "understand context, recognize uncertainty, consider what matters, and act responsibly.")
