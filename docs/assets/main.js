@@ -743,6 +743,7 @@
         if (n.matches(".path li, .planes > li")) delay = index * 0.11;
         else if (n.matches(".principles > div")) delay = (index % 3) * 0.1;
         else if (n.matches(".head, .close h2")) delay = 0.1;
+        else if (n.matches(".close-note")) delay = 0.4;
         else if (n.matches(".close p")) delay = 0.25;
         n.classList.add("rv", "pre");
         if (delay) n.style.setProperty("--d", delay.toFixed(2) + "s");

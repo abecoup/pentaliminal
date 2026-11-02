@@ -509,6 +509,7 @@ section::after { right: -5px; }
 .dissolve { display: block; width: 100%; aspect-ratio: 676 / 1300; cursor: ns-resize; touch-action: pan-y pinch-zoom; outline-offset: 6px; }
 .close h2 { font-size: clamp(1.8rem, 1.1rem + 2.3vw, 2.9rem); line-height: 1.1; letter-spacing: -.025em; font-weight: 560; font-stretch: 112%; text-wrap: balance; }
 .close p { max-width: var(--measure); margin-top: 1.25rem; color: var(--ink-2); }
+.close .close-note { margin-top: 2rem; padding-top: 1.25rem; border-top: 1px solid var(--rule); color: var(--ink); }
 @media (max-width: 760px) { .close { grid-template-columns: minmax(0, 1fr); } .close-fig { max-width: 13rem; } }
 
 /* 13. Footer: a drawing title block --------------------------------------- */
