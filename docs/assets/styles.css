@@ -146,6 +146,8 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .nav a::after { content: ""; position: absolute; left: 0; right: 0; bottom: -5px; height: 1.5px; background: var(--ink); transform: scaleX(0); transform-origin: 100% 50%; transition: transform .25s var(--ease-out); }
 .nav a:hover, .nav a.on { color: var(--ink); }
 .nav a:hover::after, .nav a.on::after { transform: scaleX(1); transform-origin: 0 50%; }
+/* wide screens show each section's short name; the dropdown menu shows its number and full question */
+.nav .nl-no, .nav .nl-q { display: none; }
 
 /* header buttons share one look: a ruled block that lifts off the sheet */
 .hbtn {
@@ -163,17 +165,21 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 
 /* narrow windows: the section links move into a menu panel */
 .menu-btn { display: none; }
-@media (max-width: 1120px) {
+@media (max-width: 1200px) {
   .hdr-r { gap: .6rem; }
   .menu-btn { display: inline-flex; }
   .nav {
     display: none; position: absolute; top: calc(100% + 18px); right: 0; z-index: 45;
-    flex-direction: column; gap: 0; min-width: 15rem; padding: .4rem 0;
+    flex-direction: column; gap: 0; min-width: 17rem; padding: .4rem 0;
     background: var(--paper); border: 1.5px solid var(--ink); box-shadow: 4px 4px 0 var(--ink);
   }
   .nav.open { display: flex; }
-  .nav a { padding: .8rem 1.1rem; }
-  .nav a::after { left: 1.1rem; right: auto; width: 2rem; bottom: .5rem; }
+  .nav { max-height: calc(100dvh - var(--hdr-h) - 40px); overflow-y: auto; overscroll-behavior: contain; }
+  .nav a { display: grid; grid-template-columns: 1.9rem minmax(0, 1fr); align-items: baseline; padding: .7rem 1.1rem; }
+  .nav a::after { left: 3rem; right: auto; width: 2rem; bottom: .4rem; }
+  .nav .nl-short { display: none; }
+  .nav .nl-no { display: block; font-size: .8125rem; color: var(--ink-3); }
+  .nav .nl-q { display: block; text-transform: none; font-stretch: 100%; font-weight: 500; letter-spacing: 0; font-size: 1rem; }
 }
 @media (max-width: 560px) {
   .brand { gap: .7rem; }
@@ -676,6 +682,12 @@ footer { position: relative; z-index: 1; padding-block: 1.5rem 2.5rem; }
 .gauge a.on::before, .gauge a:hover::before { transform: scale(1.35); }
 .gauge a span { position: absolute; right: 22px; top: 50%; padding: 2px 6px; font-size: .8125rem; white-space: nowrap; color: var(--ink); background: var(--paper); opacity: 0; transform: translateY(-50%); transition: opacity .2s; pointer-events: none; }
 .gauge a:hover span { opacity: 1; }
+/* the five parts of the page (Why, Who, How, What, You): a short tick on the line, named to its left */
+.gauge-part { position: relative; display: block; width: 11px; height: 1px; margin-block: 4px; }
+.gauge-part::after { content: ""; position: absolute; left: -2px; right: -2px; top: 0; height: 1px; background: var(--ink-3); }
+.gauge-part::before { content: attr(data-part); position: absolute; right: 20px; top: 50%; font-size: .6875rem; line-height: 1; color: var(--ink-3); white-space: nowrap; transform: translateY(-50%); opacity: 0; transition: opacity .2s; }
+.gauge:hover .gauge-part::before { opacity: 1; }
+@media (min-width: 1440px) { .gauge-part::before { opacity: 1; } .gauge:hover .gauge-part::before { opacity: 0; } }
 @media (min-width: 1300px) { .gauge { display: flex; } }
 
 /* 15. Theme switch: the new mode opens out from the button ----------------- */
