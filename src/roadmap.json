@@ -1,0 +1,22 @@
+{
+  "_note": "Status data for /roadmap/ and the roadmap strip on the home page. To move a product along, set its \"stage\" to the key of the stage it is in now and rebuild (python3 tools/build.py). \"now\": true marks the phase the team is focused on. A gate's \"passed\": true fills its diamond. Product copy and figures live in src/roadmap.html.",
+  "updated": "November 2026",
+  "stages": [
+    { "key": "planning",  "name": "Planning",  "status": "Planning",           "means": "Deciding what it is for, who it serves and what the first version must do." },
+    { "key": "designing", "name": "Designing", "status": "Being designed",     "means": "Working out how it looks and behaves, and checking the idea with the people it is for." },
+    { "key": "building",  "name": "Building",  "status": "Under construction", "means": "Writing the software for the first version." },
+    { "key": "testing",   "name": "Testing",   "status": "In early testing",   "means": "A first version is with a small group of early users." },
+    { "key": "live",      "name": "Live",      "status": "Available",          "means": "Anyone can use it." }
+  ],
+  "phases": [
+    { "id": "trust",    "name": "Trust",       "full": "Pentaliminal Trust",    "short": "Agent ledger first",          "stage": "designing", "now": true,
+      "gate": { "label": "Partners pay",     "passed": false } },
+    { "id": "notebook", "name": "Notebook",    "full": "Pentaliminal Notebook", "short": "Learn what you save",         "stage": "building",  "now": false,
+      "gate": { "label": "Daily use",        "passed": false } },
+    { "id": "rhetor",   "name": "Rhetor",      "full": "Pentaliminal Rhetor",   "short": "A practice room for speaking", "stage": "planning",  "now": false,
+      "gate": { "label": "Skills improve",   "passed": false } },
+    { "id": "forum",    "name": "Forum",       "full": "Pentaliminal Forum",    "short": "Live, kept, mapped",          "stage": "planning",  "now": false,
+      "gate": { "label": "Listeners return", "passed": false } },
+    { "id": "memory",   "name": "Open memory", "full": "The shared memory",     "short": "A standard and an API",        "stage": "planning",  "now": false }
+  ]
+}

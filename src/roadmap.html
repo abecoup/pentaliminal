@@ -1,0 +1,235 @@
+{{DEFS}}
+
+<a class="skip" href="#main">Skip to content</a>
+<canvas class="bgmesh" id="bgmesh" aria-hidden="true"></canvas>
+<div class="grain" aria-hidden="true"></div>
+
+<div class="wrap" id="top">
+  <header class="top">
+    <a class="brand" href="{{HOME}}" aria-label="Pentaliminal home">
+      <svg class="mono" aria-hidden="true"><use href="#mono"/></svg>
+      <span class="sep" aria-hidden="true"></span>
+      <svg class="wm" viewBox="0 0 {{WM_WH}}" aria-hidden="true"><use href="#wordmark"/></svg>
+    </a>
+    <div class="hdr-r">
+      <a class="hbtn cap" href="{{HOME}}"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3 5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.4"/></svg><span class="hbtn-label">Home</span></a>
+      <button class="hbtn theme-btn cap" id="themeBtn" type="button"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M8 1.5A6.5 6.5 0 0 1 8 14.5Z" fill="currentColor"/></svg><span class="hbtn-label">Dark</span></button>
+    </div>
+  </header>
+  <div id="topSentinel" aria-hidden="true" style="height:1px;margin-bottom:-1px"></div>
+
+  <main id="main" class="rm">
+    <div class="rm-intro">
+      <p class="crumb cap"><a href="{{HOME}}#infrastructure">What are we building?</a><span class="lead" aria-hidden="true"></span><span>Roadmap</span></p>
+      <div class="head">
+        <h1>Product roadmap.</h1>
+        <p>Five phases, one product at a time. Each phase has to pass a test before the next one starts; the diamonds below are those tests. We start with Trust because it answers a question companies already face: can we prove what our AI did?</p>
+        <p>Plans change as we learn, and this page changes with them. Features and technical detail will fill in product by product.</p>
+      </div>
+      <p class="meta cap">Updated {{UPDATED}}</p>
+    </div>
+
+    <section class="rm-seq" aria-labelledby="seqTitle">
+      <h2 class="fig-t cap" id="seqTitle">Five phases, four gates</h2>
+      <ol class="phases">
+{{PHASES}}
+      </ol>
+      <details class="legend">
+        <summary class="cap">How to read the progress tracks</summary>
+        <ol class="legend-list">
+{{LEGEND}}
+        </ol>
+      </details>
+    </section>
+
+    <!-- ===================== 01 Trust ===================== -->
+    <section id="trust" class="phase-sec">
+      <p class="label cap"><span class="no">01</span><span class="lead" aria-hidden="true"></span><span>Phase 1</span></p>
+      <div class="ph-head">
+        <div class="head"><h2>Pentaliminal Trust</h2><p>Proof, provenance and protection for every AI action in a company.</p></div>
+        <div class="ph-status">{{STATUS:trust}}{{TRACK:trust}}</div>
+      </div>
+
+      <figure class="rmfig ppp" aria-labelledby="pppT">
+        <figcaption class="fig-t cap" id="pppT">Protection at the door, provenance inside, proof on the way out</figcaption>
+        <div class="ppp-grid">
+          <div class="ppp-k"><b>Protection</b><span>At the door</span></div>
+          <div class="ppp-guard">
+            <div class="chain c4"><span class="nd dash">AI you didn’t invite</span><span class="door"><span class="cap">Kept out</span></span></div>
+            <div class="chain c4"><span class="nd">Your own agents</span><span class="nd bound">Kept within limits</span></div>
+          </div>
+
+          <div class="ppp-k"><b>Provenance</b><span>Every step linked</span></div>
+          <div class="chain c4 bus"><span class="nd">Person</span><span class="nd">AI agent</span><span class="nd">Tool calls</span><span class="nd">Records</span></div>
+
+          <div class="ppp-k"><b>Proof</b><span>Checked and shared</span></div>
+          <div class="chain c4"><span class="nd key from-bus">Ledger</span><span class="nd">Review</span><span class="nd">Reports</span></div>
+        </div>
+        <p class="fig-note">Each step an agent takes is linked back to the person and request that started it, so a changed record can be traced to the prompt that caused it.</p>
+      </figure>
+
+      <dl class="facts">
+        <div><dt class="cap">Who it’s for</dt><dd>Companies running AI agents on customer or financial records.</dd></div>
+        <div><dt class="cap">What it does</dt><dd><ul>
+          <li><b>Ledger.</b> Every prompt and agent step, linked to the person who started it.</li>
+          <li><b>Guard.</b> AI you didn’t invite is kept out, and your own agents are kept within limits.</li>
+          <li><b>Reports.</b> Audit packets, plus usage by team, person and agent.</li>
+        </ul></dd></div>
+        <div><dt class="cap">First version</dt><dd>The agent ledger and one audit report.</dd></div>
+        <div><dt class="cap">Next phase starts when</dt><dd>Design partners pay for it.</dd></div>
+        <div><dt class="cap">Where it fits</dt><dd>Leads the <a href="{{HOME}}#infrastructure">Agency</a> part of our infrastructure, and draws most on <a href="{{HOME}}#framework">Acting and Knowing</a>.</dd></div>
+      </dl>
+    </section>
+
+    <!-- ===================== 02 Notebook ===================== -->
+    <section id="notebook" class="phase-sec">
+      <p class="label cap"><span class="no">02</span><span class="lead" aria-hidden="true"></span><span>Phase 2</span></p>
+      <div class="ph-head">
+        <div class="head"><h2>Pentaliminal Notebook</h2><p>An AI-native notebook built for learning, not just storing.</p></div>
+        <div class="ph-status">{{STATUS:notebook}}{{TRACK:notebook}}</div>
+      </div>
+
+      <figure class="rmfig nb" aria-labelledby="nbT">
+        <figcaption class="fig-t cap" id="nbT">Five jobs around your knowledge, in any order</figcaption>
+        <div class="nb-grid">
+          {{NB_FIG}}
+          <ol class="nb-list">
+            <li data-j="gather"><b>Gather</b><span>Bring in notes, papers, chats and talks, and read or listen in place.</span></li>
+            <li data-j="connect"><b>Connect</b><span>AI organizes, links and synthesizes as you go.</span></li>
+            <li data-j="apply"><b>Apply</b><span>What you know resurfaces in the work you care about.</span></li>
+            <li data-j="learn"><b>Learn</b><span>Short recall checks, so what you save actually sticks. This is the clearest difference from today’s note apps: it checks that you know something, not just that you saved it.</span></li>
+            <li data-j="find"><b>Find</b><span>Search by what you remember, and move through ideas by how they connect.</span></li>
+          </ol>
+        </div>
+      </figure>
+
+      <dl class="facts">
+        <div><dt class="cap">Who it’s for</dt><dd>Students, researchers and writers: anyone who works with ideas.</dd></div>
+        <div><dt class="cap">First version</dt><dd>Import from the note apps you already use, search by what you remember, resurfacing while you write, and a learn mode.</dd></div>
+        <div><dt class="cap">Next phase starts when</dt><dd>People come back daily, and remember more.</dd></div>
+        <div><dt class="cap">Where it fits</dt><dd>Leads the <a href="{{HOME}}#infrastructure">Cognitive</a> part of our infrastructure, and draws most on <a href="{{HOME}}#framework">Knowing and Situating</a>.</dd></div>
+      </dl>
+    </section>
+
+    <!-- ===================== 03 Rhetor ===================== -->
+    <section id="rhetor" class="phase-sec">
+      <p class="label cap"><span class="no">03</span><span class="lead" aria-hidden="true"></span><span>Phase 3</span></p>
+      <div class="ph-head">
+        <div class="head"><h2>Pentaliminal Rhetor</h2><p>A practice room for speaking, communicating and telling stories.</p></div>
+        <div class="ph-status">{{STATUS:rhetor}}{{TRACK:rhetor}}</div>
+      </div>
+
+      <figure class="rmfig" aria-labelledby="rhT">
+        <figcaption class="fig-t cap" id="rhT">Learn to speak the way musicians learn to play</figcaption>
+        <div class="chain c4 steps looped">
+          <span class="nd"><b>Study</b><i>A great speaker, broken down</i></span>
+          <span class="nd"><b>Imitate</b><i>Side by side with your camera</i></span>
+          <span class="nd key"><b>Compare</b><i>Rhythm, delivery, and whether it landed</i></span>
+          <span class="nd"><b>Drill</b><i>Loop the hardest ten seconds</i></span>
+          <span class="loop" aria-hidden="true"><span class="cap">Repeat until it sticks</span></span>
+        </div>
+      </figure>
+
+      <dl class="facts">
+        <div><dt class="cap">Who it’s for</dt><dd>Anyone who has to speak well: students, teachers, professionals, and Forum’s future hosts.</dd></div>
+        <div><dt class="cap">What it does</dt><dd><ul>
+          <li><b>Study.</b> A great speaker broken down into a blueprint of their words, sentence shapes, moves, structure and delivery.</li>
+          <li><b>Practice.</b> Imitate a passage side by side with your camera, one skill at a time, looping the hard parts like a musician.</li>
+          <li><b>Feedback.</b> Scored against the model on rhythm and delivery, and on whether your message and story landed.</li>
+        </ul></dd></div>
+        <div><dt class="cap">Holds a line</dt><dd>It teaches persuasion that rests on evidence, and names the tricks that work without it.</dd></div>
+        <div><dt class="cap">First version</dt><dd>A small library of annotated speeches, side-by-side practice, one-skill sessions and passage loops.</dd></div>
+        <div><dt class="cap">Next phase starts when</dt><dd>People’s recordings measurably improve over a month.</dd></div>
+        <div><dt class="cap">Where it fits</dt><dd>Serves one of our <a href="{{HOME}}#principles">principles</a>: preserve human agency. Draws most on <a href="{{HOME}}#framework">Seeing and Valuing</a>.</dd></div>
+      </dl>
+    </section>
+
+    <!-- ===================== 04 Forum ===================== -->
+    <section id="forum" class="phase-sec">
+      <p class="label cap"><span class="no">04</span><span class="lead" aria-hidden="true"></span><span>Phase 4</span></p>
+      <div class="ph-head">
+        <div class="head"><h2>Pentaliminal Forum</h2><p>A home for live debates, talks and podcasts about hard questions.</p></div>
+        <div class="ph-status">{{STATUS:forum}}{{TRACK:forum}}</div>
+      </div>
+
+      <figure class="rmfig" aria-labelledby="fmT">
+        <figcaption class="fig-t cap" id="fmT">Conversations that stay useful after they end</figcaption>
+        <div class="chain c4 steps">
+          <span class="nd"><b>Live</b><i>Debates, talks, rooms and events</i></span>
+          <span class="nd"><b>Kept</b><i>Recorded and transcribed</i></span>
+          <span class="nd key"><b>Mapped</b><i>Tied to questions and disagreements</i></span>
+          <span class="nd"><b>Followed</b><i>Clipped into your <a href="#notebook">Notebook</a></i></span>
+        </div>
+      </figure>
+
+      <dl class="facts">
+        <div><dt class="cap">Who it’s for</dt><dd>Academics, teachers, students and curious listeners, plus conferences that want to stream.</dd></div>
+        <div><dt class="cap">What it does</dt><dd><ul>
+          <li><b>Live.</b> Debates, talks, chat rooms and streamed events.</li>
+          <li><b>Kept.</b> Every session recorded, transcribed and split into chapters.</li>
+          <li><b>Mapped.</b> Conversations tied to questions, so you can follow a disagreement across many of them.</li>
+        </ul></dd></div>
+        <div><dt class="cap">First version</dt><dd>One field (AI and philosophy), a few hosts, and one conference stream.</dd></div>
+        <div><dt class="cap">Next phase starts when</dt><dd>Listeners come back for the depth.</dd></div>
+        <div><dt class="cap">Where it fits</dt><dd>Leads the <a href="{{HOME}}#infrastructure">Orientation</a> part of our infrastructure, and draws most on <a href="{{HOME}}#framework">Seeing and Valuing</a>.</dd></div>
+      </dl>
+    </section>
+
+    <!-- ===================== 05 Shared memory ===================== -->
+    <section id="memory" class="phase-sec">
+      <p class="label cap"><span class="no">05</span><span class="lead" aria-hidden="true"></span><span>Phase 5</span></p>
+      <div class="ph-head">
+        <div class="head"><h2>Open the shared memory.</h2><p>Every product reads and writes the same four objects. Once all four products have tested them, we publish them as an open standard and API, so other AI systems can build on them too.</p></div>
+        <div class="ph-status">{{STATUS:memory}}{{TRACK:memory}}</div>
+      </div>
+
+      <figure class="rmfig mem" aria-labelledby="memT">
+        <figcaption class="fig-t cap" id="memT">Four products, one shared memory</figcaption>
+        <div class="mem-loop" aria-hidden="true"><span class="cap">What you learn shapes the next conversation</span></div>
+        <ol class="mem-prods">
+          <li><a href="#rhetor"><b>Rhetor</b><span class="cap">Speak</span><i>Practice speaking and storytelling</i></a></li>
+          <li><a href="#forum"><b>Forum</b><span class="cap">Talk</span><i>Where people reason together</i></a></li>
+          <li><a href="#notebook"><b>Notebook</b><span class="cap">Think</span><i>Learn, keep and use what you know</i></a></li>
+          <li><a href="#trust"><b>Trust</b><span class="cap">Test</span><i>Proves and guards AI work</i></a></li>
+        </ol>
+        <div class="mem-rw" aria-hidden="true"><span></span><span></span><span></span><span></span><em class="cap">Reads and writes</em></div>
+        <div class="mem-slab">
+          <p class="cap">Shared memory</p>
+          <ul>
+            <li><b>Question</b><i>What we are trying to find out or decide</i></li>
+            <li><b>Claim</b><i>A statement, its source, and a status</i></li>
+            <li><b>Trace</b><i>The path a piece of work took</i></li>
+            <li><b>Review record</b><i>Who checked it, against what, and how much reviewers agreed</i></li>
+          </ul>
+        </div>
+        <div class="claims">
+          <p class="cap">Every claim carries a status</p>
+          <ul>
+            <li><span class="sw s-known"></span>Known</li>
+            <li><span class="sw s-inferred"></span>Inferred</li>
+            <li><span class="sw s-assumed"></span>Assumed</li>
+            <li><span class="sw s-disputed"></span>Disputed</li>
+            <li><span class="sw s-unknown"></span>Unknown</li>
+          </ul>
+        </div>
+      </figure>
+
+      <dl class="facts">
+        <div><dt class="cap">Why it matters</dt><dd>With these four objects in one place, our principles become working parts. “Make uncertainty visible” becomes a status on every claim, and “make trust operational” becomes a review record.</dd></div>
+        <div><dt class="cap">Why it comes last</dt><dd>A standard is only worth publishing once four products have tested it.</dd></div>
+        <div><dt class="cap">How</dt><dd>Model-agnostic wherever that makes sense.</dd></div>
+        <div><dt class="cap">Where it fits</dt><dd>This is the <a href="{{HOME}}#infrastructure">infrastructure</a> itself: the part other systems can use, not just our own products.</dd></div>
+      </dl>
+    </section>
+
+    <section class="rm-ask">
+      <div class="head">
+        <h2>Something here you want to talk about?</h2>
+        <p>Questions, ideas, and offers to try an early version are all welcome. A person reads every message.</p>
+      </div>
+      <div class="actions"><a class="btn" href="{{HOME}}#ask">Ask us a question</a><a class="btn ghost" href="#top">Back to the phases</a></div>
+    </section>
+  </main>
+</div>
+
+{{FOOTER}}

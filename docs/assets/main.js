@@ -132,7 +132,9 @@
       observers.push(o);
       return o;
     }
-    function mount(name, fn) {
+    // `needs`: a selector the module draws into; on pages without it (the roadmap page) the module is skipped.
+    function mount(name, fn, needs) {
+      if (needs && !document.querySelector(needs)) return;
       try { fn(); } catch (e) { if (window.console) console.error("[pentaliminal] " + name + " failed:", e); }
     }
 
@@ -290,7 +292,7 @@
       motion.handlers.push(start);
       draw();
       start();
-    });
+    }, "#construct");
 
     /* ---------- pause / resume motion (WCAG 2.2.2) ---------- */
     mount("motionToggle", function () {
@@ -346,7 +348,7 @@
         on(li, "mouseenter", function () { li.classList.add("on"); highlight(which); });
         on(li, "mouseleave", function () { li.classList.remove("on"); highlight(null); });
       });
-    });
+    }, "#meetFig");
 
     /* ---------- page mesh: a loose triangular lattice behind everything ---------- */
     mount("mesh", function () {
@@ -459,7 +461,7 @@
         on(row.querySelector(".lens-btn"), "click", function () { choose(j); });
       });
       choose(0);
-    });
+    }, "#lensFig");
 
     /* ---------- 05 framework: a different drawing for each step ---------- */
     mount("framework", function () {
@@ -526,7 +528,7 @@
         // pivots are in drawing units; the view box now starts at (vx, vy)
         svg.querySelectorAll("[data-ox]").forEach(function (n) { n.style.transformOrigin = (n.getAttribute("data-ox") - vx).toFixed(1) + "px " + (n.getAttribute("data-oy") - vy).toFixed(1) + "px"; });
       });
-    });
+    }, "#path");
 
     /* ---------- 07 infrastructure: three isometric drawings on their own grids ---------- */
     mount("infrastructure", function () {
@@ -574,7 +576,7 @@
           isoBox(svgEl(g, "g", { "class": "pl pl" + i }), [-half, -half, z, half, half, z + t], s, ox, oy, { shade: "hs" });
         });
       })();
-    });
+    }, "#artOrientation");
 
     /* ---------- close: the monogram crossing a threshold ---------- */
     // Above the line the mark is drawn crisp. Below it, the ink is sampled into dots that drop out, drift and fade.
@@ -719,7 +721,7 @@
       on(document, "keydown", function (e) { if (e.key === "Escape" && nav.classList.contains("open")) { setOpen(false); btn.focus(); } });
       on(document, "click", function (e) { if (nav.classList.contains("open") && !e.target.closest(".hdr-r")) setOpen(false); });
       setOpen(false);
-    });
+    }, "#menuBtn");
 
     /* ---------- header: compacts once the page moves; publishes its height for sticky offsets ---------- */
     mount("header", function () {
@@ -734,7 +736,7 @@
     /* ---------- arrivals: content below the first screen rises into place once ---------- */
     mount("arrivals", function () {
       if (motion.reduced || !("IntersectionObserver" in window)) return;
-      var selector = ".label, .head, .split, .define, .quote, .meet-fig, .meet-list, .charter > div, .lens-fig, .lenses li, .engineering, .path li, .shift, .sub, .criteria li, .atlas, .planes > li, .aside, .principles > div, .labs .body, .close-fig, .close h2, .close p, .ask-intro, .ask-form, .tblock";
+      var selector = ".label, .head, .split, .define, .quote, .meet-fig, .meet-list, .charter > div, .lens-fig, .lenses li, .engineering, .path li, .shift, .sub, .criteria li, .atlas, .planes > li, .aside, .principles > div, .labs .body, .close-fig, .close h2, .close p, .ask-intro, .ask-form, .tblock, .rm-strip, .rm-seq, .ph-head, .rmfig, .facts > div";
       var items = Array.prototype.slice.call(document.querySelectorAll(selector)), vh = window.innerHeight;
       var tops = items.map(function (n) { return n.getBoundingClientRect().top; }); // read everything first, then write
       var todo = items.filter(function (n, i) { return tops[i] >= vh * 0.92; });
@@ -1103,7 +1105,7 @@
         mark(ids.length ? ids[ids.length - 1] : null);
       }, { rootMargin: "-45% 0px -50% 0px" });
       if (io) document.querySelectorAll("main section[id]").forEach(function (s) { io.observe(s); });
-    });
+    }, "#gauge");
   }
 
   // In the claude.ai preview, updates are swapped into the open page; its hot hook runs boot() again on the new DOM.

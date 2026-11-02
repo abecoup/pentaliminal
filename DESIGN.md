@@ -94,6 +94,22 @@ Halftone dots stand in for the spec's flat grey: 7-unit dot pattern (4 units at 
 | Monogram | Header, footer | In the header at 50px tall with a thickened line, then a divider and the wordmark at 18px. |
 | Threshold monogram | Close | V1's threshold effect applied to the monogram, on a canvas. A horizontal bar with square end marks crosses the mark. Above it the mark is drawn crisp; below it the ink and shading are sampled into dots that drop out, drift sideways and fade the further they fall. Pointing at the figure (or dragging, on touch) moves the bar; it eases back when the pointer leaves. It's a vertical slider for keyboards (up and down arrows). |
 
+## Roadmap page (`/roadmap/`)
+
+A second page, linked from section 07 (a compact strip of the five phases and a button) and from the footer. It shares the header style, footer, mesh and theme; page-specific scripts skip themselves when their figures aren't on the page.
+
+| Part | Details |
+|---|---|
+| Progress track | Five stages on one line: Planning, Designing, Building, Testing, Live. Stages done are solid ink diamonds on a solid line; the current stage is a larger halftone diamond; stages ahead are hollow, on a dashed line. Each product also shows a plain status label ("Being designed", "Under construction"), and the phase in focus carries an ink "Focus now" tag. |
+| Phase strip | Five phase cards joined by a dashed line, with a diamond for each gate (the test a phase must pass first) and its name under it. A passed gate is filled. The phase in focus is raised like a pressed block. Vertical on narrow screens. |
+| Trust figure | Three rows: protection (a threshold bar that stops AI nobody invited; your own agents inside a dashed boundary), provenance (person → agent → tool calls → records, all joined by one line into the ledger), proof (ledger → review → reports). The ledger is the ink-filled key node. |
+| Notebook figure | The five jobs on the corners of a pentagon around "your knowledge". Dashed edges, because the jobs have no fixed order. Learn is the key node. Hovering a row in the list beside it thickens its corner. |
+| Rhetor figure | Study → imitate → compare → drill, with a return line from drill to imitate ("repeat until it sticks"). |
+| Forum figure | Live → kept → mapped → followed, ending in the Notebook. |
+| Shared memory figure | The four products over one slab holding the four shared objects, with a halftone side for depth. A line over the top shows the loop. Below it, the five claim statuses as swatches: solid, halftone, dashed, hatched, dotted. |
+
+Only one ink-filled node per figure. No accent color here either.
+
 ## Layout
 
 - Max width 76rem, side gutter 28px (16px on phones). Left-aligned throughout.

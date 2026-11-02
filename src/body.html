@@ -1,18 +1,4 @@
-<!-- brand symbols and halftone patterns -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
-  <defs>
-    <pattern id="ht" width="7" height="7" patternUnits="userSpaceOnUse"><circle class="htd" cx="3.5" cy="3.5" r="1.55"/></pattern>
-    <pattern id="hts" width="4" height="4" patternUnits="userSpaceOnUse"><circle class="htd" cx="2" cy="2" r=".9"/></pattern>
-    <symbol id="mono" viewBox="40 36 676 968">
-      <path class="m-body" d="{{MONO_BODY}}"/>
-      <path class="m-shade" d="{{MONO_SHADE}}"/>
-      <path class="m-ink" d="{{MONO_INK}}"/>
-    </symbol>
-    <symbol id="wordmark" viewBox="{{WM_VB}}">
-      <path class="wm-ink" d="{{WM_D}}"/>
-    </symbol>
-  </defs>
-</svg>
+{{DEFS}}
 
 <a class="skip" href="#main">Skip to content</a>
 <canvas class="bgmesh" id="bgmesh" aria-hidden="true"></canvas>
@@ -252,6 +238,7 @@
         </li>
       </ul>
       <p class="aside">The ambition is not to put one “wise AI” in charge. It is to make wiser behavior more achievable across many intelligent systems.</p>
+      {{ROADMAP_STRIP}}
     </section>
 
     <section id="principles">
@@ -385,14 +372,4 @@
   </main>
 </div>
 
-<footer>
-  <div class="wrap">
-    <div class="tblock">
-      <div class="tb-mark"><svg class="mono" aria-hidden="true"><use href="#mono"/></svg></div>
-      <div class="tb-wide"><span class="cap">Pentaliminal</span><b>Infrastructure for wise intelligence</b><i>Beyond intelligence. Toward wisdom.</i></div>
-      <div><span class="cap">Why · Who · How</span><nav aria-label="Why · Who · How"><a href="#thesis">Why wisdom?</a><a href="#intersection">Who are we?</a><a href="#charter">What do we stand for?</a><a href="#lenses">How do we look at a problem?</a><a href="#framework">What does wisdom take?</a></nav></div>
-      <div><span class="cap">What · You</span><nav aria-label="What · You"><a href="#problems">Which problems are worth solving?</a><a href="#infrastructure">What are we building?</a><a href="#principles">How do we build it?</a><a href="#labs">Where does the work happen?</a><a href="#ask">What’s your question?</a></nav></div>
-      <div class="tb-end"><span class="cap">© 2026 Pentaliminal</span><nav aria-label="More"><a href="#top">Back to top</a></nav></div>
-    </div>
-  </div>
-</footer>
+{{FOOTER}}
