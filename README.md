@@ -8,9 +8,9 @@ The website for Pentaliminal: infrastructure for wise intelligence. Live at **ht
 |---|---|
 | `src/body.html` | Page markup. `{{MONO_*}}` and `{{WM_*}}` placeholders are filled with the traced brand paths at build time. |
 | `src/styles.css` | All styles. Design tokens (colors, type) are at the top; light and dark themes. |
-| `src/main.js` | All behavior, in one `pentaliminalBoot()` function. Vanilla JS, no dependencies. |
+| `src/main.js` | All behavior. Vanilla JS, no dependencies. Each feature is a small module started from `boot()`; one failing module can't take down the rest, and animation loops stop when off screen, paused or reduced. |
 | `src/monogram.json`, `src/wordmark.json` | Vector paths of the P monogram and the wordmark. |
-| `src/static/` | Copied into the site as-is: icons, link-preview image, 404 page, `CNAME`, `robots.txt`, `sitemap.xml`. |
+| `src/static/` | Copied into the site as-is: icons, link-preview image, the Archivo font files (SIL OFL, see `assets/fonts/OFL.txt`), 404 page, `CNAME`, `robots.txt`, `sitemap.xml`. |
 | `tools/build.py` | Builds `docs/` (the live site) and `dist-artifact/page.html` (a single-file preview). |
 | `docs/` | **Generated.** The deployed site. Don't edit by hand; edit `src/` and rebuild. |
 
@@ -42,6 +42,12 @@ DNS for `pentaliminal.ai` (set at the domain registrar):
 | CNAME | www | abecoup.github.io |
 
 After DNS resolves, tick **Enforce HTTPS** in Settings → Pages.
+
+## Behavior worth knowing
+
+- **Motion.** The hero turns, the rings orbit and the background mesh drifts. A *Pause motion* button under the hero stops all of it and is remembered; visitors with reduced motion set in their system get a still page.
+- **Theme.** Light or dark follows the system until the visitor picks one with the header button; the choice is remembered and applied before first paint.
+- **Fonts.** Archivo is served from the site itself (no third-party font request). The claude.ai preview build uses Google Fonts instead.
 
 ## Design
 

@@ -19,8 +19,25 @@ SITE_URL = "https://pentaliminal.ai/"
 TITLE = "Pentaliminal: Infrastructure for wise intelligence"
 DESCRIPTION = ("Pentaliminal advances the science and engineering of wise intelligence: infrastructure that helps AI "
                "understand context, recognize uncertainty, consider what matters, and act responsibly.")
-FONTS = ("https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,300..800;"
+GOOGLE_FONTS = ("https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,300..800;"
          "1,62..125,300..800&display=swap")
+
+# The site serves its own copy of Archivo (SIL Open Font License, see assets/fonts/OFL.txt):
+# no third-party request, no layout shift from a late swap. Latin covers the page; latin-ext loads only if needed.
+LATIN = ("U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,"
+         "U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD")
+LATIN_EXT = ("U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,"
+             "U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF")
+
+
+def font_faces():
+    out = ["/* Archivo, self-hosted (SIL OFL 1.1) */"]
+    for subset, rng in (("latin", LATIN), ("latin-ext", LATIN_EXT)):
+        for style in ("normal", "italic"):
+            out.append(f'@font-face {{ font-family: "Archivo"; font-style: {style}; font-weight: 100 900; '
+                       f'font-stretch: 62% 125%; font-display: swap; '
+                       f'src: url(fonts/archivo-{subset}-wdth-{style}.woff2) format("woff2"); unicode-range: {rng}; }}')
+    return "\n".join(out) + "\n\n"
 
 
 def read(name):
@@ -43,9 +60,11 @@ def brand_body():
     return body, mono, wm
 
 
-# Applies a saved theme before first paint, so a returning dark-mode visitor never sees a light flash.
-THEME_BOOT = ('<script>try{var t=localStorage.getItem("pentaliminal-theme");'
-              'if(t==="dark"||t==="light")document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>')
+# Applies saved choices before first paint: a returning dark-mode visitor never sees a light flash,
+# and a visitor who paused motion never sees it start.
+THEME_BOOT = ('<script>try{var r=document.documentElement,t=localStorage.getItem("pentaliminal-theme");'
+              'if(t==="dark"||t==="light")r.setAttribute("data-theme",t);'
+              'if(localStorage.getItem("pentaliminal-motion")==="paused")r.classList.add("motion-paused")}catch(e){}</script>')
 
 
 def site_head():
@@ -76,9 +95,7 @@ def site_head():
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="{FONTS}">
+<link rel="preload" href="assets/fonts/archivo-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/styles.css">
 {THEME_BOOT}
 <script src="assets/main.js" defer></script>
@@ -93,7 +110,7 @@ def build_site(body):
         shutil.rmtree(DIST)
     (DIST / "assets").mkdir(parents=True)
     (DIST / "index.html").write_text(site_head() + body + "</body>\n</html>\n", encoding="utf-8")
-    (DIST / "assets" / "styles.css").write_text(read("styles.css"), encoding="utf-8")
+    (DIST / "assets" / "styles.css").write_text(font_faces() + read("styles.css"), encoding="utf-8")
     (DIST / "assets" / "main.js").write_text(read("main.js"), encoding="utf-8")
     for f in (SRC / "static").rglob("*"):
         if f.is_file():
@@ -109,7 +126,7 @@ def build_artifact(body):
             f'<meta name="description" content="{DESCRIPTION}">\n'
             f'<link rel="preconnect" href="https://fonts.googleapis.com">\n'
             f'<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
-            f'<link rel="stylesheet" href="{FONTS}">\n')
+            f'<link rel="stylesheet" href="{GOOGLE_FONTS}">\n')
     page = head + "<style>\n" + read("styles.css") + "</style>\n" + THEME_BOOT + "\n" + body + "<script>\n" + read("main.js") + "</script>\n"
     (ART / "page.html").write_text(page, encoding="utf-8")
 
