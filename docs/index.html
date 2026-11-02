@@ -58,6 +58,7 @@
   <a tabindex="-1" href="#infrastructure"><span>07 Infrastructure</span></a>
   <a tabindex="-1" href="#principles"><span>08 How we work</span></a>
   <a tabindex="-1" href="#labs"><span>09 Labs</span></a>
+  <a tabindex="-1" href="#ask"><span>10 Your question</span></a>
 </div>
 
 <div class="wrap" id="top">
@@ -77,6 +78,7 @@
       <a href="#problems">Problems</a>
       <a href="#infrastructure">Infrastructure</a>
       <a href="#labs">Labs</a>
+      <a href="#ask" class="nav-ask">Ask us</a>
     </nav>
       <button class="hbtn theme-btn cap" id="themeBtn" type="button"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M8 1.5A6.5 6.5 0 0 1 8 14.5Z" fill="currentColor"/></svg><span class="hbtn-label">Dark</span></button>
     </div>
@@ -311,6 +313,63 @@
         <p class="close-note">You’ll find more questions than answers here. That’s on purpose: the questions are where the work starts, and we’d rather work on them with you.</p>
       </div>
     </section>
+
+    <section id="ask" class="ask" aria-labelledby="askTitle">
+      <p class="label cap"><span class="no">10</span><span class="lead" aria-hidden="true"></span><span>Your question</span></p>
+      <div class="ask-grid">
+        <div class="ask-intro">
+          <h2 id="askTitle">Your turn.</h2>
+          <p>Ask us something: a question you’re stuck on, one you think we’re missing, or one you’d like to work on with us. Researchers, builders, funders and the plainly curious are all welcome.</p>
+          <p class="ask-promise cap">A person reads every one</p>
+        </div>
+
+        <form class="ask-form" id="askForm" action="https://formsubmit.co/hello@pentaliminal.ai" method="POST" data-endpoint="https://formsubmit.co/ajax/hello@pentaliminal.ai" data-mail="hello@pentaliminal.ai">
+          <div class="ask-step">
+            <label class="ask-k cap" for="askQ"><span class="ask-n">A</span>The question</label>
+            <div class="q-field">
+              <span class="q-mark" aria-hidden="true">Q.</span>
+              <div class="q-box">
+                <div class="q-mirror" aria-hidden="true"><span class="q-text"></span><span class="q-tail">?</span></div>
+                <textarea id="askQ" name="question" rows="1" maxlength="2000" required autocomplete="off" aria-describedby="askHint" placeholder="How would an AI know it’s out of its depth?"></textarea>
+              </div>
+            </div>
+            <p class="ask-hint" id="askHint">We add the question mark. Statements are also accepted, reluctantly.</p>
+          </div>
+
+          <fieldset class="ask-step ask-more" id="askMore">
+            <legend class="ask-k cap"><span class="ask-n">B</span>Who’s asking?</legend>
+            <div class="ask-chips">
+              <label><input type="radio" name="asking_as" value="Builder"><span>I build things</span></label>
+              <label><input type="radio" name="asking_as" value="Researcher"><span>I do research</span></label>
+              <label><input type="radio" name="asking_as" value="Funder"><span>I fund things</span></label>
+              <label><input type="radio" name="asking_as" value="Curious"><span>Just curious</span></label>
+            </div>
+            <div class="ask-fields">
+              <label class="ask-field"><span>Where should the answer go?</span><input type="email" name="email" required autocomplete="email" inputmode="email" placeholder="you@somewhere.com"></label>
+              <label class="ask-field"><span>Your name <i>(optional)</i></span><input type="text" name="name" autocomplete="name" placeholder="So we know who to thank"></label>
+            </div>
+            <input type="text" name="_honey" class="ask-honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <input type="hidden" name="_subject" value="New question from pentaliminal.ai">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_next" value="https://pentaliminal.ai/#ask">
+            <div class="ask-send">
+              <button class="btn" type="submit"><span class="ask-send-label">Send the question</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>
+              <p class="ask-status" id="askStatus" role="status" aria-live="polite"></p>
+            </div>
+          </fieldset>
+        </form>
+
+        <div class="ask-done" id="askDone" hidden tabindex="-1">
+          <div class="ticket">
+            <div class="t-head"><span class="cap">Question received</span><span class="cap t-open">Status: open</span></div>
+            <p class="t-q" id="askEcho"></p>
+            <div class="t-foot"><span class="cap">From</span><span id="askFrom"></span><span class="cap">Reply to</span><span id="askTo"></span></div>
+          </div>
+          <p class="ask-after">Thank you. It’s in the pile we work from now, and a person will write back.</p>
+          <button class="btn ghost" type="button" id="askAgain">Ask another</button>
+        </div>
+      </div>
+    </section>
   </main>
 </div>
 
@@ -321,7 +380,7 @@
       <div class="tb-wide"><span class="cap">Pentaliminal</span><b>Infrastructure for wise intelligence</b><i>Beyond intelligence. Toward wisdom.</i></div>
       <div><span class="cap">About</span><nav aria-label="About"><a href="#intersection">Intersection</a><a href="#charter">Charter</a><a href="#thesis">Thesis</a><a href="#lenses">Five lenses</a></nav></div>
       <div><span class="cap">Work</span><nav aria-label="Work"><a href="#framework">Framework</a><a href="#problems">Problem wisdom</a><a href="#infrastructure">Infrastructure</a><a href="#labs">Labs</a></nav></div>
-      <div class="tb-end"><span class="cap">© 2026 Pentaliminal</span><a href="#top">Back to top</a></div>
+      <div class="tb-end"><span class="cap">© 2026 Pentaliminal</span><a href="#ask">Ask us something</a><a href="#top">Back to top</a></div>
     </div>
   </div>
 </footer>

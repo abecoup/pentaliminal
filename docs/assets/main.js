@@ -734,7 +734,7 @@
     /* ---------- arrivals: content below the first screen rises into place once ---------- */
     mount("arrivals", function () {
       if (motion.reduced || !("IntersectionObserver" in window)) return;
-      var selector = ".label, .head, .split, .define, .quote, .meet-fig, .meet-list, .charter > div, .lens-fig, .lenses li, .engineering, .path li, .shift, .sub, .criteria li, .atlas, .planes > li, .aside, .principles > div, .labs .body, .close-fig, .close h2, .close p, .tblock";
+      var selector = ".label, .head, .split, .define, .quote, .meet-fig, .meet-list, .charter > div, .lens-fig, .lenses li, .engineering, .path li, .shift, .sub, .criteria li, .atlas, .planes > li, .aside, .principles > div, .labs .body, .close-fig, .close h2, .close p, .ask-intro, .ask-form, .tblock";
       var items = Array.prototype.slice.call(document.querySelectorAll(selector)), vh = window.innerHeight;
       var tops = items.map(function (n) { return n.getBoundingClientRect().top; }); // read everything first, then write
       var todo = items.filter(function (n, i) { return tops[i] >= vh * 0.92; });
@@ -837,6 +837,115 @@
         var ro = observer("ResizeObserver", function () { clearTimeout(wait); wait = setTimeout(function () { if (alive() && build()) draw(); }, 80); });
         if (ro) ro.observe(tagline);
       });
+    });
+
+    /* ---------- 10 your question: the contact form ---------- */
+    mount("ask", function () {
+      var form = document.getElementById("askForm"); if (!form) return;
+      var q = document.getElementById("askQ"), box = q.parentNode, mirror = box.querySelector(".q-text");
+      var more = document.getElementById("askMore"), status = document.getElementById("askStatus");
+      var done = document.getElementById("askDone"), email = form.elements.email, sendLabel = form.querySelector(".ask-send-label");
+      var IDEAS = [
+        "How would an AI know it’s out of its depth?",
+        "Can good judgment be measured?",
+        "What should a system refuse to optimize?",
+        "Who decides what’s worth doing?",
+        "What does an AI owe the people who rely on it?"
+      ];
+      function asked() { return q.value.trim(); }
+      function needsMark(text) { return text && !/[?？]$/.test(text); }
+
+      // The field grows with what's typed. While it's empty it holds the height of the longest example question,
+      // so the typed-out placeholder never makes the page below it jump.
+      var longest = IDEAS.reduce(function (a, b) { return b.length > a.length ? b : a; });
+      function fit() {
+        if (q.value) { q.style.height = "auto"; q.style.height = q.scrollHeight + "px"; return; }
+        q.style.height = "auto"; mirror.textContent = longest;
+        q.style.height = mirror.parentNode.scrollHeight + "px"; mirror.textContent = "";
+      }
+      // the mirror holds the same words (invisible) so the drawn question mark lands right after the last one
+      function update() {
+        var text = asked();
+        mirror.textContent = q.value;
+        box.classList.toggle("tail", !!needsMark(text));
+        fit();
+        var waiting = text.length < 3;
+        form.classList.toggle("waiting", waiting);
+        more.inert = waiting;
+      }
+      on(q, "input", function () { status.textContent = ""; update(); });
+      on(q, "keydown", function (e) {
+        // Enter moves on to the next step; Shift+Enter still starts a new line
+        if (e.key === "Enter" && !e.shiftKey && !e.isComposing) { e.preventDefault(); update(); if (asked().length >= 3) email.focus(); }
+      });
+      on(window, "resize", fit, { passive: true });
+      on(form, "input", function (e) { if (e.target !== q) status.textContent = ""; });
+
+      // the placeholder types out example questions while the field is empty and on screen
+      var idea = 0, chars = IDEAS[0].length, deleting = false, timer = 0;
+      var view = watchVisible(form, function (v) { if (v) cycle(); });
+      function cycle() {
+        clearTimeout(timer);
+        if (!alive() || !view.visible || motion.still() || q.value || document.activeElement === q) return;
+        var full = IDEAS[idea], wait;
+        if (deleting) { chars--; wait = 22; if (chars <= 0) { deleting = false; idea = (idea + 1) % IDEAS.length; wait = 350; } }
+        else { chars++; wait = 45; if (chars >= full.length) { chars = full.length; deleting = true; wait = 2800; } }
+        q.setAttribute("placeholder", IDEAS[idea].slice(0, Math.max(0, chars)));
+        timer = setTimeout(cycle, wait);
+      }
+      function settlePlaceholder() { clearTimeout(timer); q.setAttribute("placeholder", IDEAS[idea]); chars = IDEAS[idea].length; deleting = false; }
+      on(q, "focus", settlePlaceholder);
+      on(q, "blur", function () { timer = setTimeout(cycle, 1500); });
+      motion.handlers.push(function () { if (motion.still()) settlePlaceholder(); else cycle(); });
+      signal.addEventListener("abort", function () { clearTimeout(timer); });
+
+      function say(text, link) {
+        status.textContent = text;
+        if (link) { status.appendChild(document.createTextNode(" ")); var a = document.createElement("a"); a.href = link.href; a.textContent = link.text; status.appendChild(a); }
+      }
+      function mailLink() {
+        var question = asked() + (needsMark(asked()) ? "?" : "");
+        return "mailto:" + form.getAttribute("data-mail") + "?subject=" + encodeURIComponent("A question for Pentaliminal") + "&body=" + encodeURIComponent(question);
+      }
+      function showDone(question, from, to) {
+        document.getElementById("askEcho").textContent = question;
+        document.getElementById("askFrom").textContent = from;
+        document.getElementById("askTo").textContent = to;
+        form.hidden = true; done.hidden = false;
+        done.classList.remove("in"); void done.offsetWidth; done.classList.add("in");
+        done.focus({ preventScroll: true });
+        var r = done.getBoundingClientRect();
+        if (r.top < 0 || r.bottom > window.innerHeight) done.scrollIntoView({ block: "center", behavior: motion.reduced ? "auto" : "smooth" });
+      }
+
+      on(form, "submit", function (e) {
+        e.preventDefault();
+        var text = asked();
+        if (!text) { say("Start with the question."); q.focus(); return; }
+        if (!email.value.trim() || !email.checkValidity()) { say("That email doesn’t look right yet."); email.focus(); return; }
+        var question = text + (needsMark(text) ? "?" : "");
+        var role = form.querySelector('input[name="asking_as"]:checked');
+        var name = form.elements.name.value.trim();
+        var from = name || (role ? role.parentNode.textContent.trim() : "Someone curious");
+        if (form.elements._honey.value) { showDone(question, from, email.value.trim()); return; } // a bot filled the hidden field
+        form.classList.add("sending"); sendLabel.textContent = "Sending…"; say("");
+        var payload = { question: question, asking_as: role ? role.value : "", name: name, email: email.value.trim(),
+          _subject: "New question from pentaliminal.ai", _template: "table", _replyto: email.value.trim() };
+        fetch(form.getAttribute("data-endpoint"), {
+          method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify(payload),
+          signal: window.AbortSignal && AbortSignal.timeout ? AbortSignal.timeout(15000) : undefined
+        }).then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { if (!r.ok || String(j.success) !== "true") throw new Error(j.message || r.status); }); })
+          .then(function () { if (alive()) showDone(question, from, email.value.trim()); })
+          .catch(function () { if (alive()) say("That didn’t go through on our end.", { href: mailLink(), text: "Send it by email instead" }); })
+          .then(function () { form.classList.remove("sending"); sendLabel.textContent = "Send the question"; });
+      });
+
+      on(document.getElementById("askAgain"), "click", function () {
+        form.reset(); form.hidden = false; done.hidden = true; say(""); update(); q.focus();
+      });
+      form.noValidate = true; // our own messages replace the browser bubbles; without this script the browser checks still apply
+      form.hidden = false; done.hidden = true;
+      update(); cycle();
     });
 
     /* ---------- section tracker and current-section nav state ---------- */

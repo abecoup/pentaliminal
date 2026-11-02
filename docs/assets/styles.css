@@ -71,6 +71,7 @@ a { color: inherit; }
 :focus-visible { outline: 1.5px solid var(--ink); outline-offset: 4px; }
 /* the page draws its own pressed states; skip the mobile browser's blue tap flash */
 a, button, [tabindex] { -webkit-tap-highlight-color: transparent; }
+[hidden] { display: none !important; }
 h1, h2, h3, h4, p { margin: 0; }
 ul, ol { list-style: none; margin: 0; padding: 0; }
 button { font: inherit; color: inherit; }
@@ -511,6 +512,86 @@ section::after { right: -5px; }
 .close p { max-width: var(--measure); margin-top: 1.25rem; color: var(--ink-2); }
 .close .close-note { margin-top: 2rem; padding-top: 1.25rem; border-top: 1px solid var(--rule); color: var(--ink); }
 @media (max-width: 760px) { .close { grid-template-columns: minmax(0, 1fr); } .close-fig { max-width: 13rem; } }
+
+/* 12b. Your question: the contact form ------------------------------------- */
+/* One field first (the question), then who's asking and where to reply. The second step is shown dimmed
+   from the start, so it's clear how short the whole thing is, and it wakes up once there is a question. */
+.ask-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr); gap: 2.5rem 4rem; align-items: start; }
+.ask-intro h2 { font-size: clamp(2rem, 1.2rem + 2.8vw, 3.4rem); line-height: 1.04; letter-spacing: -.025em; font-weight: 560; font-stretch: 112%; }
+.ask-intro p { max-width: 26rem; margin-top: 1.25rem; color: var(--ink-2); }
+.ask-intro .ask-promise { display: flex; align-items: center; gap: .6rem; margin-top: 1.75rem; font-size: .875rem; color: var(--ink); }
+.ask-promise::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--ink); box-shadow: 0 0 0 4px var(--paper), 0 0 0 5px var(--ink); margin: 0 .3rem 0 5px; }
+
+.ask-form { display: grid; gap: 2.25rem; }
+.ask-step { min-width: 0; margin: 0; padding: 0; border: 0; }
+.ask-k { display: flex; align-items: center; gap: .6rem; margin-bottom: .9rem; padding: 0; font-size: .9375rem; }
+.ask-n { display: inline-grid; place-items: center; width: 1.7rem; height: 1.7rem; border: 1.5px solid var(--ink); border-radius: 50%; font-size: .8rem; }
+
+/* the question: large type on a drawn line; the question mark follows the words */
+.q-field { position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: .75rem; align-items: start; padding-bottom: .65rem; border-bottom: 1.5px solid var(--ink); }
+.q-field::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1.5px; height: 3px; background: var(--ink); transform: scaleX(0); transform-origin: 0 50%; transition: transform .5s var(--ease-out); }
+.q-field:focus-within::after { transform: scaleX(1); }
+.q-mark { font-size: clamp(1.4rem, 1rem + 1.6vw, 2.1rem); line-height: 1.25; font-weight: 600; font-stretch: 75%; color: var(--ink-3); }
+.q-box { position: relative; min-width: 0; }
+.q-box textarea, .q-mirror {
+  display: block; width: 100%; margin: 0; padding: 0; border: 0;
+  font: inherit; font-size: clamp(1.4rem, 1rem + 1.6vw, 2.1rem); line-height: 1.25; font-weight: 500; font-stretch: 104%; letter-spacing: -.01em;
+  white-space: pre-wrap; overflow-wrap: break-word;
+}
+.q-box textarea { position: relative; z-index: 1; min-height: 1.25em; resize: none; overflow: hidden; color: var(--ink); caret-color: var(--ink); background: transparent; outline: none; }
+.q-box textarea::placeholder { color: var(--ink-3); opacity: 1; }
+.q-mirror { position: absolute; inset: 0; pointer-events: none; color: transparent; }
+.q-tail { color: var(--ink-3); opacity: 0; transition: opacity .25s ease; }
+.q-box.tail .q-tail { opacity: 1; }
+.ask-hint { margin-top: .6rem; font-size: .875rem; color: var(--ink-3); }
+
+/* who's asking */
+.ask-more { transition: opacity .5s var(--ease-soft); }
+.ask-form.waiting .ask-more { opacity: .32; }
+.ask-chips { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1.5rem; }
+.ask-chips label { position: relative; }
+.ask-chips input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; }
+.ask-chips span { display: inline-flex; align-items: center; min-height: 44px; padding: 0 1rem; border: 1px solid var(--ink); font-size: .9375rem; transition: background-color .2s ease, color .2s ease, transform .16s var(--ease-out), box-shadow .16s var(--ease-out); }
+.ask-chips label:hover span { transform: translate(-2px, -2px); box-shadow: 2px 2px 0 var(--ink); }
+.ask-chips input:checked + span { background: var(--ink); color: var(--paper); }
+.ask-chips input:focus-visible + span { outline: 1.5px solid var(--ink); outline-offset: 3px; }
+.ask-fields { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1.25rem 1.5rem; margin-bottom: 1.75rem; }
+.ask-field { display: grid; gap: .2rem; }
+.ask-field > span { font-size: .875rem; color: var(--ink-2); }
+.ask-field i { font-style: normal; color: var(--ink-3); }
+.ask-field input { width: 100%; min-height: 44px; padding: .4rem 0; border: 0; border-bottom: 1px solid var(--ink); border-radius: 0; font: inherit; font-size: 1.0625rem; color: var(--ink); background: transparent; outline: none; transition: border-color .2s ease, box-shadow .2s ease; }
+.ask-field input::placeholder { color: var(--ink-3); opacity: 1; }
+.ask-field input:focus { box-shadow: 0 1.5px 0 var(--ink); }
+.ask-field input:-webkit-autofill { -webkit-box-shadow: 0 0 0 40px var(--paper) inset; -webkit-text-fill-color: var(--ink); }
+.ask-honey { position: absolute !important; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.ask-send { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem 1.25rem; }
+.ask-send .btn svg { width: 16px; height: 16px; margin-left: .65rem; transition: transform .25s var(--ease-out); }
+.ask-send .btn:hover svg { transform: translateX(3px); }
+.ask-form.sending .btn { opacity: .6; pointer-events: none; }
+.ask-status { font-size: .9375rem; color: var(--ink-2); }
+.ask-status a { color: var(--ink); }
+
+/* after sending: the question, filed like a drawing tag */
+.ask-done { max-width: 34rem; outline: none; }
+.ticket { border: 1.5px solid var(--ink); background: var(--paper); }
+.t-head { display: flex; justify-content: space-between; gap: 1rem; padding: .6rem .9rem; border-bottom: 1px solid var(--ink); font-size: .8125rem; }
+.t-open { padding: 0 .4rem; color: var(--paper); background: var(--ink); }
+.t-q { padding: 1.25rem .9rem 1.4rem; font-size: clamp(1.3rem, 1rem + 1.2vw, 1.8rem); line-height: 1.25; font-weight: 500; font-stretch: 104%; letter-spacing: -.01em; overflow-wrap: break-word; }
+.t-foot { display: grid; grid-template-columns: auto minmax(0, 1fr) auto minmax(0, 1fr); gap: .25rem .75rem; align-items: baseline; padding: .6rem .9rem; border-top: 1px solid var(--ink); font-size: .9375rem; }
+.t-foot .cap { font-size: .75rem; color: var(--ink-3); }
+.t-foot span:not(.cap) { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ask-after { margin: 1.25rem 0; color: var(--ink-2); }
+@media (prefers-reduced-motion: no-preference) {
+  .ask-done.in .ticket { animation: ticketIn .8s var(--ease-out) both; }
+  .ask-done.in .ask-after, .ask-done.in > .btn { animation: fadeIn .6s ease .45s both; }
+}
+@keyframes ticketIn { from { clip-path: inset(0 0 100% 0); transform: translateY(-10px); } to { clip-path: inset(0 0 0 0); transform: none; } }
+
+@media (max-width: 860px) { .ask-grid { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 560px) {
+  .ask-fields { grid-template-columns: minmax(0, 1fr); }
+  .t-foot { grid-template-columns: auto minmax(0, 1fr); }
+}
 
 /* 13. Footer: a drawing title block --------------------------------------- */
 footer { position: relative; z-index: 1; padding-block: 1.5rem 2.5rem; }

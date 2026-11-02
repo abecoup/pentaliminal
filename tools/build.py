@@ -16,6 +16,8 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 SRC, DIST, ART = ROOT / "src", ROOT / "docs", ROOT / "dist-artifact"
 
 SITE_URL = "https://pentaliminal.ai/"
+# Where "Your question" messages are delivered (through formsubmit.co; the first message triggers a one-time confirmation email).
+CONTACT_EMAIL = "hello@pentaliminal.ai"
 TITLE = "Pentaliminal: Infrastructure for wise intelligence"
 DESCRIPTION = ("Pentaliminal advances the science and engineering of wise intelligence: infrastructure that helps AI "
                "understand context, recognize uncertainty, consider what matters, and act responsibly.")
@@ -53,7 +55,7 @@ def brand_body():
     for key, val in {
         "{{MONO_BODY}}": mono["body"], "{{MONO_SHADE}}": mono["shade"], "{{MONO_INK}}": mono["ink"],
         "{{WM_VB}}": f"{x0 - 2} {y0 - 2} {x1 - x0 + 4} {y1 - y0 + 4}", "{{WM_WH}}": f"{x1 - x0 + 4} {y1 - y0 + 4}",
-        "{{WM_D}}": wm["d"],
+        "{{WM_D}}": wm["d"], "{{CONTACT_EMAIL}}": CONTACT_EMAIL,
     }.items():
         body = body.replace(key, val)
     assert "{{" not in body, "unfilled placeholder in body.html"
