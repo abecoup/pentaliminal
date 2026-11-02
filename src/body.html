@@ -288,21 +288,27 @@
       <div class="ask-grid">
         <div class="ask-intro">
           <h2 id="askTitle">Your turn.</h2>
-          <p>Ask us something: a question you’re stuck on, one you think we’re missing, or one you’d like to work on with us. Researchers, builders, funders and the plainly curious are all welcome.</p>
+          <p>Ask us something: a question you’re stuck on, one you think we’re missing, or one you’d like to work on with us. Or skip the question and just say hello. Researchers, builders, funders and the plainly curious are all welcome.</p>
           <p class="ask-promise cap">A person reads every one</p>
         </div>
 
         <form class="ask-form" id="askForm" action="https://formsubmit.co/{{FORM_ID}}" method="POST" data-endpoint="https://formsubmit.co/ajax/{{FORM_ID}}" data-mail="{{FALLBACK_MAIL}}">
           <div class="ask-step">
-            <label class="ask-k cap" for="askQ"><span class="ask-n">A</span>The question</label>
+            <div class="ask-k cap"><span class="ask-n">A</span>
+              <span class="ask-kinds" role="radiogroup" aria-label="What would you like to send?">
+                <label><input type="radio" name="kind" value="question" checked><span>Ask a question</span></label>
+                <label><input type="radio" name="kind" value="note"><span>Leave a note</span></label>
+              </span>
+            </div>
+            <label class="sr" for="askQ" id="askQLabel">Your question</label>
             <div class="q-field">
               <span class="q-mark" aria-hidden="true">Q.</span>
               <div class="q-box">
                 <div class="q-mirror" aria-hidden="true"><span class="q-text"></span><span class="q-tail">?</span></div>
-                <textarea id="askQ" name="question" rows="1" maxlength="2000" required autocomplete="off" aria-describedby="askHint" placeholder="How would an AI know it’s out of its depth?"></textarea>
+                <textarea id="askQ" name="message" rows="1" maxlength="2000" required autocomplete="off" aria-describedby="askHint" placeholder="How would an AI know it’s out of its depth?"></textarea>
               </div>
             </div>
-            <p class="ask-hint" id="askHint">We add the question mark. Statements are also accepted, reluctantly.</p>
+            <p class="ask-hint" id="askHint"><span class="hint-q">We add the question mark for you. Not a question? <button type="button" class="ask-switch" data-kind="note">Leave a note instead.</button></span><span class="hint-n" hidden>No question mark needed. “Hello” is a perfectly good note.</span></p>
           </div>
 
           <fieldset class="ask-step ask-more" id="askMore">
@@ -330,7 +336,7 @@
 
         <div class="ask-done" id="askDone" hidden tabindex="-1">
           <div class="ticket">
-            <div class="t-head"><span class="cap">Question received</span><span class="cap t-open">Status: open</span></div>
+            <div class="t-head"><span class="cap" id="askKind">Question received</span><span class="cap t-open">Status: open</span></div>
             <p class="t-q" id="askEcho"></p>
             <div class="t-foot"><span class="cap">From</span><span id="askFrom"></span><span class="cap">Reply to</span><span id="askTo"></span></div>
           </div>
@@ -349,7 +355,7 @@
       <div class="tb-wide"><span class="cap">Pentaliminal</span><b>Infrastructure for wise intelligence</b><i>Beyond intelligence. Toward wisdom.</i></div>
       <div><span class="cap">About</span><nav aria-label="About"><a href="#intersection">Intersection</a><a href="#charter">Charter</a><a href="#thesis">Thesis</a><a href="#lenses">Five lenses</a></nav></div>
       <div><span class="cap">Work</span><nav aria-label="Work"><a href="#framework">Framework</a><a href="#problems">Problem wisdom</a><a href="#infrastructure">Infrastructure</a><a href="#labs">Labs</a></nav></div>
-      <div class="tb-end"><span class="cap">© 2026 Pentaliminal</span><a href="#ask">Ask us something</a><a href="#top">Back to top</a></div>
+      <div class="tb-end"><span class="cap">© 2026 Pentaliminal</span><nav aria-label="More"><a href="#ask">Ask us something</a><a href="#top">Back to top</a></nav></div>
     </div>
   </div>
 </footer>

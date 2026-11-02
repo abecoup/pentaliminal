@@ -840,60 +840,84 @@
     });
 
     /* ---------- 10 your question: the contact form ---------- */
+    // Visitors pick "Ask a question" or "Leave a note". A question gets a drawn question mark after the last word
+    // and is sent with one; a note is sent as written.
     mount("ask", function () {
       var form = document.getElementById("askForm"); if (!form) return;
       var q = document.getElementById("askQ"), box = q.parentNode, mirror = box.querySelector(".q-text");
       var more = document.getElementById("askMore"), status = document.getElementById("askStatus");
       var done = document.getElementById("askDone"), email = form.elements.email, sendLabel = form.querySelector(".ask-send-label");
-      var IDEAS = [
-        "How would an AI know it’s out of its depth?",
-        "Can good judgment be measured?",
-        "What should a system refuse to optimize?",
-        "Who decides what’s worth doing?",
-        "What does an AI owe the people who rely on it?"
-      ];
-      function asked() { return q.value.trim(); }
-      function needsMark(text) { return text && !/[?？]$/.test(text); }
+      var mark = form.querySelector(".q-mark"), qLabel = document.getElementById("askQLabel");
+      var hintQ = form.querySelector(".hint-q"), hintN = form.querySelector(".hint-n");
+      var KINDS = {
+        question: {
+          mark: "Q.", label: "Your question", noun: "question", empty: "Start with the question.",
+          ideas: ["How would an AI know it’s out of its depth?", "Can good judgment be measured?", "What should a system refuse to optimize?",
+            "Who decides what’s worth doing?", "What does an AI owe the people who rely on it?"]
+        },
+        note: {
+          mark: "N.", label: "Your note", noun: "note", empty: "Start with your note.",
+          ideas: ["I’d like to work with you on this.", "I read the thesis and want to push back on one part.", "We’re building something you should see.",
+            "Count me in for Labs.", "Hello. That’s it, just hello."]
+        }
+      };
+      function kind() { var r = form.querySelector('input[name="kind"]:checked'); return r ? r.value : "question"; }
+      function K() { return KINDS[kind()]; }
+      function written() { return q.value.trim(); }
+      function needsMark(text) { return kind() === "question" && text && !/[?？]$/.test(text); }
+      function finalText() { var t = written(); return t + (needsMark(t) ? "?" : ""); }
 
-      // The field grows with what's typed. While it's empty it holds the height of the longest example question,
+      // The field grows with what's typed. While it's empty it holds the height of the longest example,
       // so the typed-out placeholder never makes the page below it jump.
-      var longest = IDEAS.reduce(function (a, b) { return b.length > a.length ? b : a; });
       function fit() {
-        if (q.value) { q.style.height = "auto"; q.style.height = q.scrollHeight + "px"; return; }
-        q.style.height = "auto"; mirror.textContent = longest;
+        q.style.height = "auto";
+        if (q.value) { q.style.height = q.scrollHeight + "px"; return; }
+        mirror.textContent = K().ideas.reduce(function (a, b) { return b.length > a.length ? b : a; });
         q.style.height = mirror.parentNode.scrollHeight + "px"; mirror.textContent = "";
       }
       // the mirror holds the same words (invisible) so the drawn question mark lands right after the last one
       function update() {
-        var text = asked();
+        var text = written();
         mirror.textContent = q.value;
         box.classList.toggle("tail", !!needsMark(text));
         fit();
-        var waiting = text.length < 3;
+        var waiting = text.length < 2;
         form.classList.toggle("waiting", waiting);
         more.inert = waiting;
       }
+      function setKind() {
+        var k = K();
+        mark.textContent = k.mark; qLabel.textContent = k.label;
+        hintQ.hidden = kind() !== "question"; hintN.hidden = kind() === "question";
+        sendLabel.textContent = "Send the " + k.noun;
+        idea = 0; settlePlaceholder(); status.textContent = "";
+        update();
+        if (document.activeElement !== q) timer = setTimeout(cycle, 1500);
+      }
+      form.querySelectorAll('input[name="kind"]').forEach(function (r) { on(r, "change", setKind); });
+      on(form.querySelector(".ask-switch"), "click", function () { form.querySelector('input[name="kind"][value="note"]').checked = true; setKind(); q.focus(); });
+
       on(q, "input", function () { status.textContent = ""; update(); });
       on(q, "keydown", function (e) {
         // Enter moves on to the next step; Shift+Enter still starts a new line
-        if (e.key === "Enter" && !e.shiftKey && !e.isComposing) { e.preventDefault(); update(); if (asked().length >= 3) email.focus(); }
+        if (e.key === "Enter" && !e.shiftKey && !e.isComposing) { e.preventDefault(); update(); if (written().length >= 2) email.focus(); }
       });
       on(window, "resize", fit, { passive: true });
       on(form, "input", function (e) { if (e.target !== q) status.textContent = ""; });
 
-      // the placeholder types out example questions while the field is empty and on screen
-      var idea = 0, chars = IDEAS[0].length, deleting = false, timer = 0;
+      // the placeholder types out examples while the field is empty and on screen
+      var idea = 0, chars = 0, deleting = false, timer = 0;
       var view = watchVisible(form, function (v) { if (v) cycle(); });
       function cycle() {
         clearTimeout(timer);
         if (!alive() || !view.visible || motion.still() || q.value || document.activeElement === q) return;
-        var full = IDEAS[idea], wait;
-        if (deleting) { chars--; wait = 22; if (chars <= 0) { deleting = false; idea = (idea + 1) % IDEAS.length; wait = 350; } }
-        else { chars++; wait = 45; if (chars >= full.length) { chars = full.length; deleting = true; wait = 2800; } }
-        q.setAttribute("placeholder", IDEAS[idea].slice(0, Math.max(0, chars)));
+        var list = K().ideas, wait;
+        if (deleting) { chars--; wait = 22; if (chars <= 0) { deleting = false; idea = (idea + 1) % list.length; wait = 350; } }
+        else { chars++; wait = 45; if (chars >= list[idea].length) { chars = list[idea].length; deleting = true; wait = 2800; } }
+        q.setAttribute("placeholder", list[idea].slice(0, Math.max(0, chars)));
         timer = setTimeout(cycle, wait);
       }
-      function settlePlaceholder() { clearTimeout(timer); q.setAttribute("placeholder", IDEAS[idea]); chars = IDEAS[idea].length; deleting = false; }
+      function settlePlaceholder() { clearTimeout(timer); var list = K().ideas; idea = idea % list.length; q.setAttribute("placeholder", list[idea]); chars = list[idea].length; deleting = true; }
       on(q, "focus", settlePlaceholder);
       on(q, "blur", function () { timer = setTimeout(cycle, 1500); });
       motion.handlers.push(function () { if (motion.still()) settlePlaceholder(); else cycle(); });
@@ -904,11 +928,11 @@
         if (link) { status.appendChild(document.createTextNode(" ")); var a = document.createElement("a"); a.href = link.href; a.textContent = link.text; status.appendChild(a); }
       }
       function mailLink() {
-        var question = asked() + (needsMark(asked()) ? "?" : "");
-        return "mailto:" + form.getAttribute("data-mail") + "?subject=" + encodeURIComponent("A question for Pentaliminal") + "&body=" + encodeURIComponent(question);
+        return "mailto:" + form.getAttribute("data-mail") + "?subject=" + encodeURIComponent("A " + K().noun + " for Pentaliminal") + "&body=" + encodeURIComponent(finalText());
       }
-      function showDone(question, from, to) {
-        document.getElementById("askEcho").textContent = question;
+      function showDone(message, from, to) {
+        document.getElementById("askKind").textContent = (kind() === "question" ? "Question" : "Note") + " received";
+        document.getElementById("askEcho").textContent = message;
         document.getElementById("askFrom").textContent = from;
         document.getElementById("askTo").textContent = to;
         form.hidden = true; done.hidden = false;
@@ -920,36 +944,35 @@
 
       on(form, "submit", function (e) {
         e.preventDefault();
-        var text = asked();
-        if (!text) { say("Start with the question."); q.focus(); return; }
+        if (!written()) { say(K().empty); q.focus(); return; }
         if (!email.value.trim() || !email.checkValidity()) { say("That email doesn’t look right yet."); email.focus(); return; }
-        var question = text + (needsMark(text) ? "?" : "");
+        var message = finalText(), noun = K().noun, reply = email.value.trim();
         var role = form.querySelector('input[name="asking_as"]:checked');
         var name = form.elements.name.value.trim();
         var from = name || (role ? role.parentNode.textContent.trim() : "Someone curious");
-        if (form.elements._honey.value) { showDone(question, from, email.value.trim()); return; } // a bot filled the hidden field
+        if (form.elements._honey.value) { showDone(message, from, reply); return; } // a bot filled the hidden field
         form.classList.add("sending"); sendLabel.textContent = "Sending…"; say("");
-        var payload = { question: question, asking_as: role ? role.value : "", name: name, email: email.value.trim(),
-          _subject: "New question from pentaliminal.ai", _template: "table", _replyto: email.value.trim() };
+        var payload = { kind: noun, message: message, asking_as: role ? role.value : "", name: name, email: reply,
+          _subject: "New " + noun + " from pentaliminal.ai", _template: "table", _replyto: reply };
         fetch(form.getAttribute("data-endpoint"), {
           method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify(payload),
           signal: window.AbortSignal && AbortSignal.timeout ? AbortSignal.timeout(15000) : undefined
         }).then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { if (!r.ok || String(j.success) !== "true") throw new Error(j.message || r.status); }); })
-          .then(function () { if (alive()) showDone(question, from, email.value.trim()); })
+          .then(function () { if (alive()) showDone(message, from, reply); })
           .catch(function () {
             if (!alive()) return;
             if (form.getAttribute("data-mail")) say("That didn’t go through on our end.", { href: mailLink(), text: "Send it by email instead" });
-            else say("That didn’t go through on our end. Your question is still here; please try again in a moment.");
+            else say("That didn’t go through on our end. Your " + noun + " is still here; please try again in a moment.");
           })
-          .then(function () { form.classList.remove("sending"); sendLabel.textContent = "Send the question"; });
+          .then(function () { form.classList.remove("sending"); sendLabel.textContent = "Send the " + K().noun; });
       });
 
       on(document.getElementById("askAgain"), "click", function () {
-        form.reset(); form.hidden = false; done.hidden = true; say(""); update(); q.focus();
+        form.reset(); form.hidden = false; done.hidden = true; setKind(); q.focus();
       });
       form.noValidate = true; // our own messages replace the browser bubbles; without this script the browser checks still apply
       form.hidden = false; done.hidden = true;
-      update(); cycle();
+      setKind(); idea = 0; chars = 0; deleting = false; cycle();
     });
 
     /* ---------- section tracker and current-section nav state ---------- */

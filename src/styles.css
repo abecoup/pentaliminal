@@ -521,6 +521,18 @@ section::after { right: -5px; }
 .ask-k { display: flex; align-items: center; gap: .6rem; margin-bottom: .9rem; padding: 0; font-size: .9375rem; }
 .ask-n { display: inline-grid; place-items: center; width: 1.7rem; height: 1.7rem; border: 1.5px solid var(--ink); border-radius: 50%; font-size: .8rem; }
 
+/* question or note: a two-way switch in the step label */
+.ask-kinds { display: inline-flex; border: 1px solid var(--ink); }
+.ask-kinds label { position: relative; }
+.ask-kinds input { position: absolute; inset: 0; margin: 0; opacity: 0; cursor: pointer; }
+.ask-kinds span { display: inline-flex; align-items: center; min-height: 40px; padding: 0 .85rem; transition: background-color .2s ease, color .2s ease; }
+.ask-kinds label + label span { border-left: 1px solid var(--ink); }
+.ask-kinds input:checked + span { background: var(--ink); color: var(--paper); }
+.ask-kinds input:not(:checked):hover + span { background: var(--paper-2); }
+.ask-kinds input:focus-visible + span { outline: 1.5px solid var(--ink); outline-offset: 3px; }
+.ask-switch { padding: 0; border: 0; background: none; color: var(--ink); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; font-size: inherit; }
+.ask-switch:hover { text-decoration-thickness: 2px; }
+
 /* the question: large type on a drawn line; the question mark follows the words */
 .q-field { position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: .75rem; align-items: start; padding-bottom: .65rem; border-bottom: 1.5px solid var(--ink); }
 .q-field::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1.5px; height: 3px; background: var(--ink); transform: scaleX(0); transform-origin: 0 50%; transition: transform .5s var(--ease-out); }
@@ -605,6 +617,7 @@ footer { position: relative; z-index: 1; padding-block: 1.5rem 2.5rem; }
   .tblock > div { border-right: 0; border-bottom: 1px solid var(--ink); }
   .tblock > div:nth-child(odd):not(.tb-end) { border-right: 1px solid var(--ink); }
   .tblock > .tb-end { grid-column: 1 / -1; flex-direction: row; align-items: center; gap: 1rem; border-bottom: 0; }
+  .tb-end nav { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 0 1.25rem; }
 }
 
 /* 14. Section tracker (wide screens; a mouse convenience, so it's skipped by keyboard and screen readers) */
