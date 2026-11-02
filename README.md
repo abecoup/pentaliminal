@@ -1,0 +1,48 @@
+# Pentaliminal
+
+The website for Pentaliminal: infrastructure for wise intelligence. Live at **https://pentaliminal.ai**.
+
+## Layout
+
+| Path | What it is |
+|---|---|
+| `src/body.html` | Page markup. `{{MONO_*}}` and `{{WM_*}}` placeholders are filled with the traced brand paths at build time. |
+| `src/styles.css` | All styles. Design tokens (colors, type) are at the top; light and dark themes. |
+| `src/main.js` | All behavior, in one `pentaliminalBoot()` function. Vanilla JS, no dependencies. |
+| `src/monogram.json`, `src/wordmark.json` | Vector paths of the P monogram and the wordmark. |
+| `src/static/` | Copied into the site as-is: icons, link-preview image, 404 page, `CNAME`, `robots.txt`, `sitemap.xml`. |
+| `tools/build.py` | Builds `docs/` (the live site) and `dist-artifact/page.html` (a single-file preview). |
+| `docs/` | **Generated.** The deployed site. Don't edit by hand; edit `src/` and rebuild. |
+
+## Working on it
+
+```sh
+python3 tools/build.py              # rebuild docs/ after editing src/
+python3 -m http.server -d docs 8000 # preview at http://localhost:8000
+```
+
+No build tools or packages are needed: Python 3 only.
+
+## Hosting
+
+GitHub Pages serves the `docs/` folder of the `main` branch (Settings → Pages → Deploy from a branch → `main` / `/docs`). The custom domain comes from `docs/CNAME`.
+
+DNS for `pentaliminal.ai` (set at the domain registrar):
+
+| Type | Host | Value |
+|---|---|---|
+| A | @ | 185.199.108.153 |
+| A | @ | 185.199.109.153 |
+| A | @ | 185.199.110.153 |
+| A | @ | 185.199.111.153 |
+| AAAA | @ | 2606:50c0:8000::153 |
+| AAAA | @ | 2606:50c0:8001::153 |
+| AAAA | @ | 2606:50c0:8002::153 |
+| AAAA | @ | 2606:50c0:8003::153 |
+| CNAME | www | abecoup.github.io |
+
+After DNS resolves, tick **Enforce HTTPS** in Settings → Pages.
+
+## Design
+
+See `DESIGN.md` for the design system: tokens, type, figures, motion rules and the brand foundations.

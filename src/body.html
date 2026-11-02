@@ -1,0 +1,288 @@
+<!-- brand symbols and halftone patterns -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <pattern id="ht" width="7" height="7" patternUnits="userSpaceOnUse"><circle class="htd" cx="3.5" cy="3.5" r="1.55"/></pattern>
+    <pattern id="hts" width="4" height="4" patternUnits="userSpaceOnUse"><circle class="htd" cx="2" cy="2" r=".9"/></pattern>
+    <symbol id="mono" viewBox="40 36 676 968">
+      <path class="m-body" d="{{MONO_BODY}}"/>
+      <path class="m-shade" d="{{MONO_SHADE}}"/>
+      <path class="m-ink" d="{{MONO_INK}}"/>
+    </symbol>
+    <symbol id="wordmark" viewBox="{{WM_VB}}">
+      <path class="wm-ink" d="{{WM_D}}"/>
+    </symbol>
+  </defs>
+</svg>
+
+<canvas class="bgmesh" id="bgmesh" aria-hidden="true"></canvas>
+<div class="grain" aria-hidden="true"></div>
+<nav class="gauge" id="gauge" aria-label="Page sections">
+  <a href="#intersection"><span>01 Intersection</span></a>
+  <a href="#charter"><span>02 Charter</span></a>
+  <a href="#thesis"><span>03 Thesis</span></a>
+  <a href="#lenses"><span>04 Five lenses</span></a>
+  <a href="#framework"><span>05 Framework</span></a>
+  <a href="#problems"><span>06 Problem wisdom</span></a>
+  <a href="#infrastructure"><span>07 Infrastructure</span></a>
+  <a href="#principles"><span>08 How we work</span></a>
+  <a href="#labs"><span>09 Labs</span></a>
+</nav>
+
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="#top" aria-label="Pentaliminal home">
+      <svg class="mono" aria-hidden="true"><use href="#mono"/></svg>
+      <span class="sep" aria-hidden="true"></span>
+      <svg class="wm" viewBox="0 0 {{WM_WH}}" aria-hidden="true"><use href="#wordmark"/></svg>
+    </a>
+    <div class="hdr-r">
+    <nav class="nav cap" id="siteNav" aria-label="Sections">
+      <a href="#intersection">Intersection</a>
+      <a href="#thesis">Thesis</a>
+      <a href="#lenses">Lenses</a>
+      <a href="#framework">Framework</a>
+      <a href="#problems">Problems</a>
+      <a href="#infrastructure">Infrastructure</a>
+      <a href="#labs">Labs</a>
+    </nav>
+    <button class="menu-btn theme cap" id="menuBtn" type="button" aria-expanded="false" aria-controls="siteNav"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 4.5h12M2 8h12M2 11.5h12" fill="none" stroke="currentColor" stroke-width="1.4"/></svg><span>Menu</span></button>
+    <button class="theme cap" id="themeBtn" type="button"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M8 1.5A6.5 6.5 0 0 1 8 14.5Z" fill="currentColor"/></svg><span>Dark</span></button>
+    </div>
+  </header>
+  <div id="topSentinel" aria-hidden="true" style="height:1px;margin-bottom:-1px"></div>
+
+  <main id="top">
+    <div class="hero">
+      <div>
+        <h1 class="sr">Pentaliminal</h1>
+        <svg class="wm-big" viewBox="0 0 {{WM_WH}}" role="img" aria-label="Pentaliminal"><use href="#wordmark"/></svg>
+        <p class="tagline cap"><span class="tl-a">Beyond intelligence.</span> <span class="tl-b">Toward wisdom.</span></p>
+        <p class="meta cap">Infrastructure for wise intelligence</p>
+        <hr>
+        <p class="lede">We build the foundations that help AI understand context, recognize uncertainty, consider what matters, and act responsibly.</p>
+        <div class="actions">
+          <a class="btn" href="#thesis">Read the thesis</a>
+          <a class="btn ghost" href="#labs">Pentaliminal Labs</a>
+        </div>
+      </div>
+      <figure class="construct" id="construct">
+        <svg viewBox="0 0 800 840" role="img" aria-label="A dodecahedron, the solid made of twelve pentagons, turning slowly on an isometric grid inside two orbiting construction rings, with its axis and the sphere it fits in marked."></svg>
+      </figure>
+    </div>
+
+    <section id="intersection">
+      <p class="label cap"><span class="no">01</span><span>—</span><span>Intersection</span></p>
+      <div class="head">
+        <h2>Where three fields meet.</h2>
+        <p>Pentaliminal sits at the point where three bodies of understanding come together. Each is necessary. None is enough alone.</p>
+      </div>
+      <div class="meet">
+        <figure class="meet-fig">
+          <svg id="meetFig" viewBox="0 0 440 400" role="img" aria-label="A tetrahedron. Its three base corners are the science of intelligence, the wisdom of humanity and the engineering of AI. Their edges rise to meet at the top corner, Pentaliminal."></svg>
+        </figure>
+        <ol class="meet-list" id="meetList">
+          <li data-v="1" tabindex="0"><span class="mk cap">01</span><div><h3>The science of intelligence</h3><p>Understanding how intelligence works.</p></div></li>
+          <li class="plus" aria-hidden="true"><span>+</span></li>
+          <li data-v="2" tabindex="0"><span class="mk cap">02</span><div><h3>The wisdom of humanity</h3><p>Understanding what makes judgment, action, and civilization worthwhile.</p></div></li>
+          <li class="plus" aria-hidden="true"><span>+</span></li>
+          <li data-v="3" tabindex="0"><span class="mk cap">03</span><div><h3>The engineering of AI</h3><p>Turning those understandings into useful technological infrastructure.</p></div></li>
+          <li class="arrow" aria-hidden="true"><svg viewBox="0 0 20 34"><line x1="10" y1="0" x2="10" y2="30"/><polyline points="3,23 10,31 17,23"/></svg></li>
+          <li class="result" data-v="0" tabindex="0">
+            <svg class="wm" viewBox="0 0 {{WM_WH}}" role="img" aria-label="Pentaliminal"><use href="#wordmark"/></svg>
+            <p class="cap">Infrastructure for wise intelligence</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="charter">
+      <p class="label cap"><span class="no">02</span><span>—</span><span>Charter</span></p>
+      <div class="head">
+        <h2>What we believe, and what we're building toward.</h2>
+      </div>
+      <dl class="charter">
+        <div><dt class="cap">The belief</dt><dd>Intelligence should be developed with an understanding of what it means to be human, what makes life meaningful, and what is worth pursuing.</dd></div>
+        <div><dt class="cap">The mission</dt><dd>To advance the science and engineering of wise intelligence through interdisciplinary research and technological innovation.</dd></div>
+        <div><dt class="cap">The vision</dt><dd>A world in which human and artificial intelligence work together to address humanity's most important challenges and expand the possibilities of human flourishing.</dd></div>
+        <div><dt class="cap">The method</dt><dd>Integrating cognitive science, psychology, anthropology, philosophy, and systems thinking into the design and development of AI.</dd></div>
+        <div><dt class="cap">The ambition</dt><dd>To build the cognitive and decision infrastructure of the next era of intelligence.</dd></div>
+      </dl>
+    </section>
+
+    <section id="thesis">
+      <p class="label cap"><span class="no">03</span><span>—</span><span>Thesis</span></p>
+      <div class="head">
+        <h2>Intelligence is not the same as wisdom.</h2>
+        <p>Artificial intelligence is expanding what can be done. But capability alone does not tell us what is worth doing. A system can solve a problem efficiently without asking whether it is the right problem.</p>
+      </div>
+      <div class="split">
+        <div class="can"><h3 class="cap">Capability</h3><p>answers what can be done.</p></div>
+        <div class="rule" aria-hidden="true"></div>
+        <div><h3 class="cap">Wisdom</h3><p>helps determine what ought to be done, and when, why, and with what degree of confidence.</p></div>
+      </div>
+      <div class="define">
+        <h3 class="cap">What we mean by wise intelligence</h3>
+        <div>
+          <p class="big">Intelligence directed by sound judgment: informed by context, honest about uncertainty, attentive to multiple perspectives, conscious of consequences, and aimed at ends that hold up under thoughtful scrutiny.</p>
+          <p class="note">This is a working definition and a research ambition. We don't claim wisdom can be reduced to a score or fully captured in software.</p>
+        </div>
+      </div>
+      <blockquote class="quote">
+        The most important question is not how intelligent we can make our machines. It is how wisely we can put intelligence to use.
+        <cite>From the founding manifesto</cite>
+      </blockquote>
+    </section>
+
+    <section id="lenses">
+      <p class="label cap"><span class="no">04</span><span>—</span><span>Five lenses</span></p>
+      <div class="head">
+        <h2>Five lenses. A threshold between worlds.</h2>
+        <p>"Penta" is the five intellectual traditions behind our work. "Liminal" is the threshold: between the familiar and the emerging, between human and machine intelligence, between knowledge and judgment.</p>
+        <p>No single lens sees everything. Pick one to see where its light falls, and where it leaves shadows for the others to cover.</p>
+      </div>
+      <div class="lens-grid">
+        <div class="lens-fig">
+          <svg id="lensFig" viewBox="0 0 400 420" role="img" aria-label="A pentagon in plan view. A hatched wedge shows the area the selected lens covers from its corner; the rest is left for the other lenses."></svg>
+        </div>
+        <div>
+          <ul class="lenses" id="lensList"></ul>
+          <p class="engineering"><b>Engineering</b> is the translational discipline. The five lenses inform the work; engineering turns it into architectures, software, protocols, evaluations, and products.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="framework">
+      <p class="label cap"><span class="no">05</span><span>—</span><span>Framework</span></p>
+      <div class="head">
+        <h2>What wisdom asks of a system.</h2>
+        <p>A working framework that runs from knowing to acting. It is a synthesis to be tested and refined, not a settled taxonomy of wisdom.</p>
+      </div>
+      <div class="path-wrap">
+      <ol class="path" id="path">
+        <li tabindex="0"><div class="glyph" data-g="1"></div><p class="cap">01</p><h3>Knowing</h3><p class="k">Epistemic humility</p><p class="t">Can the system tell evidence from assumption, communicate uncertainty, and revise its conclusions when warranted?</p></li>
+        <li tabindex="0"><div class="glyph" data-g="2"></div><p class="cap">02</p><h3>Seeing</h3><p class="k">Perspective-taking</p><p class="t">Can it consider different stakeholders, interpretations, and cultures, including perspectives that are easy to overlook?</p></li>
+        <li tabindex="0"><div class="glyph" data-g="3"></div><p class="cap">03</p><h3>Situating</h3><p class="k">Contextual understanding</p><p class="t">Can it account for history, relationships, institutions, incentives, and the wider environment a decision will operate in?</p></li>
+        <li tabindex="0"><div class="glyph" data-g="4"></div><p class="cap">04</p><h3>Valuing</h3><p class="k">Value discernment</p><p class="t">Can it identify what is at stake, surface competing values, and make ethical tensions and trade-offs explicit?</p></li>
+        <li tabindex="0"><div class="glyph" data-g="5"></div><p class="cap">05</p><h3>Acting</h3><p class="k">Practical judgment</p><p class="t">Can it choose proportionate actions, weigh consequences, and recognize when to defer or seek human input?</p></li>
+      </ol></div>
+    </section>
+
+    <section id="problems">
+      <p class="label cap"><span class="no">06</span><span>—</span><span>Problem wisdom</span></p>
+      <div class="head">
+        <h2>From solutionism to problem wisdom.</h2>
+        <p>Problem selection is itself an act of judgment. What we measure, whose experience we include, and what we count as success shape an intervention as much as the technology does.</p>
+      </div>
+      <div class="shift">
+        <div class="from"><p class="cap">Conventional approach</p><p class="qq">What can we build with AI?</p></div>
+        <svg class="shift-arrow" viewBox="0 0 80 24" aria-hidden="true"><line x1="0" y1="12" x2="74" y2="12" pathLength="1"/><polyline points="66,4 76,12 66,20" pathLength="1"/></svg>
+        <div class="to"><p class="cap">Pentaliminal approach</p><p class="qq">What is worth building, and why?</p></div>
+      </div>
+
+      <h3 class="sub cap">How we weigh a problem</h3>
+      <ul class="criteria">
+        <li><h3 class="cap">Importance</h3><p>How deeply does the problem affect human lives, institutions, or living systems?</p></li>
+        <li><h3 class="cap">Scale and distribution</h3><p>Who is affected, how widely, and who bears the greatest burden?</p></li>
+        <li><h3 class="cap">Tractability</h3><p>What interventions are plausible, and what evidence supports them?</p></li>
+        <li><h3 class="cap">Neglectedness</h3><p>Where is attention or capacity notably missing?</p></li>
+        <li><h3 class="cap">Leverage</h3><p>Could progress here unlock progress across other domains?</p></li>
+        <li><h3 class="cap">Risks and externalities</h3><p>What could an intervention worsen, displace, or make harder to reverse?</p></li>
+        <li><h3 class="cap">Time horizon</h3><p>What are the near-term effects, and what might the long-term consequences be?</p></li>
+      </ul>
+
+      <div class="atlas">
+        <div class="atlas-head">
+          <h3>The Human Problem Atlas</h3>
+          <p>A proposed Pentaliminal research initiative: an evolving knowledge platform that investigates the most consequential problems facing humanity.</p>
+          <p>It would not hand down one ranking of humanity's priorities. It would make assumptions explicit, keep legitimate disagreement visible, and show how strong the evidence really is.</p>
+        </div>
+        <div class="atlas-table">
+          <table>
+            <caption class="cap">Potential areas</caption>
+            <thead><tr><th class="cap" scope="col">Domain</th><th class="cap" scope="col">Fundamental question</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Human development</th><td>How do we help people realize their potential?</td></tr>
+              <tr><th scope="row">Mental and social well-being</th><td>How do we reduce suffering and improve relationships?</td></tr>
+              <tr><th scope="row">Education</th><td>How do we develop more capable, curious, thoughtful people?</td></tr>
+              <tr><th scope="row">Institutional intelligence</th><td>How do societies make better collective decisions?</td></tr>
+              <tr><th scope="row">Scientific discovery</th><td>How can we accelerate the discovery of important truths?</td></tr>
+              <tr><th scope="row">Environmental systems</th><td>How do we maintain the conditions for life to flourish?</td></tr>
+              <tr><th scope="row">Economic opportunity</th><td>How do we distribute opportunity and enable meaningful contribution?</td></tr>
+              <tr><th scope="row">Information ecosystems</th><td>How do we improve access to trustworthy knowledge and reduce manipulation?</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="infrastructure">
+      <p class="label cap"><span class="no">07</span><span>—</span><span>Infrastructure</span></p>
+      <div class="head">
+        <h2>Infrastructure in three parts.</h2>
+        <p>Connected, not a rigid stack. Model-agnostic and composable, built to work across models, agents, applications, and organizations. The systems underneath will change. The need for context, judgment, trust, and responsible action will remain.</p>
+      </div>
+      <ul class="planes">
+        <li class="plane">
+          <div class="art"><span class="idx cap">01</span><svg id="artOrientation" viewBox="0 0 300 240" preserveAspectRatio="xMidYMid slice" aria-hidden="true"></svg></div>
+          <div class="body"><h3>Orientation</h3><p>Helps systems understand what they are trying to accomplish, and whether that goal is well formed: problem formulation, priorities, values, stakeholders, and assumptions.</p></div>
+        </li>
+        <li class="plane">
+          <div class="art"><span class="idx cap">02</span><svg id="artCognitive" viewBox="0 0 300 240" preserveAspectRatio="xMidYMid slice" aria-hidden="true"></svg></div>
+          <div class="body"><h3>Cognitive</h3><p>Helps systems understand the world and regulate their own reasoning: contextual memory, provenance, world models, uncertainty, and noticing what is missing.</p></div>
+        </li>
+        <li class="plane">
+          <div class="art"><span class="idx cap">03</span><svg id="artAgency" viewBox="0 0 300 240" preserveAspectRatio="xMidYMid slice" aria-hidden="true"></svg></div>
+          <div class="body"><h3>Agency</h3><p>Helps systems turn judgment into responsible action: identity, delegation, permissions, verification, human oversight, escalation, and accountability.</p></div>
+        </li>
+      </ul>
+      <p class="aside">The ambition is not to put one "wise AI" in charge. It is to make wiser behavior more achievable across many intelligent systems.</p>
+    </section>
+
+    <section id="principles">
+      <p class="label cap"><span class="no">08</span><span>—</span><span>How we work</span></p>
+      <div class="head"><h2>Principles for building.</h2></div>
+      <div class="principles">
+        <div><h3>Start with the ends</h3><p>Technology is a means. Begin with the human need, then ask whether technology is the right intervention.</p></div>
+        <div><h3>Treat wisdom as a practice</h3><p>A system is not wise because it sounds confident. Define observable behaviors, test them, study failures.</p></div>
+        <div><h3>Make uncertainty visible</h3><p>Separate what is known, inferred, assumed, disputed, and unknown. Confidence should be earned.</p></div>
+        <div><h3>Respect pluralism</h3><p>Human values differ and sometimes conflict. Surface the trade-offs instead of hiding them behind false neutrality.</p></div>
+        <div><h3>Preserve human agency</h3><p>Help people understand, choose, create, and act. Don't quietly replace their judgment.</p></div>
+        <div><h3>Design for consequence</h3><p>Consider who is affected, what happens downstream, what can be reversed, and what could go wrong.</p></div>
+        <div><h3>Make trust operational</h3><p>Permissions, provenance, verification, and human control are design requirements, not afterthoughts.</p></div>
+        <div><h3>Learn from the world</h3><p>Judge systems by real outcomes and lived experience, not internal benchmarks or polished demos.</p></div>
+        <div><h3>Think past the near term</h3><p>Consider future generations, institutions, ecosystems, and what happens when intelligence is concentrated or shared.</p></div>
+      </div>
+    </section>
+
+    <section id="labs">
+      <p class="label cap"><span class="no">09</span><span>—</span><span>Labs</span></p>
+      <div class="labs">
+        <div class="head"><h2>Pentaliminal Labs</h2></div>
+        <div class="body">
+          <p>Labs is where we study cognition and wisdom, test design hypotheses, develop evaluation methods, and prototype infrastructure.</p>
+          <p>We publish research and essays, build experimental systems, and contribute open-source work where it helps. Research informs what we build, and building shows us what we still don't understand.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="close">
+      <div class="close-fig"><canvas class="dissolve" id="dissolve" tabindex="0" role="slider" aria-orientation="vertical" aria-valuemin="8" aria-valuemax="100" aria-valuenow="60" aria-label="Threshold through the Pentaliminal monogram. Below the bar, the mark breaks apart into dust. Use the up and down arrow keys to move it."></canvas></div>
+      <div>
+        <h2>The future of intelligence is not about machines that do more. It is about systems that help us understand what is worth doing.</h2>
+        <p>Pentaliminal exists to work at that threshold, with scientific curiosity, philosophical seriousness, and engineering discipline.</p>
+      </div>
+    </section>
+  </main>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="tblock">
+      <div class="tb-mark"><svg class="mono" aria-hidden="true"><use href="#mono"/></svg></div>
+      <div class="tb-wide"><span class="cap">Pentaliminal</span><b>Infrastructure for wise intelligence</b><i>Beyond intelligence. Toward wisdom.</i></div>
+      <div><span class="cap">About</span><nav aria-label="About"><a href="#intersection">Intersection</a><a href="#charter">Charter</a><a href="#thesis">Thesis</a><a href="#lenses">Five lenses</a></nav></div>
+      <div><span class="cap">Work</span><nav aria-label="Work"><a href="#framework">Framework</a><a href="#problems">Problem wisdom</a><a href="#infrastructure">Infrastructure</a><a href="#labs">Labs</a></nav></div>
+      <div class="tb-end"><span class="cap">© 2026 Pentaliminal</span><a href="#top">Back to top</a></div>
+    </div>
+  </div>
+</footer>
