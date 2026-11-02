@@ -203,10 +203,34 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .tl-fx .ch { display: inline-block; overflow: hidden; vertical-align: bottom; white-space: pre; text-align: center; }
 .tl-fx .ch.busy { color: var(--ink-3); }
 /* label: an ink tag wipes in behind the words, which turn to paper; on hover it lifts like the buttons */
-.tagline [data-fx="label"] { position: relative; display: inline-block; margin-left: .05em; padding: 0 .22em; transition: transform .16s var(--ease-out), box-shadow .16s var(--ease-out); }
+/* On hover the tag lifts and casts a drawn shadow: the same block pushed back along the 30° axis, shaded in
+   halftone dots, outlined, with its two corner edges drawn in, like the isometric solids elsewhere on the page. */
+.tagline [data-fx="label"] {
+  --dx: .26em; --dy: .15em; /* 30° depth */
+  position: relative; isolation: isolate; display: inline-block; margin-left: .05em; padding: 0 .22em;
+  transition: transform .45s var(--ease-out);
+}
 .tagline [data-fx="label"] .tl-ink { position: absolute; inset: 0; padding: 0 .22em; color: var(--paper); background: var(--ink); }
-@media (hover: hover) { .tagline [data-fx="label"]:hover { transform: translate(-2px, -2px); box-shadow: 2px 2px 0 var(--ink-3); } }
-.tagline [data-fx="label"].lift { transform: translate(-2px, -2px); box-shadow: 2px 2px 0 var(--ink-3); }
+.tagline [data-fx="label"]::before, .tagline [data-fx="label"]::after {
+  content: ""; position: absolute; z-index: -1; pointer-events: none; opacity: 0;
+  transition: opacity .45s var(--ease-out), transform .45s var(--ease-out);
+}
+/* the cast block: outlined, filled with the site's halftone */
+.tagline [data-fx="label"]::before {
+  inset: 0; border: 1px solid var(--ink);
+  background: radial-gradient(circle, var(--ink) .8px, transparent 1.15px) 0 0 / 4px 4px;
+}
+/* the two edges joining the tag's corners to the cast block's */
+.tagline [data-fx="label"]::after {
+  top: 0; left: 0; right: calc(-1 * var(--dx)); bottom: calc(-1 * var(--dy));
+  background:
+    linear-gradient(to top right, transparent calc(50% - .6px), var(--ink) calc(50% - .6px), var(--ink) calc(50% + .6px), transparent calc(50% + .6px)) right top / var(--dx) var(--dy) no-repeat,
+    linear-gradient(to top right, transparent calc(50% - .6px), var(--ink) calc(50% - .6px), var(--ink) calc(50% + .6px), transparent calc(50% + .6px)) left bottom / var(--dx) var(--dy) no-repeat;
+}
+.tagline [data-fx="label"].in:hover, .tagline [data-fx="label"].in.lift { transform: translate(calc(-.35 * var(--dx)), calc(-.35 * var(--dy))); }
+.tagline [data-fx="label"].in:hover::before, .tagline [data-fx="label"].in.lift::before { opacity: 1; transform: translate(var(--dx), var(--dy)); }
+.tagline [data-fx="label"].in:hover::after, .tagline [data-fx="label"].in.lift::after { opacity: 1; transition-delay: .12s; }
+@media (hover: none) { .tagline [data-fx="label"].in:hover:not(.lift) { transform: none; } .tagline [data-fx="label"].in:hover:not(.lift)::before, .tagline [data-fx="label"].in:hover:not(.lift)::after { opacity: 0; transform: none; } }
 @media (prefers-reduced-motion: no-preference) {
   .tagline [data-fx="label"] .tl-ink { clip-path: inset(0 100% 0 0); }
   .tagline [data-fx="label"].in .tl-ink { clip-path: inset(0 0 0 0); transition: clip-path .75s var(--ease-io); }

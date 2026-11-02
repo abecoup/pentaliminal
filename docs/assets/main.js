@@ -780,7 +780,7 @@
           on(host, "pointerdown", function (e) {
             if (e.pointerType === "mouse") return;
             host.classList.add("lift"); clearTimeout(drop);
-            drop = setTimeout(function () { host.classList.remove("lift"); }, 450);
+            drop = setTimeout(function () { host.classList.remove("lift"); }, 1100);
           });
         } else if (fx === "decode") {
           var d = decoder(host, text);
