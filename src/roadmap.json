@@ -1,5 +1,5 @@
 {
-  "_note": "Status data for /roadmap/ and the roadmap strip on the home page. To move a product along, set its \"stage\" to the key of the stage it is in now and rebuild (python3 tools/build.py). \"now\": true marks the phase the team is focused on. A gate's \"passed\": true fills its diamond. Product copy and figures live in src/roadmap.html.",
+  "_note": "Status data for /roadmap/ and the roadmap strip on the home page. Each product sits in a horizon (now, next or later) and a stage. To move a product along, change its \"stage\" (planning, designing, building, testing or live) or its \"horizon\", update \"updated\", and rebuild (python3 tools/build.py). Copy and the Trust figure live in src/roadmap.html.",
   "updated": "November 2026",
   "stages": [
     { "key": "planning",  "name": "Planning",  "status": "Planning",           "means": "Deciding what it is for, who it serves and what the first version must do." },
@@ -8,15 +8,21 @@
     { "key": "testing",   "name": "Testing",   "status": "In early testing",   "means": "A first version is with a small group of early users." },
     { "key": "live",      "name": "Live",      "status": "Available",          "means": "Anyone can use it." }
   ],
-  "phases": [
-    { "id": "trust",    "name": "Trust",       "full": "Pentaliminal Trust",    "short": "Agent ledger first",          "stage": "designing", "now": true,
-      "gate": { "label": "Partners pay",     "passed": false } },
-    { "id": "notebook", "name": "Notebook",    "full": "Pentaliminal Notebook", "short": "Learn what you save",         "stage": "building",  "now": false,
-      "gate": { "label": "Daily use",        "passed": false } },
-    { "id": "rhetor",   "name": "Rhetor",      "full": "Pentaliminal Rhetor",   "short": "A practice room for speaking", "stage": "planning",  "now": false,
-      "gate": { "label": "Skills improve",   "passed": false } },
-    { "id": "forum",    "name": "Forum",       "full": "Pentaliminal Forum",    "short": "Live, kept, mapped",          "stage": "planning",  "now": false,
-      "gate": { "label": "Listeners return", "passed": false } },
-    { "id": "memory",   "name": "Open memory", "full": "The shared memory",     "short": "A standard and an API",        "stage": "planning",  "now": false }
+  "horizons": [
+    { "key": "now",   "name": "Now",   "says": "What we are building first" },
+    { "key": "next",  "name": "Next",  "says": "Taking shape alongside it" },
+    { "key": "later", "name": "Later", "says": "Further out" }
+  ],
+  "products": [
+    { "id": "trust",    "name": "Trust",    "full": "Pentaliminal Trust",    "horizon": "now",   "stage": "designing",
+      "line": "Proof, provenance and protection for every AI action in a company." },
+    { "id": "notebook", "name": "Notebook", "full": "Pentaliminal Notebook", "horizon": "next",  "stage": "building",
+      "line": "An AI-native notebook built for learning, not just storing." },
+    { "id": "rhetor",   "name": "Rhetor",   "full": "Pentaliminal Rhetor",   "horizon": "later", "stage": "planning",
+      "line": "A practice room for speaking, communicating and telling stories." },
+    { "id": "forum",    "name": "Forum",    "full": "Pentaliminal Forum",    "horizon": "later", "stage": "planning",
+      "line": "A home for live debates, talks and podcasts about hard questions." },
+    { "id": "memory",   "name": "An open shared memory", "full": "An open shared memory", "horizon": "later", "stage": "planning",
+      "line": "Opening up the memory our products share, so other AI systems can build on it too." }
   ]
 }

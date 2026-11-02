@@ -96,19 +96,19 @@ Halftone dots stand in for the spec's flat grey: 7-unit dot pattern (4 units at 
 
 ## Roadmap page (`/roadmap/`)
 
-A second page, linked from section 07 (a compact strip of the five phases and a button) and from the footer. It shares the header style, footer, mesh and theme; page-specific scripts skip themselves when their figures aren't on the page.
+A second page, linked from section 07 (a compact Now / Next / Later strip and a button) and from the footer. It shares the header style, footer, mesh and theme; page-specific scripts skip themselves when their figures aren't on the page.
+
+It shows direction, not a blueprint: detail only for what's being built now, a line each for the rest.
 
 | Part | Details |
 |---|---|
-| Progress track | Five stages on one line: Planning, Designing, Building, Testing, Live. Stages done are solid ink diamonds on a solid line; the current stage is a larger halftone diamond; stages ahead are hollow, on a dashed line. Each product also shows a plain status label ("Being designed", "Under construction"), and the phase in focus carries an ink "Focus now" tag. |
-| Phase strip | Five phase cards joined by a dashed line, with a diamond for each gate (the test a phase must pass first) and its name under it. A passed gate is filled. The phase in focus is raised like a pressed block. Vertical on narrow screens. |
-| Trust figure | Three rows: protection (a threshold bar that stops AI nobody invited; your own agents inside a dashed boundary), provenance (person → agent → tool calls → records, all joined by one line into the ledger), proof (ledger → review → reports). The ledger is the ink-filled key node. |
-| Notebook figure | The five jobs on the corners of a pentagon around "your knowledge". Dashed edges, because the jobs have no fixed order. Learn is the key node. Hovering a row in the list beside it thickens its corner. |
-| Rhetor figure | Study → imitate → compare → drill, with a return line from drill to imitate ("repeat until it sticks"). |
-| Forum figure | Live → kept → mapped → followed, ending in the Notebook. |
-| Shared memory figure | The four products over one slab holding the four shared objects, with a halftone side for depth. A line over the top shows the loop. Below it, the five claim statuses as swatches: solid, halftone, dashed, hatched, dotted. |
+| Overview | Three ruled columns: Now, Next, Later. Now has a heavier top rule. Now and Next show a small progress track; Later shows a status per product. Each column links to its section. |
+| Progress track | Five stages on one line: Planning, Designing, Building, Testing, Live. Stages done are solid ink diamonds on a solid line; the current stage is a larger halftone diamond; stages ahead are hollow, on a dashed line. Each product also shows a plain status label ("Being designed", "Under construction"). |
+| Now: Trust | Name, one line, the track, then the figure: protection (a threshold bar that keeps out AI nobody invited; your own agents inside a dashed boundary), provenance (person → agent → tool calls → records, joined by one line into the ledger), proof (ledger → review → reports). The ledger is the one ink-filled node. Then who it's for, what it does, and an invitation to get in touch. |
+| Next: Notebook | Name, one line, the track. |
+| Later | One sentence on the shared memory, then a ruled list with a line and a status per product, and an invitation to ask about what's further out. |
 
-Only one ink-filled node per figure. No accent color here either.
+No accent color here either.
 
 ## Layout
 

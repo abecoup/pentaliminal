@@ -7,8 +7,8 @@ The website for Pentaliminal: infrastructure for wise intelligence. Live at **ht
 | Path | What it is |
 |---|---|
 | `src/body.html` | Home page markup. `{{MONO_*}}` and `{{WM_*}}` placeholders are filled with the traced brand paths at build time. |
-| `src/roadmap.html` | Roadmap page markup (`/roadmap/`): copy and figures for each phase. |
-| `src/roadmap.json` | Roadmap status: each product's stage, which phase is the current focus, and whether each gate is passed. Feeds the roadmap page and the strip in section 07. |
+| `src/roadmap.html` | Roadmap page markup (`/roadmap/`): Now, Next, Later, and the Trust figure. |
+| `src/roadmap.json` | Roadmap status: each product's horizon (now, next or later), its stage and its one-line description. Feeds the roadmap page and the strip in section 07. |
 | `src/partials/` | The brand symbols and the footer, shared by both pages. |
 | `src/styles.css` | All styles. Design tokens (colors, type) are at the top; light and dark themes. |
 | `src/main.js` | All behavior. Vanilla JS, no dependencies. Each feature is a small module started from `boot()`; one failing module can't take down the rest, and animation loops stop when off screen, paused or reduced. |
@@ -48,9 +48,9 @@ After DNS resolves, tick **Enforce HTTPS** in Settings → Pages.
 
 ## Updating the roadmap
 
-Progress lives in `src/roadmap.json`. To move a product along, set its `"stage"` to one of `planning`, `designing`, `building`, `testing` or `live`; set `"now": true` on the phase the team is focused on; set a gate's `"passed": true` once it's met. Change `"updated"` to the current month. Then rebuild. The roadmap page and the home page strip both update from the same file.
+Progress lives in `src/roadmap.json`. To move a product along, set its `"stage"` to one of `planning`, `designing`, `building`, `testing` or `live`. To move it between sections, set its `"horizon"` to `now`, `next` or `later`. Change `"updated"` to the current month, then rebuild. The roadmap page and the home page strip both update from the same file.
 
-Copy and figures for each product are in `src/roadmap.html`.
+The page is deliberately light on detail beyond what's being built now: Trust gets a figure and specifics, Notebook a line, and the later products a line each. The Trust copy and figure are in `src/roadmap.html`.
 
 ## Behavior worth knowing
 

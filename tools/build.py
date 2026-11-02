@@ -9,7 +9,6 @@ Outputs
 Usage: python3 tools/build.py
 """
 import json
-import math
 import re
 import pathlib
 import shutil
@@ -97,53 +96,62 @@ def brand_body():
 
 
 # ---------- the roadmap page ----------
-# Status lives in src/roadmap.json; copy and figures live in src/roadmap.html.
+# Status lives in src/roadmap.json; copy and the Trust figure live in src/roadmap.html.
 
 def load_roadmap():
     data = json.loads(read("roadmap.json"))
-    keys = [s["key"] for s in data["stages"]]
-    for ph in data["phases"]:
-        assert ph["stage"] in keys, f'{ph["id"]}: unknown stage "{ph["stage"]}" (use one of {keys})'
+    stages = [s["key"] for s in data["stages"]]
+    horizons = [h["key"] for h in data["horizons"]]
+    for pr in data["products"]:
+        assert pr["stage"] in stages, f'{pr["id"]}: unknown stage "{pr["stage"]}" (use one of {stages})'
+        assert pr["horizon"] in horizons, f'{pr["id"]}: unknown horizon "{pr["horizon"]}" (use one of {horizons})'
     return data
 
 
-def stage_index(data, key):
-    return [s["key"] for s in data["stages"]].index(key)
+def stage_of(data, key):
+    i = [s["key"] for s in data["stages"]].index(key)
+    return i, data["stages"][i]
+
+
+def in_horizon(data, key):
+    return [pr for pr in data["products"] if pr["horizon"] == key]
 
 
 def track(data, key, small=False):
     """The five-stage progress track: stages done are solid, the current one is shaded, the rest are dashed."""
-    at = stage_index(data, key)
-    name = data["stages"][at]["name"]
+    at, stage = stage_of(data, key)
     items = []
     for i, s in enumerate(data["stages"]):
         state = "done" if i < at else "now" if i == at else "ahead"
         label = "" if small else f'<span class="cap">{s["name"]}</span>'
         items.append(f'<li class="{state}"><i></i>{label}</li>')
     cls = "track sm" if small else "track"
-    return (f'<div class="{cls}" role="img" aria-label="Progress: stage {at + 1} of {len(data["stages"])}, {name.lower()}">'
+    return (f'<div class="{cls}" role="img" aria-label="Progress: stage {at + 1} of {len(data["stages"])}, {stage["name"].lower()}">'
             f'<ol aria-hidden="true">{"".join(items)}</ol></div>')
 
 
-def chip(data, ph):
-    s = data["stages"][stage_index(data, ph["stage"])]
-    now = '<span class="now-tag cap">Focus now</span>' if ph.get("now") else ""
-    return f'<p class="chip cap"><span class="dm" aria-hidden="true"></span>{s["status"]}{now}</p>'
+def chip(data, pr):
+    _, s = stage_of(data, pr["stage"])
+    return f'<p class="chip cap"><span class="dm" aria-hidden="true"></span>{s["status"]}</p>'
 
 
-def phase_cards(data):
+def horizon_cols(data):
+    """The overview: one ruled column each for now, next and later."""
     out = []
-    for n, ph in enumerate(data["phases"], 1):
-        now = " now" if ph.get("now") else ""
-        out.append(f'        <li class="ph{now}"><a href="#{ph["id"]}"><span class="ph-no cap">Phase {n}</span>'
-                   f'<b>{ph["name"]}</b><i>{ph["short"]}</i>{track(data, ph["stage"], small=True)}'
-                   f'{chip(data, ph)}</a></li>')
-        gate = ph.get("gate")
-        if gate:
-            passed = " passed" if gate.get("passed") else ""
-            out.append(f'        <li class="gate{passed}" aria-label="Gate: {gate["label"]}"><i aria-hidden="true"></i>'
-                       f'<span class="cap">{gate["label"]}</span></li>')
+    for h in data["horizons"]:
+        items = []
+        for pr in in_horizon(data, h["key"]):
+            tr = track(data, pr["stage"], small=True) if h["key"] != "later" else ""
+            items.append(f'<li><b>{pr["name"]}</b>{tr}{chip(data, pr)}</li>')
+        now = " now" if h["key"] == "now" else ""
+        out.append(f'        <li class="hz{now}"><a href="#{h["key"]}"><span class="hz-k cap">{h["name"]}</span>'
+                   f'<span class="hz-s">{h["says"]}</span><ul>{"".join(items)}</ul></a></li>')
     return "\n".join(out)
+
+
+def later_list(data):
+    return "\n".join(f'        <li><b>{pr["name"]}</b><span>{pr["line"]}</span>{chip(data, pr)}</li>'
+                     for pr in in_horizon(data, "later"))
 
 
 def legend(data):
@@ -151,49 +159,34 @@ def legend(data):
 
 
 def roadmap_strip(data, link):
-    """The compact roadmap row on the home page (section 07)."""
-    items = []
-    for n, ph in enumerate(data["phases"], 1):
-        s = data["stages"][stage_index(data, ph["stage"])]
-        now = " now" if ph.get("now") else ""
-        items.append(f'<li class="{now.strip()}"><span class="ph-no cap">{n:02d}</span><b>{ph["name"]}</b>'
-                     f'<span class="st cap"><span class="dm" aria-hidden="true"></span>{s["status"]}</span></li>')
+    """The compact roadmap row on the home page (section 07): now, next, later."""
+    cols = []
+    for h in data["horizons"]:
+        prs = in_horizon(data, h["key"])
+        names = [pr["name"] if i == 0 else pr["name"][0].lower() + pr["name"][1:] if pr["name"].startswith("An ") else pr["name"]
+                 for i, pr in enumerate(prs)]
+        names = names[0] if len(names) == 1 else ", ".join(names[:-1]) + " and " + names[-1]
+        if h["key"] == "later":
+            st = ""
+        else:
+            _, s = stage_of(data, prs[0]["stage"])
+            st = f'<span class="st cap"><span class="dm" aria-hidden="true"></span>{s["status"]}</span>'
+        now = ' class="now"' if h["key"] == "now" else ""
+        cols.append(f'<li{now}><span class="ph-no cap">{h["name"]}</span><b>{names}</b>{st}</li>')
     return (f'<div class="rm-strip"><div class="rs-head"><p class="cap">Roadmap</p>'
-            f'<h3>Five phases, one product at a time.</h3></div><ol>{"".join(items)}</ol>'
+            f'<h3>What we’re building.</h3></div><ol>{"".join(cols)}</ol>'
             f'<a class="btn ghost" href="{link}">See the roadmap</a></div>')
-
-
-def nb_figure():
-    """Notebook: five jobs on the corners of a pentagon around your knowledge. Edges dashed: there's no fixed order."""
-    cx, cy, r = 230, 216, 160
-    jobs = [("gather", "Gather"), ("connect", "Connect"), ("apply", "Apply"), ("learn", "Learn"), ("find", "Find")]
-    pts = [(cx + r * math.cos(-math.pi / 2 + i * 2 * math.pi / 5), cy + r * math.sin(-math.pi / 2 + i * 2 * math.pi / 5)) for i in range(5)]
-    poly = " ".join(f"{x:.1f},{y:.1f}" for x, y in pts)
-    g = [f'<svg class="nb-fig" viewBox="0 0 460 420" role="img" aria-label="A pentagon with your knowledge at the center '
-         f'and five jobs at its corners: gather, connect, apply, learn and find. The edges are dashed because the jobs '
-         f'have no fixed order.">',
-         f'<polygon class="nb-ring" points="{poly}"/>']
-    for x, y in pts:
-        g.append(f'<line class="nb-spoke" x1="{cx}" y1="{cy}" x2="{x:.1f}" y2="{y:.1f}"/>')
-    g.append(f'<rect class="nb-core" x="{cx - 88}" y="{cy - 33}" width="176" height="66"/>'
-             f'<text class="nb-ct" x="{cx}" y="{cy - 3}">Your knowledge</text>'
-             f'<text class="nb-cs" x="{cx}" y="{cy + 19}">AI helps at every step</text>')
-    for (key, label), (x, y) in zip(jobs, pts):
-        w = 118
-        g.append(f'<g class="nb-v v-{key}"><rect x="{x - w / 2:.1f}" y="{y - 19:.1f}" width="{w}" height="38"/>'
-                 f'<text x="{x:.1f}" y="{y + 6:.1f}">{label}</text></g>')
-    g.append("</svg>")
-    return "".join(g)
 
 
 def roadmap_body():
     data = load_roadmap()
     values = page_values("../", "./")
-    values.update({"{{UPDATED}}": data["updated"], "{{PHASES}}": phase_cards(data), "{{LEGEND}}": legend(data),
-                   "{{NB_FIG}}": nb_figure()})
-    for ph in data["phases"]:
-        values["{{TRACK:" + ph["id"] + "}}"] = track(data, ph["stage"])
-        values["{{STATUS:" + ph["id"] + "}}"] = chip(data, ph)
+    values.update({"{{UPDATED}}": data["updated"], "{{HORIZONS}}": horizon_cols(data), "{{LEGEND}}": legend(data),
+                   "{{LATER}}": later_list(data)})
+    for pr in data["products"]:
+        values["{{TRACK:" + pr["id"] + "}}"] = track(data, pr["stage"])
+        values["{{STATUS:" + pr["id"] + "}}"] = chip(data, pr)
+        values["{{LINE:" + pr["id"] + "}}"] = pr["line"]
     return fill(read("roadmap.html"), values)
 
 
@@ -243,8 +236,7 @@ def site_head(title=TITLE, description=DESCRIPTION, url=SITE_URL, base=""):
 
 
 ROADMAP_TITLE = "Roadmap: Pentaliminal"
-ROADMAP_DESCRIPTION = ("What Pentaliminal is building first and where each product stands: Trust, Notebook, Rhetor, "
-                       "Forum, and an open shared memory.")
+ROADMAP_DESCRIPTION = "What Pentaliminal is building now, what comes next, and where each product stands."
 
 
 def build_site(home, roadmap):
