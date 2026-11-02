@@ -16,8 +16,13 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 SRC, DIST, ART = ROOT / "src", ROOT / "docs", ROOT / "dist-artifact"
 
 SITE_URL = "https://pentaliminal.ai/"
-# Where "Your question" messages are delivered (through formsubmit.co; the first message triggers a one-time confirmation email).
-CONTACT_EMAIL = "hello@pentaliminal.ai"
+# "Your question" messages are delivered through formsubmit.co.
+# FORM_ID: the inbox address, or (better) the random alias FormSubmit issues after the one-time confirmation,
+#          which keeps the real address out of the page.
+# FALLBACK_MAIL: an address shown as an email link if sending ever fails; leave empty to keep every address
+#          out of the page (people are then asked to try again).
+FORM_ID = "783e6483245d4136aafd0ce7d705c0b8"
+FALLBACK_MAIL = "783e6483245d4136aafd0ce7d705c0b8"
 TITLE = "Pentaliminal: Infrastructure for wise intelligence"
 DESCRIPTION = ("Pentaliminal advances the science and engineering of wise intelligence: infrastructure that helps AI "
                "understand context, recognize uncertainty, consider what matters, and act responsibly.")
@@ -55,7 +60,7 @@ def brand_body():
     for key, val in {
         "{{MONO_BODY}}": mono["body"], "{{MONO_SHADE}}": mono["shade"], "{{MONO_INK}}": mono["ink"],
         "{{WM_VB}}": f"{x0 - 2} {y0 - 2} {x1 - x0 + 4} {y1 - y0 + 4}", "{{WM_WH}}": f"{x1 - x0 + 4} {y1 - y0 + 4}",
-        "{{WM_D}}": wm["d"], "{{CONTACT_EMAIL}}": CONTACT_EMAIL,
+        "{{WM_D}}": wm["d"], "{{FORM_ID}}": FORM_ID, "{{FALLBACK_MAIL}}": FALLBACK_MAIL,
     }.items():
         body = body.replace(key, val)
     assert "{{" not in body, "unfilled placeholder in body.html"

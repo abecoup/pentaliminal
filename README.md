@@ -49,6 +49,13 @@ After DNS resolves, tick **Enforce HTTPS** in Settings → Pages.
 - **Theme.** Light or dark follows the system until the visitor picks one with the header button; the choice is remembered and applied before first paint.
 - **Fonts.** Archivo is served from the site itself (no third-party font request). The claude.ai preview build uses Google Fonts instead.
 
+## Contact form
+
+The "Your question" section sends through [FormSubmit](https://formsubmit.co) (free, no account). The address is set at the top of `tools/build.py`:
+
+- `FORM_ID`: where messages go. The first message to a new address sends a one-time confirmation email; click it to activate. FormSubmit then provides a random alias: put that in `FORM_ID` so the real address isn't in the page.
+- `FALLBACK_MAIL`: shown as an email link if sending fails. Set it to `""` to keep every address out of the page.
+
 ## Design
 
 See `DESIGN.md` for the design system: tokens, type, figures, motion rules and the brand foundations.

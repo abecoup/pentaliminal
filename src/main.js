@@ -936,7 +936,11 @@
           signal: window.AbortSignal && AbortSignal.timeout ? AbortSignal.timeout(15000) : undefined
         }).then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { if (!r.ok || String(j.success) !== "true") throw new Error(j.message || r.status); }); })
           .then(function () { if (alive()) showDone(question, from, email.value.trim()); })
-          .catch(function () { if (alive()) say("That didn’t go through on our end.", { href: mailLink(), text: "Send it by email instead" }); })
+          .catch(function () {
+            if (!alive()) return;
+            if (form.getAttribute("data-mail")) say("That didn’t go through on our end.", { href: mailLink(), text: "Send it by email instead" });
+            else say("That didn’t go through on our end. Your question is still here; please try again in a moment.");
+          })
           .then(function () { form.classList.remove("sending"); sendLabel.textContent = "Send the question"; });
       });
 
