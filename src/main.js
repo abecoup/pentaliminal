@@ -178,7 +178,7 @@
 
     // a previous boot may have drawn into these; start every figure from an empty slate
     ["#construct .hf-base", "#meetFig", "#lensFig", "#artOrientation", "#artCognitive", "#artAgency"].forEach(function (q) { var n = document.querySelector(q); if (n) n.innerHTML = ""; });
-    document.querySelectorAll(".construct .hf-layer, .tw-cv, .tw-base").forEach(function (n) { n.remove(); });
+    document.querySelectorAll(".construct .hf-layer").forEach(function (n) { n.remove(); });
     document.querySelectorAll(".glyph").forEach(function (n) { n.innerHTML = ""; });
     document.querySelectorAll(".rv").forEach(function (n) { n.classList.remove("rv", "pre"); n.style.removeProperty("--d"); });
 
@@ -752,91 +752,6 @@
         entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.remove("pre"); io.unobserve(e.target); } });
       }, { rootMargin: "0px 0px -10% 0px" });
       todo.forEach(function (n) { io.observe(n); });
-    });
-
-    /* ---------- "Toward wisdom.": crisp type with isometric depth, shaded in halftone ---------- */
-    // The words stay real, solid text. Behind them, a 30° extrusion (like the monogram's shaded faces)
-    // is drawn as a dot screen: dots are largest where the side meets the letter and shrink as it recedes.
-    mount("towardWisdom", function () {
-      var host = document.querySelector(".tagline .tl-b"); if (!host) return;
-      var text = host.textContent.trim().toUpperCase();
-      var cv = document.createElement("canvas"), base = document.createElement("span");
-      cv.className = "tw-cv"; cv.setAttribute("aria-hidden", "true");
-      base.className = "tw-base"; base.setAttribute("aria-hidden", "true");
-      host.classList.add("tw"); host.appendChild(base); host.appendChild(cv);
-      var ctx = cv.getContext("2d"), dots = [], W = 0, H = 0, depth = 0, goal = 0, built = "";
-      var DX = Math.cos(Math.PI / 6), DY = Math.sin(Math.PI / 6), REST = 0.72;
-
-      function build() {
-        var cs = getComputedStyle(host), fs = parseFloat(cs.fontSize);
-        var r = host.getBoundingClientRect(), b = base.getBoundingClientRect();
-        if (!r.width) return false;
-        var textW = b.left - r.left, baseY = b.top - r.top, key = [textW, baseY, fs].map(Math.round).join("x");
-        if (key === built) return true; // nothing changed
-        built = key;
-        var reach = fs * 0.36, pad = Math.ceil(reach + 4), d = Math.min(window.devicePixelRatio || 1, 3);
-        W = Math.ceil(textW) + pad * 2; H = Math.ceil(r.height) + pad * 2;
-        cv.width = Math.round(W * d); cv.height = Math.round(H * d);
-        cv.style.cssText = "width:" + W + "px;height:" + H + "px;left:" + -pad + "px;top:" + -pad + "px";
-        ctx.setTransform(d, 0, 0, d, 0, 0);
-        // the letters, drawn large offscreen in the page's own face and fitted to the real text's width
-        var K = 3, off = document.createElement("canvas"); off.width = W * K; off.height = H * K;
-        var o = off.getContext("2d", { willReadFrequently: true });
-        o.font = cs.fontStyle + " " + cs.fontWeight + " " + (fs * K) + "px " + cs.fontFamily;
-        if ("fontStretch" in o) o.fontStretch = "condensed";
-        if ("letterSpacing" in o) o.letterSpacing = (0.02 * fs * K) + "px";
-        var sx = (textW * K) / (o.measureText(text).width || 1);
-        o.fillStyle = "#000"; o.textBaseline = "alphabetic";
-        // stack copies pushed back along the 30° axis; record how deep each cell is first covered
-        var pitch = Math.max(1.6, fs / 13), cols = Math.floor(W / pitch), rows = Math.floor(H / pitch), at = new Float32Array(cols * rows).fill(-1);
-        function stamp(dd, level) {
-          o.setTransform(sx, 0, 0, 1, (pad + dd * DX) * K, dd * DY * K);
-          o.fillText(text, 0, (baseY + pad) * K);
-          var data = o.getImageData(0, 0, off.width, off.height).data;
-          for (var j = 0; j < rows; j++) for (var i = 0; i < cols; i++) {
-            var k = j * cols + i; if (at[k] >= 0) continue;
-            if (data[(Math.floor((j + 0.5) * pitch * K) * off.width + Math.floor((i + 0.5) * pitch * K)) * 4 + 3] > 100) at[k] = level;
-          }
-        }
-        stamp(0, 0); // the letter faces themselves: the real text covers these
-        var steps = Math.ceil(reach / (pitch * 0.5));
-        for (var s = 1; s <= steps; s++) stamp(reach * s / steps, s / steps);
-        dots = [];
-        for (var j = 0; j < rows; j++) for (var i = 0; i < cols; i++) {
-          var v = at[j * cols + i];
-          if (v > 0) dots.push({ x: (i + 0.5) * pitch, y: (j + 0.5) * pitch, z: v, r: pitch * 0.36 * (1 - v * 0.6) });
-        }
-        return true;
-      }
-      function draw() {
-        ctx.clearRect(0, 0, W, H); ctx.fillStyle = C.ink; ctx.globalAlpha = 0.72; ctx.beginPath();
-        dots.forEach(function (p) {
-          if (p.z > depth) return;
-          var r = p.r * Math.min(1, (depth - p.z) * 6 + 0.35);
-          ctx.moveTo(p.x + r, p.y); ctx.arc(p.x, p.y, r, 0, 6.2832);
-        });
-        ctx.fill();
-      }
-      var start = animator(function (dt) {
-        depth += (goal - depth) * Math.min(1, dt * 0.0042);
-        if (Math.abs(goal - depth) < 0.002) depth = goal;
-        draw();
-      }, function () { return depth !== goal; });
-      function to(v) { goal = v; if (motion.reduced) { depth = v; draw(); } else start(); }
-
-      var tagline = host.parentNode;
-      on(tagline, "pointerenter", function (e) { if (e.pointerType === "mouse") to(1); });
-      on(tagline, "pointerleave", function () { to(REST); });
-      themeHandlers.push(draw);
-      (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(function () {
-        if (!alive() || !build()) return;
-        if (motion.reduced) { depth = goal = REST; draw(); return; }
-        depth = 0; draw();
-        setTimeout(function () { if (alive()) to(REST); }, 650);
-        var wait = 0;
-        var ro = observer("ResizeObserver", function () { clearTimeout(wait); wait = setTimeout(function () { if (alive() && build()) draw(); }, 80); });
-        if (ro) ro.observe(tagline);
-      });
     });
 
     /* ---------- 10 your question: the contact form ---------- */
