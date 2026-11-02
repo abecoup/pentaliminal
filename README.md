@@ -49,6 +49,10 @@ After DNS resolves, tick **Enforce HTTPS** in Settings → Pages.
 - **Theme.** Light or dark follows the system until the visitor picks one with the header button; the choice is remembered and applied before first paint.
 - **Fonts.** Archivo is served from the site itself (no third-party font request). The claude.ai preview build uses Google Fonts instead.
 
+## Hero tagline
+
+`TAGLINE_A_FX` and `TAGLINE_B_FX` at the top of `tools/build.py` set how each half of "Beyond intelligence. Toward wisdom." arrives: `"decode"` (resolves out of drafting marks, letter by letter, and again on hover), `"label"` (an ink tag wipes in behind it) or `"none"`. Rebuild after changing them.
+
 ## Contact form
 
 The "Your question" section sends through [FormSubmit](https://formsubmit.co) (free, no account). The address is set at the top of `tools/build.py`:

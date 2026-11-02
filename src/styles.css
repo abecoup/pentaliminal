@@ -192,6 +192,18 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .tagline { margin-top: 1.1rem; white-space: nowrap; font-size: min(2.2vw, 2rem); font-size: min(5.45cqi, 34px); line-height: 1.15; font-weight: 650; }
 .tagline .tl-a { color: var(--ink-2); }
 .tagline .tl-b { color: var(--ink); }
+/* decode: each letter is a fixed-width cell, so the drafting marks it cycles through never shift the line */
+.tl-fx { display: inline-block; }
+.tl-fx .ch { display: inline-block; overflow: hidden; vertical-align: bottom; white-space: pre; text-align: center; }
+.tl-fx .ch.busy { color: var(--ink-3); }
+/* label: an ink tag wipes in behind the words, which turn to paper; on hover it lifts like the buttons */
+.tagline [data-fx="label"] { position: relative; display: inline-block; margin-left: .05em; padding: 0 .22em; transition: transform .16s var(--ease-out), box-shadow .16s var(--ease-out); }
+.tagline [data-fx="label"] .tl-ink { position: absolute; inset: 0; padding: 0 .22em; color: var(--paper); background: var(--ink); }
+.tagline:hover [data-fx="label"] { transform: translate(-2px, -2px); box-shadow: 2px 2px 0 var(--ink-3); }
+@media (prefers-reduced-motion: no-preference) {
+  .tagline [data-fx="label"] .tl-ink { clip-path: inset(0 100% 0 0); }
+  .tagline [data-fx="label"].in .tl-ink { clip-path: inset(0 0 0 0); transition: clip-path .75s var(--ease-io); }
+}
 .meta { margin-top: 1.4rem; font-size: .9375rem; color: var(--ink-2); line-height: 1.35; }
 .hero hr { max-width: 640px; margin: 1.75rem 0; border: 0; border-top: 1px solid var(--ink); }
 .lede { max-width: 32rem; font-size: 1.25rem; line-height: 1.5; }

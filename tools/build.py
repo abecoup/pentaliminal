@@ -21,6 +21,10 @@ SITE_URL = "https://pentaliminal.ai/"
 #          which keeps the real address out of the page.
 # FALLBACK_MAIL: an address shown as an email link if sending ever fails; leave empty to keep every address
 #          out of the page (people are then asked to try again).
+# How each half of the hero tagline arrives. Either half can be "decode" (resolves out of drafting marks,
+# letter by letter), "label" (an ink tag wipes in behind it) or "none".
+TAGLINE_A_FX = "decode"   # "Beyond intelligence."
+TAGLINE_B_FX = "label"    # "Toward wisdom."
 FORM_ID = "783e6483245d4136aafd0ce7d705c0b8"
 FALLBACK_MAIL = ""
 TITLE = "Pentaliminal: Infrastructure for wise intelligence"
@@ -60,7 +64,7 @@ def brand_body():
     for key, val in {
         "{{MONO_BODY}}": mono["body"], "{{MONO_SHADE}}": mono["shade"], "{{MONO_INK}}": mono["ink"],
         "{{WM_VB}}": f"{x0 - 2} {y0 - 2} {x1 - x0 + 4} {y1 - y0 + 4}", "{{WM_WH}}": f"{x1 - x0 + 4} {y1 - y0 + 4}",
-        "{{WM_D}}": wm["d"], "{{FORM_ID}}": FORM_ID, "{{FALLBACK_MAIL}}": FALLBACK_MAIL,
+        "{{WM_D}}": wm["d"], "{{FORM_ID}}": FORM_ID, "{{TAGLINE_A_FX}}": TAGLINE_A_FX, "{{TAGLINE_B_FX}}": TAGLINE_B_FX, "{{FALLBACK_MAIL}}": FALLBACK_MAIL,
     }.items():
         body = body.replace(key, val)
     assert "{{" not in body, "unfilled placeholder in body.html"

@@ -754,6 +754,84 @@
       todo.forEach(function (n) { io.observe(n); });
     });
 
+    /* ---------- the tagline: how each half arrives ---------- */
+    // Each half carries data-fx (set in tools/build.py):
+    //   "decode": the words resolve out of drafting marks, one letter at a time, left to right; again on hover.
+    //   "label":  an ink tag wipes in behind the words (a copy of them in paper color sits on the tag).
+    // Order on load: the decode runs first, then the tag wipes in once it has finished.
+    mount("tagline", function () {
+      var line = document.querySelector(".tagline"); if (!line) return;
+      var MARKS = "/\\|+×◇─╱╲·#=";
+      var decoders = [], labels = [];
+
+      line.querySelectorAll("[data-fx]").forEach(function (host) {
+        var text = host.getAttribute("data-text") || host.textContent;
+        host.setAttribute("data-text", text);
+        host.textContent = text; // undo a previous boot's markup
+        host.classList.remove("in");
+        var fx = host.getAttribute("data-fx");
+        if (fx === "label") {
+          var ink = document.createElement("span"); ink.className = "tl-ink"; ink.setAttribute("aria-hidden", "true"); ink.textContent = text;
+          host.appendChild(ink);
+          labels.push(host);
+        } else if (fx === "decode") {
+          decoders.push(decoder(host, text));
+        }
+      });
+
+      function decoder(host, text) {
+        // screen readers get the words once; the animated letters are hidden from them
+        host.textContent = "";
+        var said = document.createElement("span"); said.className = "sr"; said.textContent = text; host.appendChild(said);
+        var box = document.createElement("span"); box.className = "tl-fx"; box.setAttribute("aria-hidden", "true"); host.appendChild(box);
+        var cells = text.split("").map(function (ch) {
+          var c = document.createElement("span"); c.className = "ch"; c.textContent = ch; box.appendChild(c);
+          return { el: c, ch: ch, still: ch === " " || ch === "." };
+        });
+        var timer = 0;
+        function settle() { clearInterval(timer); timer = 0; cells.forEach(function (c) { c.el.textContent = c.ch; c.el.classList.remove("busy"); }); }
+        signal.addEventListener("abort", settle);
+        return {
+          // lock each cell to its letter's width, in em so it scales with the line
+          lock: function () {
+            var fs = parseFloat(getComputedStyle(box).fontSize) || 16;
+            cells.forEach(function (c) { c.el.style.width = ""; });
+            cells.forEach(function (c) { c.el.style.width = (c.el.getBoundingClientRect().width / fs).toFixed(3) + "em"; });
+          },
+          busy: function () { return !!timer; },
+          duration: 120 + cells.length * 55,
+          run: function () {
+            if (motion.reduced || !alive()) return;
+            clearInterval(timer);
+            var t0 = performance.now();
+            timer = setInterval(function () {
+              if (!alive()) { settle(); return; }
+              var t = performance.now() - t0, left = false;
+              cells.forEach(function (c, i) {
+                if (c.still) return;
+                if (t < 120 + i * 55) { c.el.textContent = MARKS.charAt(Math.floor(Math.random() * MARKS.length)); c.el.classList.add("busy"); left = true; }
+                else if (c.el.classList.contains("busy")) { c.el.textContent = c.ch; c.el.classList.remove("busy"); }
+              });
+              if (!left) settle();
+            }, 45);
+          }
+        };
+      }
+
+      on(line, "pointerenter", function (e) {
+        if (e.pointerType !== "mouse") return;
+        decoders.forEach(function (d) { if (!d.busy()) d.run(); });
+      });
+      (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(function () {
+        if (!alive()) return;
+        decoders.forEach(function (d) { d.lock(); });
+        var start = 900; // after the wordmark has drawn in
+        var tagAt = start + decoders.reduce(function (a, d) { return Math.max(a, d.duration); }, 0) + 150;
+        setTimeout(function () { decoders.forEach(function (d) { d.run(); }); }, start);
+        setTimeout(function () { if (alive()) labels.forEach(function (l) { l.classList.add("in"); }); }, motion.reduced ? 0 : tagAt);
+      });
+    });
+
     /* ---------- 10 your question: the contact form ---------- */
     // Visitors pick "Ask a question" or "Leave a note". A question gets a drawn question mark after the last word
     // and is sent with one; a note is sent as written.
