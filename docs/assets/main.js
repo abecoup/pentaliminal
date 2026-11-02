@@ -1043,7 +1043,7 @@
         var sits = map.value(), sitsEl = document.getElementById("askSitsEcho");
         sitsEl.textContent = sits; sitsEl.hidden = !sits; done.querySelector(".t-sits-k").hidden = !sits;
         document.getElementById("askAfter").textContent = "Thank you. A person will read your " + (kind() === "question" ? "question" : "note") +
-          " and think it through, then write back to " + to + ". From there, we work on it together.";
+          " and think it through, then write back to " + to + ". If there\u2019s more to explore, we explore it with you.";
         form.hidden = true; done.hidden = false;
         done.classList.remove("in"); void done.offsetWidth; done.classList.add("in");
         done.focus({ preventScroll: true });
