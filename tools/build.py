@@ -91,8 +91,22 @@ def brand_body():
     """The home page body with the traced monogram and wordmark paths filled in."""
     values = page_values("", "roadmap/")
     values.update({"{{FORM_ID}}": FORM_ID, "{{TAGLINE_A_FX}}": TAGLINE_A_FX, "{{TAGLINE_B_FX}}": TAGLINE_B_FX,
-                   "{{FALLBACK_MAIL}}": FALLBACK_MAIL, "{{ROADMAP_STRIP}}": roadmap_strip(load_roadmap(), "roadmap/")})
+                   "{{FALLBACK_MAIL}}": FALLBACK_MAIL, "{{ROADMAP_STRIP}}": roadmap_strip(load_roadmap(), "roadmap/"),
+                   "{{PRODUCTS}}": products_body(load_roadmap())})
     return fill(read("body.html"), values)
+
+
+def products_body(data):
+    """V3: the product chapters. Status chips and horizons come from roadmap.json, like the roadmap page."""
+    values = {}
+    hz = {h["key"]: h["name"] for h in data["horizons"]}
+    for pr in data["products"]:
+        values["{{CHIP:" + pr["id"] + "}}"] = chip(data, pr).replace("<p ", "<span ").replace("</p>", "</span>")
+        values["{{HZ:" + pr["id"] + "}}"] = hz[pr["horizon"]]
+    text = read("products.html")
+    for key, val in values.items():
+        text = text.replace(key, val)
+    return text
 
 
 # ---------- the roadmap page ----------
@@ -248,8 +262,8 @@ def build_site(home, roadmap):
     (DIST / "roadmap" / "index.html").write_text(
         site_head(ROADMAP_TITLE, ROADMAP_DESCRIPTION, SITE_URL + "roadmap/", "../") + roadmap + "</body>\n</html>\n",
         encoding="utf-8")
-    (DIST / "assets" / "styles.css").write_text(font_faces() + read("styles.css"), encoding="utf-8")
-    (DIST / "assets" / "main.js").write_text(read("main.js"), encoding="utf-8")
+    (DIST / "assets" / "styles.css").write_text(font_faces() + read("styles.css") + read("products.css"), encoding="utf-8")
+    (DIST / "assets" / "main.js").write_text(read("products.js") + read("main.js"), encoding="utf-8")
     for f in (SRC / "static").rglob("*"):
         if f.is_file():
             out = DIST / f.relative_to(SRC / "static")
@@ -257,7 +271,7 @@ def build_site(home, roadmap):
             shutil.copy(f, out)
 
 
-def build_artifact(body, name="page.html", title="Pentaliminal V2"):
+def build_artifact(body, name="page.html", title="Pentaliminal V3"):
     """One file for the claude.ai preview: its wrapper adds the doctype, head and body tags."""
     ART.mkdir(exist_ok=True)
     head = (f'<title>{title}</title>\n<meta name="claude:viewport-fit-sides" content="cover">\n'
@@ -265,7 +279,7 @@ def build_artifact(body, name="page.html", title="Pentaliminal V2"):
             f'<link rel="preconnect" href="https://fonts.googleapis.com">\n'
             f'<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
             f'<link rel="stylesheet" href="{GOOGLE_FONTS}">\n')
-    page = head + "<style>\n" + read("styles.css") + "</style>\n" + THEME_BOOT + "\n" + body + "<script>\n" + read("main.js") + "</script>\n"
+    page = head + "<style>\n" + read("styles.css") + read("products.css") + "</style>\n" + THEME_BOOT + "\n" + body + "<script>\n" + read("products.js") + read("main.js") + "</script>\n"
     (ART / name).write_text(page, encoding="utf-8")
 
 

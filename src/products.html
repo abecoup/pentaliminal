@@ -1,0 +1,460 @@
+    <!-- ===================== V3: the products ===================== -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+      <defs>
+        <symbol id="i-ledger" viewBox="0 0 16 16"><path d="M3 2.5h10v11H3zM5.5 5.5h5M5.5 8h5M5.5 10.5h3"/></symbol>
+        <symbol id="i-agent" viewBox="0 0 16 16"><path d="M8 1.8 13.4 5v6L8 14.2 2.6 11V5z"/><circle cx="8" cy="8" r="1.6"/></symbol>
+        <symbol id="i-rule" viewBox="0 0 16 16"><path d="M2 8h12M8 3v2.5M8 10.5V13"/><circle cx="8" cy="8" r="2.5"/></symbol>
+        <symbol id="i-guard" viewBox="0 0 16 16"><path d="M8 1.8 13 3.6v4.2c0 3-2.2 5.2-5 6.4-2.8-1.2-5-3.4-5-6.4V3.6z"/></symbol>
+        <symbol id="i-report" viewBox="0 0 16 16"><path d="M4 2.5h6l2.5 2.5v8.5H4zM10 2.5V5h2.5M6 8h4M6 10.5h4"/></symbol>
+        <symbol id="i-person" viewBox="0 0 16 16"><circle cx="8" cy="5.5" r="2.6"/><path d="M3 14c.4-2.8 2.4-4.4 5-4.4s4.6 1.6 5 4.4"/></symbol>
+        <symbol id="i-tool" viewBox="0 0 16 16"><path d="M5.5 4 2 8l3.5 4M10.5 4 14 8l-3.5 4"/></symbol>
+        <symbol id="i-flag" viewBox="0 0 16 16"><path d="M3.5 14V2.5M3.5 3h8.5l-2 3 2 3H3.5"/></symbol>
+        <symbol id="i-doc" viewBox="0 0 16 16"><path d="M3.5 2h6.5l2.5 2.5V14h-9zM5.5 7h5M5.5 9.5h5M5.5 12h3"/></symbol>
+        <symbol id="i-search" viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.2"/><path d="m10.2 10.2 3.6 3.6"/></symbol>
+        <symbol id="i-q" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6"/><path d="M6.2 6.3c.2-1.1 1-1.7 1.9-1.7 1.1 0 1.9.7 1.9 1.7 0 1.4-1.9 1.5-1.9 3"/><circle cx="8.1" cy="11.4" r=".4"/></symbol>
+        <symbol id="i-learn" viewBox="0 0 16 16"><path d="M1.5 6 8 3l6.5 3L8 9z"/><path d="M4.2 7.4v3.3C5.3 11.8 6.6 12.4 8 12.4s2.7-.6 3.8-1.7V7.4"/></symbol>
+        <symbol id="i-mic" viewBox="0 0 16 16"><rect x="5.8" y="1.8" width="4.4" height="7.6" rx="2.2"/><path d="M3.5 7.8c0 2.6 2 4.4 4.5 4.4s4.5-1.8 4.5-4.4M8 12.2v2"/></symbol>
+        <symbol id="i-cam" viewBox="0 0 16 16"><path d="M1.8 4.5h8.4v7H1.8zM10.2 7l4-2.2v6.4l-4-2.2"/></symbol>
+        <symbol id="i-play" viewBox="0 0 16 16"><path d="M5 3.2v9.6L12.6 8z"/></symbol>
+        <symbol id="i-chat" viewBox="0 0 16 16"><path d="M2.2 3h11.6v7.8H7.4L4.2 13.4v-2.6h-2z"/></symbol>
+        <symbol id="i-clip" viewBox="0 0 16 16"><path d="M3 6V3h3M10 3h3v3M13 10v3h-3M6 13H3v-3"/></symbol>
+        <symbol id="i-check" viewBox="0 0 16 16"><path d="m2.8 8.4 3.4 3.3 7-7.4"/></symbol>
+        <symbol id="i-mail" viewBox="0 0 16 16"><path d="M2 3.5h12v9H2zM2 4l6 5 6-5"/></symbol>
+        <symbol id="i-wave" viewBox="0 0 16 16"><path d="M2 8h1.5M5 5v6M8 2.5v11M11 5.5v5M14 8h-1"/></symbol>
+        <symbol id="i-link" viewBox="0 0 16 16"><path d="M6.8 9.2 9.2 6.8M5.6 7.4l-1.8 1.8a2.5 2.5 0 0 0 3.5 3.5l1.8-1.8M10.4 8.6l1.8-1.8a2.5 2.5 0 0 0-3.5-3.5L6.9 5.1"/></symbol>
+        <symbol id="i-loop" viewBox="0 0 16 16"><path d="M3 8a5 5 0 0 1 8.6-3.5M13 8a5 5 0 0 1-8.6 3.5M11.8 2v2.7H9.1M4.2 14v-2.7h2.7"/></symbol>
+        <symbol id="i-export" viewBox="0 0 16 16"><path d="M8 10V2M5 5l3-3 3 3M3 9.5V14h10V9.5"/></symbol>
+      </defs>
+    </svg>
+
+    <section id="products" class="pr-intro" aria-labelledby="productsTitle">
+      <p class="label cap"><span class="no">P</span><span class="lead" aria-hidden="true"></span><span>What can you use?</span></p>
+      <div class="pr-intro-grid">
+        <div class="head">
+          <h2 id="productsTitle">Four products for using AI without giving up your judgment.</h2>
+          <p>Each one answers a question people now face with AI. They share one memory underneath, so what you learn in one carries into the others.</p>
+        </div>
+        <p class="pr-honest"><b>None of these is available yet.</b> The screens below show what each product is being designed to do. The people, companies and figures in them are made up.</p>
+      </div>
+      <ol class="pr-index">
+        <li>
+          <a href="#trust">
+            <span class="pr-mk cap" aria-hidden="true">T</span>
+            <span class="pr-name">Trust</span>
+            <span class="pr-q">Can we prove what our AI did?</span>
+            <span class="pr-for">For companies running AI agents on customer or financial records.</span>
+            <span class="pr-st">{{CHIP:trust}}<span class="pr-hz cap">{{HZ:trust}}</span></span>
+          </a>
+        </li>
+        <li>
+          <a href="#notebook">
+            <span class="pr-mk cap" aria-hidden="true">N</span>
+            <span class="pr-name">Notebook</span>
+            <span class="pr-q">Can I learn and use what I know?</span>
+            <span class="pr-for">For students, researchers and writers: anyone who works with ideas.</span>
+            <span class="pr-st">{{CHIP:notebook}}<span class="pr-hz cap">{{HZ:notebook}}</span></span>
+          </a>
+        </li>
+        <li>
+          <a href="#rhetor">
+            <span class="pr-mk cap" aria-hidden="true">R</span>
+            <span class="pr-name">Rhetor</span>
+            <span class="pr-q">Can I say it well?</span>
+            <span class="pr-for">For anyone who has to speak well: students, teachers, professionals.</span>
+            <span class="pr-st">{{CHIP:rhetor}}<span class="pr-hz cap">{{HZ:rhetor}}</span></span>
+          </a>
+        </li>
+        <li>
+          <a href="#forum">
+            <span class="pr-mk cap" aria-hidden="true">F</span>
+            <span class="pr-name">Forum</span>
+            <span class="pr-q">Where do we reason through hard questions together?</span>
+            <span class="pr-for">For academics, teachers, students and curious listeners.</span>
+            <span class="pr-st">{{CHIP:forum}}<span class="pr-hz cap">{{HZ:forum}}</span></span>
+          </a>
+        </li>
+      </ol>
+      <p class="pr-loop">Rhetor helps you say it well. Forum is where it gets said. Notebook keeps what you learn. Trust checks the AI work that comes out of all of it.</p>
+    </section>
+
+    <!-- ===================== Trust ===================== -->
+    <section id="trust" class="prod" aria-labelledby="trustTitle">
+      <div class="prod-top">
+        <p class="label cap"><span class="no">T</span><span class="lead" aria-hidden="true"></span><span>Pentaliminal Trust</span></p>
+        <div class="prod-st">{{CHIP:trust}}<span class="pr-hz cap">{{HZ:trust}}</span></div>
+      </div>
+      <div class="head">
+        <h2 id="trustTitle">When someone asks what your AI did, you’ll have the answer.</h2>
+        <p>Trust keeps one record of every AI action in your company, whether a person typed the prompt or an agent acted on its own. Each step links back to the request that started it. Outside AI is kept out, and your own agents stay inside the limits you set.</p>
+      </div>
+
+      <figure class="demo">
+        <div class="win" id="winTrust" data-steps="8" role="img" aria-label="Concept screen of Trust. A ledger trace shows how a billing agent changed 40 invoice totals overnight: an employee’s request, the agent’s plan, a search, the rule that allowed the edits, the 40 updates, and Trust’s flag. A side panel shows one invoice’s change, then the rule tightened to ask before changing totals, and an audit packet exported.">
+          <div class="win-bar" aria-hidden="true"><span class="win-sq"><i></i><i></i><i></i></span><span class="win-url">trust.pentaliminal.ai/ledger</span><span class="win-tag cap">Concept</span></div>
+          <div class="win-body w3" aria-hidden="true">
+            <nav class="ws">
+              <p class="ws-org"><b>Halden &amp; Co.</b><span>Finance workspace</span></p>
+              <ul class="ws-nav">
+                <li class="on"><svg class="ic"><use href="#i-ledger"/></svg>Ledger</li>
+                <li><svg class="ic"><use href="#i-agent"/></svg>Agents</li>
+                <li><svg class="ic"><use href="#i-rule"/></svg>Rules</li>
+                <li><svg class="ic"><use href="#i-guard"/></svg>Guard</li>
+                <li><svg class="ic"><use href="#i-report"/></svg>Reports</li>
+              </ul>
+              <p class="ws-h cap">Agents</p>
+              <ul class="ws-list">
+                <li class="on"><i class="sq ink"></i>billing-agent<span>40</span></li>
+                <li><i class="sq"></i>support-agent<span>12</span></li>
+                <li><i class="sq"></i>research-agent<span>7</span></li>
+              </ul>
+              <p class="ws-h cap">Guard, last 24 hours</p>
+              <ul class="ws-list">
+                <li><i class="sq x"></i>Crawlers stopped<span>318</span></li>
+                <li><i class="sq x"></i>Agents stopped<span>4</span></li>
+              </ul>
+              <p class="ws-foot">Records actions and their causes. Never screens or keystrokes.</p>
+            </nav>
+            <div class="wm-main">
+              <div class="wm-head">
+                <p class="crumbs">Ledger <span>/</span> Trace</p>
+                <h3>40 invoice totals changed overnight</h3>
+                <p class="wm-meta"><span><svg class="ic"><use href="#i-person"/></svg>Started by Dana Reyes</span><span><svg class="ic"><use href="#i-agent"/></svg>billing-agent</span><span>Tue 4:12 pm to Wed 2:06 am</span></p>
+              </div>
+              <ol class="trace">
+                <li data-at="1"><time>Tue 4:12 pm</time><span class="tn person"><svg class="ic"><use href="#i-person"/></svg></span><div><b>Dana Reyes asked</b><p>“Apply the new late-fee policy to open invoices.”</p></div><span class="tg">Request</span></li>
+                <li data-at="2"><time>4:13 pm</time><span class="tn"><svg class="ic"><use href="#i-agent"/></svg></span><div><b>billing-agent planned 3 steps</b><p>Find overdue invoices, add a 5% late fee, email each client.</p></div><span class="tg">Plan</span></li>
+                <li data-at="3"><time>Wed 2:00 am</time><span class="tn"><svg class="ic"><use href="#i-tool"/></svg></span><div><b>invoices.search</b><p>40 open invoices more than 30 days overdue.</p></div><span class="tg">Tool call</span></li>
+                <li data-at="4"><time>2:01 am</time><span class="tn"><svg class="ic"><use href="#i-rule"/></svg></span><div><b>Rule R-4 allowed it</b><p>“Agents may edit invoices under $5,000 without asking.”</p></div><span class="tg">Rule</span></li>
+                <li data-at="5" class="sel"><time>2:01 to 2:06 am</time><span class="tn"><svg class="ic"><use href="#i-tool"/></svg></span><div><b>invoices.update, 40 times</b><p>Totals changed. No person reviewed them.</p></div><span class="tg">40 changes</span></li>
+                <li data-at="6" class="flag"><time>8:02 am</time><span class="tn ink"><svg class="ic"><use href="#i-flag"/></svg></span><div><b>Trust flagged it</b><p>Totals changed without review.</p></div><span class="tg">Flag</span></li>
+              </ol>
+            </div>
+            <aside class="wd" data-at="6">
+              <p class="wd-k cap">Step 5 of 6</p>
+              <h4>INV-20431, Corbett Supply</h4>
+              <table class="diff">
+                <tr><th>Subtotal</th><td>$1,180.95</td><td>$1,180.95</td></tr>
+                <tr><th>Late fee</th><td>none</td><td class="chg">$59.05</td></tr>
+                <tr><th>Total</th><td>$1,180.95</td><td class="chg">$1,240.00</td></tr>
+              </table>
+              <p class="wd-k cap">Why it happened</p>
+              <ol class="why">
+                <li>Dana’s request</li><li>The agent’s plan</li><li>Rule R-4</li>
+              </ol>
+              <div class="rulebox">
+                <p class="wd-k cap">Rule R-4</p>
+                <p class="rule-old">Agents may edit invoices under $5,000 without asking.</p>
+                <p class="rule-new" data-at="7">Agents must ask a person before changing any total.</p>
+              </div>
+              <div class="wd-acts">
+                <span class="ub primary" data-press="7">Ask before changing totals</span>
+                <span class="ub" data-press="8"><svg class="ic"><use href="#i-export"/></svg>Export audit packet</span>
+              </div>
+            </aside>
+            <p class="toast" data-at="7" data-until="8"><svg class="ic"><use href="#i-check"/></svg>Rule updated. The change is in the ledger too.</p>
+            <p class="toast" data-at="8"><svg class="ic"><use href="#i-report"/></svg>Audit packet ready: 6 steps, 40 changes, 1 rule change.</p>
+          </div>
+        </div>
+        <figcaption class="demo-cap"><span>Example: a billing agent changed 40 invoices overnight. Trust shows the chain from the request to each change, and the rule that let it through.</span><button class="replay cap" type="button" data-win="winTrust"><svg viewBox="0 0 16 16" aria-hidden="true"><use href="#i-loop"/></svg>Play it again</button></figcaption>
+      </figure>
+
+      <div class="rail-head">
+        <h3 class="sub cap">Proof, provenance and protection</h3>
+        <div class="rail-ctl"><span class="rail-n cap" aria-live="polite"></span><button class="rail-btn" type="button" data-dir="-1" aria-label="Previous"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3 5 8l5 5"/></svg></button><button class="rail-btn" type="button" data-dir="1" aria-label="Next"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m6 3 5 5-5 5"/></svg></button></div>
+      </div>
+      <ul class="rail" tabindex="0" aria-label="What Trust does">
+        <li class="card"><svg class="card-art" data-art="ledger" viewBox="0 0 300 200" aria-hidden="true"></svg><div class="card-b"><h4>Every prompt and agent step, in one record</h4><p>Who asked, which tool or model answered, what came back, what changed, and who approved it.</p></div><p class="card-k cap">Proof</p></li>
+        <li class="card"><svg class="card-art" data-art="provenance" viewBox="0 0 300 200" aria-hidden="true"></svg><div class="card-b"><h4>Trace any change back to its cause</h4><p>Agents call tools, read files and hand work to other agents. Each step links to the person and request that started it.</p></div><p class="card-k cap">Provenance</p></li>
+        <li class="card"><svg class="card-art" data-art="guard" viewBox="0 0 300 200" aria-hidden="true"></svg><div class="card-b"><h4>Keep out AI you didn’t invite</h4><p>Unwanted crawlers and agents are stopped at the door, with a plain report of what tried to get in.</p></div><p class="card-k cap">Protection</p></li>
+        <li class="card"><svg class="card-art" data-art="limits" viewBox="0 0 300 200" aria-hidden="true"></svg><div class="card-b"><h4>Your agents ask before risky steps</h4><p>Each agent gets an identity, permissions and stop-and-ask rules, like “ask before changing totals.”</p></div><p class="card-k cap">Protection</p></li>
+        <li class="card"><svg class="card-art" data-art="packet" viewBox="0 0 300 200" aria-hidden="true"></svg><div class="card-b"><h4>Hand an auditor the whole story</h4><p>Audit packets with inputs, outputs and sign-offs, plus usage by team, person and agent.</p></div><p class="card-k cap">Reports</p></li>
+        <li class="card"><svg class="card-art" data-art="fair" viewBox="0 0 300 200" aria-hidden="true"></svg><div class="card-b"><h4>Fair to the people being recorded</h4><p>People can see their own records. Reports are team-level by default, and opening one person’s detail needs a stated reason, which is logged too.</p></div><p class="card-k cap">Privacy</p></li>
+      </ul>
+
+      <div class="cases">
+        <div class="cases-head">
+          <h3>What Trust is built to catch</h3>
+          <p>Example cases, made up to show the kind of thing Trust looks for.</p>
+        </div>
+        <ul class="cases-list">
+          <li><p class="cs-when"><span>Caught</span><b class="cap">Overnight</b></p><h4>A billing agent changed 40 invoice totals</h4><p>A late-fee request ran at 2 am under a rule meant for small edits.</p><p class="cs-k cap">Impact</p><p>Totals no one had approved were about to go out.</p></li>
+          <li><p class="cs-when"><span>Caught</span><b class="cap">As it happened</b></p><h4>Client records pasted into an outside chatbot</h4><p>Someone asked a public AI tool to tidy a spreadsheet of client accounts.</p><p class="cs-k cap">Impact</p><p>Client data left the company.</p></li>
+          <li><p class="cs-when"><span>Caught</span><b class="cap">At the door</b></p><h4>A crawler posing as a browser</h4><p>An AI crawler copied the pricing pages every night under a borrowed identity.</p><p class="cs-k cap">Impact</p><p>Your work was taken without asking.</p></li>
+          <li><p class="cs-when"><span>Caught</span><b class="cap">Mid-task</b></p><h4>An agent handed work to an unvetted tool</h4><p>A research agent sent a customer list to an outside service to fill in missing details.</p><p class="cs-k cap">Impact</p><p>Data reached a vendor no one had reviewed.</p></li>
+          <li><p class="cs-when"><span>Caught</span><b class="cap">Before sending</b></p><h4>A contract summary missing a clause</h4><p>An AI summary dropped an early-termination clause. A reviewer was asked to sign off and caught it.</p><p class="cs-k cap">Impact</p><p>A client nearly decided on an incomplete summary.</p></li>
+        </ul>
+      </div>
+
+      <dl class="value">
+        <div><dt class="cap">What you get</dt><dd>A full answer to “what did our AI do, and who asked it to?” for any day, any agent and any person.</dd></div>
+        <div><dt class="cap">How you can check it</dt><dd>Every step links to its cause. Any record exports as an audit packet with inputs, outputs and sign-offs.</dd></div>
+        <div><dt class="cap">What it asks of you</dt><dd>Connecting the agents and AI tools you already use. Nothing records screens or keystrokes.</dd></div>
+        <div><dt class="cap">How we’ll know it works</dt><dd>Design partners pay for it. The first version is the agent ledger and one audit report.</dd></div>
+      </dl>
+    </section>
+
+    <!-- ===================== Notebook ===================== -->
+    <section id="notebook" class="prod" aria-labelledby="notebookTitle">
+      <div class="prod-top">
+        <p class="label cap"><span class="no">N</span><span class="lead" aria-hidden="true"></span><span>Pentaliminal Notebook</span></p>
+        <div class="prod-st">{{CHIP:notebook}}<span class="pr-hz cap">{{HZ:notebook}}</span></div>
+      </div>
+      <div class="head">
+        <h2 id="notebookTitle">A notebook that helps you remember what you read, and use it.</h2>
+        <p>Bring in your notes, papers, chats and talks. Notebook links them as you write, brings old ideas back when they matter, and checks that you actually know what you saved.</p>
+      </div>
+
+      <figure class="demo">
+        <div class="win" id="winNotebook" data-steps="7" role="img" aria-label="Concept screen of Notebook. A student drafts a chapter on memory. A paper she saved in May resurfaces beside the draft, a flag shows her new sentence contradicts an earlier note, a recall check asks one question before she cites the paper, and she revises the sentence.">
+          <div class="win-bar" aria-hidden="true"><span class="win-sq"><i></i><i></i><i></i></span><span class="win-url">notebook.pentaliminal.ai/thesis/chapter-3</span><span class="win-tag cap">Concept</span></div>
+          <div class="win-body w3" aria-hidden="true">
+            <nav class="ws">
+              <p class="ws-org"><b>Maya’s notebook</b><span>214 notes, 38 papers, 12 talks</span></p>
+              <p class="ws-search"><svg class="ic"><use href="#i-search"/></svg>That argument in August that never got settled</p>
+              <ul class="ws-nav">
+                <li><svg class="ic"><use href="#i-doc"/></svg>Today</li>
+                <li class="on"><svg class="ic"><use href="#i-doc"/></svg>Thesis: memory</li>
+                <li><svg class="ic"><use href="#i-doc"/></svg>Reading group</li>
+                <li><svg class="ic"><use href="#i-q"/></svg>Open questions<span>3</span></li>
+                <li><svg class="ic"><use href="#i-learn"/></svg>Learn<span>5 due</span></li>
+              </ul>
+              <p class="ws-h cap">Open questions</p>
+              <ul class="ws-qs">
+                <li>Does sleep change what gets rebuilt?</li>
+                <li>Why do lyrics last longer than formulas?</li>
+              </ul>
+            </nav>
+            <div class="wm-main nb-page">
+              <div class="nb-faces"><span class="on">Write</span><span>Discuss</span></div>
+              <p class="crumbs">Thesis <span>/</span> Chapter 3</p>
+              <h3 class="nb-title">Why recall rebuilds</h3>
+              <p class="nb-p">We tend to picture memory as a library: something happens, it gets filed, and later we pull it off the shelf. <i class="sm sm-known" title="known"></i></p>
+              <p class="nb-p">The research of the last twenty years makes that picture hard to keep. A memory is less a stored object than a pattern that has to be put back together each time.</p>
+              <p class="nb-p nb-typing">
+                <span class="nb-v1" data-at="1" data-until="7"><span class="nb-hl" data-at="3" data-until="7">Each time we recall a memory, we replay a stored copy of it.</span></span>
+                <span class="nb-v2" data-at="7">Each time we recall a memory, we rebuild it, and it can change before it is stored again. <i class="sm sm-known" title="known"></i></span>
+                <span class="caret"></span>
+              </p>
+            </div>
+            <aside class="wd nb-side">
+              <p class="wd-k cap">Brought back for this page</p>
+              <div class="nb-card" data-at="2">
+                <p class="nb-src"><svg class="ic"><use href="#i-doc"/></svg>Saved in May: a review of memory reconsolidation</p>
+                <blockquote>“Recalling a memory can make it changeable again before it is stored back.”</blockquote>
+                <p class="nb-meta">Your highlight, page 4</p>
+              </div>
+              <div class="nb-card warn" data-at="3" data-until="7">
+                <p class="nb-src"><svg class="ic"><use href="#i-flag"/></svg>This sentence conflicts with your note</p>
+                <p>March 14: “Recall is rebuilding, not replay.”</p>
+                <p class="nb-marks"><span><i class="sm sm-assumed"></i>Your new sentence: assumed</span><span><i class="sm sm-known"></i>The paper: known</span></p>
+              </div>
+              <div class="nb-card ok" data-at="7"><p class="nb-src"><svg class="ic"><use href="#i-check"/></svg>Conflict resolved. The sentence now cites the paper.</p></div>
+              <div class="nb-card quiz" data-at="4">
+                <p class="nb-src"><svg class="ic"><use href="#i-learn"/></svg>Before you cite it: one quick check</p>
+                <p class="nb-qq">What can happen to a memory when it’s recalled?</p>
+                <p class="nb-ans"><span class="ph" data-until="5">Guess first, then look</span><span class="typed" data-at="5">It can change before it’s stored again.</span></p>
+                <p class="nb-sure">How sure are you? <span>Not sure</span><span class="pick" data-press="6">Fairly sure</span><span>Certain</span></p>
+                <p class="nb-res" data-at="6"><svg class="ic"><use href="#i-check"/></svg>Right. Next check in 4 days.</p>
+              </div>
+            </aside>
+          </div>
+        </div>
+        <figcaption class="demo-cap"><span>Example: a student writing a chapter. A paper she saved months ago comes back beside her draft, a flag shows her new sentence contradicts an earlier note, and a recall check comes up before she cites it.</span><button class="replay cap" type="button" data-win="winNotebook"><svg viewBox="0 0 16 16" aria-hidden="true"><use href="#i-loop"/></svg>Play it again</button></figcaption>
+      </figure>
+
+      <div class="rail-head">
+        <h3 class="sub cap">Five jobs, in any order</h3>
+        <div class="rail-ctl"><span class="rail-n cap" aria-live="polite"></span><button class="rail-btn" type="button" data-dir="-1" aria-label="Previous"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3 5 8l5 5"/></svg></button><button class="rail-btn" type="button" data-dir="1" aria-label="Next"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m6 3 5 5-5 5"/></svg></button></div>
+      </div>
+      <ul class="rail" tabindex="0" aria-label="What Notebook does">
+        <li class="card"><svg class="card-art" data-art="gather" viewBox="0 0 300 200" aria-hidden="true"></svg><div class="card-b"><h4>Bring everything in</h4><p>Notes from other apps, papers, chats and recorded talks. Read and listen right where they land.</p></div><p class="card-k cap">Gather</p></li>
+        <li class="card"><svg class="card-art" data-art="find" viewBox="0 0 300 200" aria-hidden="true"></svg><div class="card-b"><h4>Search by what you remember</h4><p>Try “that long argument in August that never got settled.” Move through ideas by how they connect, not by folder.</p></div><p class="card-k cap">Find</p></li>
+        <li class="card"><svg class="card-art" data-art="connect" viewBox="0 0 300 200" aria-hidden="true"></svg><div class="card-b"><h4>Links that suggest themselves</h4><p>AI proposes links and tags as you write, and you accept or ignore them. Links you never use fade.</p></div><p class="card-k cap">Connect</p></li>
+        <li class="card"><svg class="card-art" data-art="learn" viewBox="0 0 300 200" aria-hidden="true"></svg><div class="card-b"><h4>Know it, not just save it</h4><p>Guess before you see the answer, recall it again on a schedule, and say how sure you are, so you can see where you’re fooling yourself.</p></div><p class="card-k cap">Learn</p></li>
+        <li class="card"><svg class="card-art" data-art="apply" viewBox="0 0 300 200" aria-hidden="true"></svg><div class="card-b"><h4>Old ideas, back when you need them</h4><p>Notes resurface beside whatever you’re writing. Gaps between ideas show up as open questions.</p></div><p class="card-k cap">Apply</p></li>
+        <li class="card"><svg class="card-art" data-art="status" viewBox="0 0 300 200" aria-hidden="true"></svg><div class="card-b"><h4>Honest about what you know</h4><p>Claims carry a status, and you’re warned when a new one contradicts something you wrote before.</p><p class="legend"><span><i class="sm sm-known"></i>Known</span><span><i class="sm sm-inferred"></i>Inferred</span><span><i class="sm sm-assumed"></i>Assumed</span><span><i class="sm sm-disputed"></i>Disputed</span><span><i class="sm sm-unknown"></i>Unknown</span></p></div><p class="card-k cap">Status</p></li>
+      </ul>
+
+      <dl class="value">
+        <div><dt class="cap">What you get</dt><dd>What you save sticks, and shows up when you’re working on something that needs it.</dd></div>
+        <div><dt class="cap">How you can check it</dt><dd>Recall checks show what you know versus what you only saved. Every claim keeps its source.</dd></div>
+        <div><dt class="cap">What it asks of you</dt><dd>Bring in notes from the app you use now. They stay plain files you can take anywhere.</dd></div>
+        <div><dt class="cap">How we’ll know it works</dt><dd>People come back daily and remember more. The first version: import, search by memory, resurfacing while you write, and the learn mode.</dd></div>
+      </dl>
+    </section>
+
+    <!-- ===================== Rhetor ===================== -->
+    <section id="rhetor" class="prod" aria-labelledby="rhetorTitle">
+      <div class="prod-top">
+        <p class="label cap"><span class="no">R</span><span class="lead" aria-hidden="true"></span><span>Pentaliminal Rhetor</span></p>
+        <div class="prod-st">{{CHIP:rhetor}}<span class="pr-hz cap">{{HZ:rhetor}}</span></div>
+      </div>
+      <div class="head">
+        <h2 id="rhetorTitle">Practice speaking the way musicians practice.</h2>
+        <p>Pick a speaker you admire. Rhetor breaks down how they do it, has you try a passage side by side with your camera, and loops the hardest ten seconds until it sticks.</p>
+      </div>
+
+      <figure class="demo">
+        <div class="win" id="winRhetor" data-steps="6" role="img" aria-label="Concept screen of Rhetor. A model speaker and the learner’s camera sit side by side over an annotated passage. Two rhythm lines compare the model with the learner, a loop marks the hardest ten seconds, and feedback on pacing improves by the fifth try.">
+          <div class="win-bar" aria-hidden="true"><span class="win-sq"><i></i><i></i><i></i></span><span class="win-url">rhetor.pentaliminal.ai/practice/story-open</span><span class="win-tag cap">Concept</span></div>
+          <div class="win-body rh" aria-hidden="true">
+            <div class="wm-main rh-main">
+              <div class="rh-top"><h3>The story open</h3><p class="wm-meta"><span>Skill today: pacing</span><span>Try <b class="rh-try" data-swap-at="6" data-swap="5">4</b> of 6</span></p></div>
+              <div class="rh-stage">
+                <div class="rh-cam"><svg class="rh-fig" viewBox="0 0 200 130"><circle cx="100" cy="50" r="22"/><path d="M52 130c4-34 24-50 48-50s44 16 48 50"/></svg><span class="rh-lab cap">Model</span></div>
+                <div class="rh-cam you"><svg class="rh-fig" viewBox="0 0 200 130"><circle cx="100" cy="52" r="21"/><path d="M54 130c4-32 23-48 46-48s42 16 46 48"/></svg><span class="rh-lab cap">You</span><span class="rh-rec cap"><i></i>Recording</span></div>
+              </div>
+              <p class="rh-text" data-at="1">
+                <span class="mv"><em>story</em>Last spring, a student asked me why she could remember every lyric from high school, but not one formula from last week.</span>
+                <span class="mv"><em>pause</em>I didn’t have an answer.</span>
+                <span class="mv loopme"><em>turn</em>But here’s the thing: neither did the textbook.</span>
+              </p>
+              <div class="rh-waves">
+                <p class="rh-wl cap">Model</p><svg class="wave" data-wave="model" data-at="2" viewBox="0 0 600 40" preserveAspectRatio="none"></svg>
+                <p class="rh-wl cap">You</p><svg class="wave" data-wave="you" data-at="3" viewBox="0 0 600 40" preserveAspectRatio="none"></svg>
+                <span class="rh-loop" data-at="4"><span class="cap">Loop, 0:09 to 0:14</span></span>
+              </div>
+            </div>
+            <aside class="wd rh-side">
+              <p class="wd-k cap">How this speaker does it</p>
+              <ul class="bp">
+                <li>Opens on a small story, not a claim</li>
+                <li>Short sentences before the turn</li>
+                <li>Pauses just before the point</li>
+                <li>One idea per breath</li>
+              </ul>
+              <p class="wd-k cap" data-at="5">Feedback on this try</p>
+              <ul class="fb" data-at="5">
+                <li><b>Pacing</b><span class="meter"><i style="--v:.42" data-v2=".86" data-v2-at="6"></i></span><span class="fb-t"><span data-until="6">You rushed the turn.</span><span data-at="6">Close to the model now.</span></span></li>
+                <li><b>Pauses</b><span class="meter"><i style="--v:.66" data-v2=".9" data-v2-at="6"></i></span><span class="fb-t"><span data-until="6">Two of three landed.</span><span data-at="6">All three landed.</span></span></li>
+                <li><b>Did it land?</b><span class="meter"><i style="--v:.8" data-v2=".86" data-v2-at="6"></i></span><span class="fb-t">Yes. The contrast came through.</span></li>
+              </ul>
+              <p class="rh-line"><svg class="ic"><use href="#i-guard"/></svg>Rhetor points out persuasion tricks that work without evidence.</p>
+            </aside>
+          </div>
+        </div>
+        <figcaption class="demo-cap"><span>Example: a teacher studying how a speaker opens with a story. She imitates the opening, then loops the turn until her pacing matches.</span><button class="replay cap" type="button" data-win="winRhetor"><svg viewBox="0 0 16 16" aria-hidden="true"><use href="#i-loop"/></svg>Play it again</button></figcaption>
+      </figure>
+
+      <div class="rail-head">
+        <h3 class="sub cap">Study, imitate, compare, drill</h3>
+        <div class="rail-ctl"><span class="rail-n cap" aria-live="polite"></span><button class="rail-btn" type="button" data-dir="-1" aria-label="Previous"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3 5 8l5 5"/></svg></button><button class="rail-btn" type="button" data-dir="1" aria-label="Next"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m6 3 5 5-5 5"/></svg></button></div>
+      </div>
+      <ul class="rail" tabindex="0" aria-label="How Rhetor works">
+        <li class="card"><span class="card-no cap">01</span><svg class="card-art" data-art="study" viewBox="0 0 300 200" aria-hidden="true"></svg><div class="card-b"><h4>See how a great speaker does it</h4><p>A blueprint of their words, sentence shapes, moves, structure and delivery.</p></div><p class="card-k cap">Study</p></li>
+        <li class="card"><span class="card-no cap">02</span><svg class="card-art" data-art="imitate" viewBox="0 0 300 200" aria-hidden="true"></svg><div class="card-b"><h4>Try it side by side</h4><p>Your camera next to the model, one passage at a time.</p></div><p class="card-k cap">Imitate</p></li>
+        <li class="card"><span class="card-no cap">03</span><svg class="card-art" data-art="compare" viewBox="0 0 300 200" aria-hidden="true"></svg><div class="card-b"><h4>Feedback on one skill at a time</h4><p>Compared with the model on rhythm and delivery, and on whether your message landed. Not a dozen numbers at once.</p></div><p class="card-k cap">Compare</p></li>
+        <li class="card"><span class="card-no cap">04</span><svg class="card-art" data-art="drill" viewBox="0 0 300 200" aria-hidden="true"></svg><div class="card-b"><h4>Loop the hard part</h4><p>Repeat the hardest ten seconds, the way a musician works on a tricky bar.</p></div><p class="card-k cap">Drill</p></li>
+        <li class="card"><svg class="card-art" data-art="line" viewBox="0 0 300 200" aria-hidden="true"></svg><div class="card-b"><h4>Persuasion that rests on evidence</h4><p>Rhetor teaches the moves that help a true point land, and names the tricks that work without evidence.</p></div><p class="card-k cap">Holds a line</p></li>
+      </ul>
+
+      <dl class="value">
+        <div><dt class="cap">What you get</dt><dd>Talks, lessons and pitches that land, in a voice that’s still yours.</dd></div>
+        <div><dt class="cap">How you can check it</dt><dd>Each recording is compared with the model, and with your own recordings from a month ago.</dd></div>
+        <div><dt class="cap">What it asks of you</dt><dd>A camera, and short sessions on one skill at a time.</dd></div>
+        <div><dt class="cap">How we’ll know it works</dt><dd>People’s recordings measurably improve over a month. The first version: a small library of annotated speeches, side-by-side practice, one-skill sessions and passage loops.</dd></div>
+      </dl>
+    </section>
+
+    <!-- ===================== Forum ===================== -->
+    <section id="forum" class="prod" aria-labelledby="forumTitle">
+      <div class="prod-top">
+        <p class="label cap"><span class="no">F</span><span class="lead" aria-hidden="true"></span><span>Pentaliminal Forum</span></p>
+        <div class="prod-st">{{CHIP:forum}}<span class="pr-hz cap">{{HZ:forum}}</span></div>
+      </div>
+      <div class="head">
+        <h2 id="forumTitle">Hear the best arguments on a hard question, live or later.</h2>
+        <p>Debates, talks and podcasts among teachers, researchers and students. Every session is kept with a transcript and chapters, and tied to the question it argues, so you can follow a disagreement across many conversations.</p>
+      </div>
+
+      <figure class="demo">
+        <div class="win" id="winForum" data-steps="7" role="img" aria-label="Concept screen of Forum. A live debate on whether AI tutors help or harm learning. Live captions run under two speakers, and a claim map fills in as they talk: claims for and against with their status, an objection, and what changed. A listener clips a passage to her notebook with its source.">
+          <div class="win-bar" aria-hidden="true"><span class="win-sq"><i></i><i></i><i></i></span><span class="win-url">forum.pentaliminal.ai/live/ai-tutors</span><span class="win-tag cap">Concept</span></div>
+          <div class="win-body fo" aria-hidden="true">
+            <div class="wm-main fo-main">
+              <div class="fo-top">
+                <span class="live cap"><i></i>Live</span>
+                <h3>Do AI tutors help or harm learning?</h3>
+              </div>
+              <p class="wm-meta"><span>AI and philosophy</span><span>Moderated by Jun Park</span><span>Chapter 3 of 4</span></p>
+              <div class="fo-stage">
+                <div class="fo-sp" data-speak="1|3|5"><span class="av">AL</span><b>Ana Lindqvist</b><span class="cap">For</span></div>
+                <div class="fo-sp" data-speak="2|4"><span class="av">SO</span><b>Sam Okafor</b><span class="cap">Against</span></div>
+              </div>
+              <ol class="fo-cc">
+                <li data-at="1"><b>Lindqvist</b> A student stuck at eleven at night gets feedback in seconds, not next Tuesday.</li>
+                <li data-at="2"><b>Okafor</b> And skips the struggle that makes it stick. Speed isn’t the same as learning.</li>
+                <li data-at="3"><b>Lindqvist</b> For beginners, the struggle is often just confusion with no way out.</li>
+                <li data-at="4"><b>Okafor</b> Fair. For beginners, I’ll grant that fast feedback helps.</li>
+              </ol>
+              <div class="fo-chap">
+                <span class="done">Opening</span><span class="done">Feedback and speed</span><span class="now">The struggle question</span><span>Audience questions</span>
+              </div>
+            </div>
+            <aside class="wd fo-side">
+              <div class="fo-tabs"><span class="on">Claim map</span><span>Chat</span></div>
+              <p class="fo-q"><svg class="ic"><use href="#i-q"/></svg>Do AI tutors help or harm learning?</p>
+              <div class="fo-map">
+                <div class="fo-col"><p class="cap">For</p>
+                  <p class="cl" data-at="1"><i class="sm sm-known"></i>Feedback comes in seconds, at any hour</p>
+                  <p class="cl obj" data-at="3"><i class="sm sm-inferred"></i>Beginners need a way out of confusion<span class="cap">Answers the claim against</span></p>
+                </div>
+                <div class="fo-col"><p class="cap">Against</p>
+                  <p class="cl" data-at="2"><i class="sm sm-disputed"></i>Students skip the struggle that builds memory</p>
+                </div>
+              </div>
+              <p class="fo-chg" data-at="4"><b>What changed:</b> Okafor granted that fast feedback helps beginners.</p>
+              <div class="fo-acts">
+                <span class="ub" data-press="5"><svg class="ic"><use href="#i-clip"/></svg>Clip to Notebook</span>
+                <span class="ub" data-press="6">Follow this question</span>
+              </div>
+            </aside>
+            <p class="toast" data-at="5" data-until="6"><svg class="ic"><use href="#i-check"/></svg>Clipped to your notebook, with its source at 41:12.</p>
+            <p class="toast" data-at="6"><svg class="ic"><use href="#i-check"/></svg>Following. 7 other conversations argue this question.</p>
+          </div>
+        </div>
+        <figcaption class="demo-cap"><span>Example: a live debate on AI tutors. Claims are mapped as they’re made, and a listener clips a passage into her notebook with its source attached.</span><button class="replay cap" type="button" data-win="winForum"><svg viewBox="0 0 16 16" aria-hidden="true"><use href="#i-loop"/></svg>Play it again</button></figcaption>
+      </figure>
+
+      <div class="rail-head">
+        <h3 class="sub cap">Live, kept, mapped, followed</h3>
+        <div class="rail-ctl"><span class="rail-n cap" aria-live="polite"></span><button class="rail-btn" type="button" data-dir="-1" aria-label="Previous"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3 5 8l5 5"/></svg></button><button class="rail-btn" type="button" data-dir="1" aria-label="Next"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m6 3 5 5-5 5"/></svg></button></div>
+      </div>
+      <ul class="rail" tabindex="0" aria-label="What Forum does">
+        <li class="card"><svg class="card-art" data-art="live" viewBox="0 0 300 200" aria-hidden="true"></svg><div class="card-b"><h4>Debates, talks and rooms</h4><p>Live debates, chat rooms around a question, and streamed talks from conferences and universities.</p></div><p class="card-k cap">Live</p></li>
+        <li class="card"><svg class="card-art" data-art="kept" viewBox="0 0 300 200" aria-hidden="true"></svg><div class="card-b"><h4>Nothing vanishes after the weekend</h4><p>Every session is recorded, transcribed, split into chapters and searchable.</p></div><p class="card-k cap">Kept</p></li>
+        <li class="card"><svg class="card-art" data-art="mapped" viewBox="0 0 300 200" aria-hidden="true"></svg><div class="card-b"><h4>See exactly where people disagree</h4><p>Each conversation ties to a question. Its claims are mapped: positions, objections, and what changed by the end.</p></div><p class="card-k cap">Mapped</p></li>
+        <li class="card"><svg class="card-art" data-art="followed" viewBox="0 0 300 200" aria-hidden="true"></svg><div class="card-b"><h4>Follow a question, not a feed</h4><p>Track one question across every conversation about it. “Show me the strongest case on the other side” is a normal way to browse.</p></div><p class="card-k cap">Followed</p></li>
+        <li class="card"><svg class="card-art" data-art="consent" viewBox="0 0 300 200" aria-hidden="true"></svg><div class="card-b"><h4>Nothing goes public without everyone’s yes</h4><p>A recording is published only when everyone in it agrees.</p></div><p class="card-k cap">Consent first</p></li>
+      </ul>
+
+      <dl class="value">
+        <div><dt class="cap">What you get</dt><dd>The strongest case on each side of a hard question, without hunting through scattered podcasts and feeds.</dd></div>
+        <div><dt class="cap">How you can check it</dt><dd>Every mapped claim links to the moment it was said.</dd></div>
+        <div><dt class="cap">What it asks of you</dt><dd>A link. Listen live, or later with chapters and a transcript.</dd></div>
+        <div><dt class="cap">How we’ll know it works</dt><dd>Listeners come back for the depth. The first version: one field (AI and philosophy), a few hosts, one conference stream.</dd></div>
+      </dl>
+    </section>
+
+    <!-- ===================== One memory: the vortex ===================== -->
+    <section id="memory" class="mem" aria-labelledby="memoryTitle">
+      <p class="label cap"><span class="no">M</span><span class="lead" aria-hidden="true"></span><span>How do they fit together?</span></p>
+      <div class="mem-head">
+        <h2 id="memoryTitle">Everything you bring in becomes one shared memory.</h2>
+        <p>Notes, agent runs, talks and debates are kept the same way: as four kinds of record that every product reads and writes. A debate’s claims, a student’s notes on them and a reviewer’s sign-off stay linked, not scattered across three apps.</p>
+      </div>
+      <div class="vortex" id="vortex">
+        <div class="vx-field" aria-hidden="true">
+          <svg class="vx-guide" viewBox="0 0 1000 620" preserveAspectRatio="xMidYMid meet"></svg>
+          <div class="vx-items"></div>
+          <div class="vx-core"><svg viewBox="0 0 120 120"></svg><span class="cap">Shared memory</span></div>
+        </div>
+        <ul class="vx-cards">
+          <li class="vc vc-q"><h3><svg class="ic" aria-hidden="true"><use href="#i-q"/></svg>Question</h3><p>What someone is trying to find out or decide, sharpened over time.</p><p class="vc-eg">“Should we adopt this tool?” becomes “Will it cut review time without hurting accuracy?”</p></li>
+          <li class="vc vc-c"><h3><span class="sm sm-known" aria-hidden="true"></span>Claim</h3><p>A statement with its source and a status.</p><p class="legend"><span><i class="sm sm-known"></i>Known</span><span><i class="sm sm-inferred"></i>Inferred</span><span><i class="sm sm-assumed"></i>Assumed</span><span><i class="sm sm-disputed"></i>Disputed</span><span><i class="sm sm-unknown"></i>Unknown</span></p></li>
+          <li class="vc vc-t"><h3><svg class="ic" aria-hidden="true"><use href="#i-link"/></svg>Trace</h3><p>The path a piece of work took: what was asked, what was tried, where it turned. A person’s thinking or an agent’s actions.</p></li>
+          <li class="vc vc-r"><h3><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Review</h3><p>Who checked what, against which question, with what verdict, and how far the reviewers agreed.</p></li>
+        </ul>
+      </div>
+      <p class="mem-note">Later, we plan to open this memory as a standard other AI systems can build on.</p>
+    </section>

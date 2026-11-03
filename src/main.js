@@ -736,7 +736,7 @@
     /* ---------- arrivals: content below the first screen rises into place once ---------- */
     mount("arrivals", function () {
       if (motion.reduced || !("IntersectionObserver" in window)) return;
-      var selector = ".label, .head, .split, .define, .quote, .meet-fig, .meet-list, .charter > div, .lens-fig, .lenses li, .engineering, .path li, .shift, .sub, .criteria li, .atlas, .planes > li, .aside, .principles > div, .labs .body, .close-fig, .close h2, .close p, .ask-intro, .ask-form, .tblock, .rm-strip, .rm-seq, .ph-head, .rmfig, .facts > div";
+      var selector = ".label, .head, .split, .define, .quote, .meet-fig, .meet-list, .charter > div, .lens-fig, .lenses li, .engineering, .path li, .shift, .sub, .criteria li, .atlas, .planes > li, .aside, .principles > div, .labs .body, .close-fig, .close h2, .close p, .ask-intro, .ask-form, .pr-intro-grid, .pr-index, .pr-loop, .prod-top, .demo, .rail-head, .rail, .cases, .value, .mem-head, .vortex, .mem-note, .tblock, .rm-strip, .rm-seq, .ph-head, .rmfig, .facts > div";
       var items = Array.prototype.slice.call(document.querySelectorAll(selector)), vh = window.innerHeight;
       var tops = items.map(function (n) { return n.getBoundingClientRect().top; }); // read everything first, then write
       var todo = items.filter(function (n, i) { return tops[i] >= vh * 0.92; });
@@ -1086,6 +1086,12 @@
       form.hidden = false; done.hidden = true;
       setKind(); idea = 0; chars = 0; deleting = false; cycle();
     });
+
+    /* ---------- V3: the product chapters (src/products.js) ---------- */
+    if (window.__plProducts) mount("products", function () {
+      window.__plProducts({ on: on, observer: observer, animator: animator, watchVisible: watchVisible, motion: motion, alive: alive, mount: mount,
+        svgEl: svgEl, iso: iso, isoBox: isoBox, isoGrid: isoGrid, pts: pts, seeded: seeded });
+    }, "#products");
 
     /* ---------- section tracker and current-section nav state ---------- */
     mount("tracker", function () {

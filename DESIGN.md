@@ -147,3 +147,28 @@ Rules (from the vendored `emil-design-eng` and `fixing-motion-performance` skill
 - Made-up spec data (version numbers, fake measurements). Construction labels should be true to the geometry.
 - Rounded cards, drop shadows, gradients.
 - Claims the manifesto doesn't make.
+
+## V3: the products (branch `v3`)
+
+V3 adds the products to the home page, right after the hero, so a visitor sees what Pentaliminal makes before reading why. Inspired by how momentic.ai shows its product: real-looking screens, a carousel of feature drawings, example cases and a swirl of sources. Everything stays in the V2 language (ink on paper, square corners, no accent color).
+
+Files: `src/products.html` (markup, built into the home page at `{{PRODUCTS}}`), `src/products.css`, `src/products.js` (loaded before `main.js`, which calls it from `boot()` with its shared helpers). Status chips and Now / Next / Later come from `src/roadmap.json`, so the product chapters and the roadmap never disagree.
+
+Page order: hero, P What can you use? (index of the four), T Trust, N Notebook, R Rhetor, F Forum, M How do they fit together? (the shared memory), then the manifesto sections 01 to 10 as before. The header nav leads with Products; the section tracker gains a "Use" group.
+
+Each product chapter follows the same order, which is also how the copy is written (dream, then confidence, then time and effort):
+
+| Part | What it is |
+|---|---|
+| Callout and status | Circled initial (T, N, R, F), full product name, stage chip and horizon from `roadmap.json`. |
+| Outcome headline | What the visitor gets, in their words. Not a feature list. |
+| Concept window | A drawn product screen with a made-up example. It plays one step at a time, once, when it comes into view (about 1.1 s a step), and "Play it again" restarts it. At rest, with reduced motion or with motion paused, it shows the finished state. Steps use `data-at` / `data-until` / `data-press` attributes; no step logic lives in CSS beyond `.is-off` and `.st-N`. |
+| Feature rail | A carousel of cards, three across on desktop, each with an isometric drawing built from plates, nodes and flat icons (drawn by `art` in `products.js`, auto-fitted to the card). Hovering a card lifts the drawing's key part. Numbers appear only where the content is a sequence (Rhetor: study, imitate, compare, drill). |
+| Example cases | Trust only: "What Trust is built to catch", clearly labeled as made-up examples. The honest version of a "bugs caught" wall. |
+| Value lines | What you get / How you can check it / What it asks of you / How we'll know it works. The last one is the roadmap gate and first version: proof we hold ourselves to instead of invented metrics. |
+
+Claim status marks are shared across products and the memory section: known (solid square), inferred (half), assumed (dashed), disputed (crosshatch), unknown (hollow circle). Always shown with a word, never alone.
+
+The shared memory (section M) is a vortex: sources (notes, papers, agent runs, debates...) and the four product names spiral slowly into a pentagonal core, over dashed orbit rings and a center line. Depth is shown the way a drawing shows hidden lines, not with blur: items on the far side turn dashed and lighter. Four cards (Question, Claim, Trace, Review) sit over the field on desktop and below it on phones. One loop, about 30 fps, only while on screen and not paused.
+
+Honesty rules for V3: none of the products is available yet, and the intro says so. Names, companies and numbers in the windows are made up and the windows are tagged "Concept". No testimonials, customer logos or usage stats until they are real.
