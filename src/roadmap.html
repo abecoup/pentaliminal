@@ -1,0 +1,111 @@
+{{DEFS}}
+
+<a class="skip" href="#main">Skip to content</a>
+<canvas class="bgmesh" id="bgmesh" aria-hidden="true"></canvas>
+<div class="grain" aria-hidden="true"></div>
+
+<div class="wrap" id="top">
+  <header class="top">
+    <a class="brand" href="{{HOME}}" aria-label="Pentaliminal home">
+      <svg class="mono" aria-hidden="true"><use href="#mono"/></svg>
+      <span class="sep" aria-hidden="true"></span>
+      <svg class="wm" viewBox="0 0 {{WM_WH}}" aria-hidden="true"><use href="#wordmark"/></svg>
+    </a>
+    <div class="hdr-r">
+      <a class="hbtn cap" href="{{HOME}}"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3 5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.4"/></svg><span class="hbtn-label">Home</span></a>
+      <button class="hbtn theme-btn cap" id="themeBtn" type="button"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M8 1.5A6.5 6.5 0 0 1 8 14.5Z" fill="currentColor"/></svg><span class="hbtn-label">Dark</span></button>
+    </div>
+  </header>
+  <div id="topSentinel" aria-hidden="true" style="height:1px;margin-bottom:-1px"></div>
+
+  <main id="main" class="rm">
+    <div class="rm-intro">
+      <p class="crumb cap"><a href="{{HOME}}#infrastructure">What are we building?</a><span class="lead" aria-hidden="true"></span><span>Roadmap</span></p>
+      <div class="head">
+        <h1>Product roadmap.</h1>
+        <p>What we are building now, what comes next, and what is further out. We start with Trust because it answers a question companies already face: can we prove what our AI did?</p>
+        <p>Plans change as we learn, and this page changes with them.</p>
+      </div>
+      <p class="meta cap">Updated {{UPDATED}}</p>
+    </div>
+
+    <section class="rm-seq" aria-labelledby="seqTitle">
+      <h2 class="sr" id="seqTitle">At a glance</h2>
+      <ol class="horizons">
+{{HORIZONS}}
+      </ol>
+      <details class="legend">
+        <summary class="cap">How to read the progress tracks</summary>
+        <ol class="legend-list">
+{{LEGEND}}
+        </ol>
+      </details>
+    </section>
+
+    <!-- ===================== Now: Trust ===================== -->
+    <section id="now" class="phase-sec">
+      <p class="label cap"><span class="no">01</span><span class="lead" aria-hidden="true"></span><span>Now</span></p>
+      <div class="ph-head">
+        <div class="head"><h2>Pentaliminal Trust</h2><p>{{LINE:trust}}</p></div>
+        <div class="ph-status">{{STATUS:trust}}{{TRACK:trust}}</div>
+      </div>
+
+      <figure class="rmfig ppp" aria-labelledby="pppT">
+        <figcaption class="fig-t cap" id="pppT">Protection at the door, provenance inside, proof on the way out</figcaption>
+        <div class="ppp-grid">
+          <div class="ppp-k"><b>Protection</b><span>At the door</span></div>
+          <div class="ppp-guard">
+            <div class="chain c4"><span class="nd dash">AI you didn’t invite</span><span class="door"><span class="cap">Kept out</span></span></div>
+            <div class="chain c4"><span class="nd">Your own agents</span><span class="nd bound">Kept within limits</span></div>
+          </div>
+
+          <div class="ppp-k"><b>Provenance</b><span>Every step linked</span></div>
+          <div class="chain c4 bus"><span class="nd">Person</span><span class="nd">AI agent</span><span class="nd">Tool calls</span><span class="nd">Records</span></div>
+
+          <div class="ppp-k"><b>Proof</b><span>Checked and shared</span></div>
+          <div class="chain c4"><span class="nd key from-bus">Ledger</span><span class="nd">Review</span><span class="nd">Reports</span></div>
+        </div>
+        <p class="fig-note">Each step an agent takes is linked back to the person and request that started it, so a changed record can be traced to the prompt that caused it.</p>
+      </figure>
+
+      <dl class="facts">
+        <div><dt class="cap">Who it’s for</dt><dd>Companies running AI agents on customer or financial records.</dd></div>
+        <div><dt class="cap">What it does</dt><dd><ul>
+          <li><b>Ledger.</b> Every prompt and agent step, linked to the person who started it.</li>
+          <li><b>Guard.</b> AI you didn’t invite is kept out, and your own agents are kept within limits.</li>
+          <li><b>Reports.</b> Audit packets, plus usage by team, person and agent.</li>
+        </ul></dd></div>
+        <div><dt class="cap">Interested?</dt><dd>If your company runs AI agents and this sounds useful, <a href="{{HOME}}#ask">tell us about your setup</a>.</dd></div>
+      </dl>
+    </section>
+
+    <!-- ===================== Next: Notebook ===================== -->
+    <section id="next" class="phase-sec">
+      <p class="label cap"><span class="no">02</span><span class="lead" aria-hidden="true"></span><span>Next</span></p>
+      <div class="ph-head">
+        <div class="head"><h2>Pentaliminal Notebook</h2><p>{{LINE:notebook}}</p></div>
+        <div class="ph-status">{{STATUS:notebook}}{{TRACK:notebook}}</div>
+      </div>
+    </section>
+
+    <!-- ===================== Later ===================== -->
+    <section id="later" class="phase-sec">
+      <p class="label cap"><span class="no">03</span><span class="lead" aria-hidden="true"></span><span>Later</span></p>
+      <div class="head"><h2>Further out.</h2><p>All of our products are built on one shared memory, so what people learn and check in one can carry into the others.</p></div>
+      <ul class="later">
+{{LATER}}
+      </ul>
+      <p class="later-note">Curious about something further out? <a href="{{HOME}}#ask">Ask us</a>.</p>
+    </section>
+
+    <section class="rm-ask">
+      <div class="head">
+        <h2>Something here you want to talk about?</h2>
+        <p>Questions, ideas, and offers to try an early version are all welcome. A person reads every message.</p>
+      </div>
+      <div class="actions"><a class="btn" href="{{HOME}}#ask">Ask us a question</a><a class="btn ghost" href="#top">Back to the top</a></div>
+    </section>
+  </main>
+</div>
+
+{{FOOTER}}

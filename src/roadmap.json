@@ -1,0 +1,28 @@
+{
+  "_note": "Status data for /roadmap/ and the roadmap strip on the home page. Each product sits in a horizon (now, next or later) and a stage. To move a product along, change its \"stage\" (planning, designing, building, testing or live) or its \"horizon\", update \"updated\", and rebuild (python3 tools/build.py). Copy and the Trust figure live in src/roadmap.html.",
+  "updated": "November 2026",
+  "stages": [
+    { "key": "planning",  "name": "Planning",  "status": "Planning",           "means": "Deciding what it is for, who it serves and what the first version must do." },
+    { "key": "designing", "name": "Designing", "status": "Being designed",     "means": "Working out how it looks and behaves, and checking the idea with the people it is for." },
+    { "key": "building",  "name": "Building",  "status": "Under construction", "means": "Writing the software for the first version." },
+    { "key": "testing",   "name": "Testing",   "status": "In early testing",   "means": "A first version is with a small group of early users." },
+    { "key": "live",      "name": "Live",      "status": "Available",          "means": "Anyone can use it." }
+  ],
+  "horizons": [
+    { "key": "now",   "name": "Now",   "says": "What we are building first" },
+    { "key": "next",  "name": "Next",  "says": "Taking shape alongside it" },
+    { "key": "later", "name": "Later", "says": "Further out" }
+  ],
+  "products": [
+    { "id": "trust",    "name": "Trust",    "full": "Pentaliminal Trust",    "horizon": "now",   "stage": "designing",
+      "line": "Proof, provenance and protection for every AI action in a company." },
+    { "id": "notebook", "name": "Notebook", "full": "Pentaliminal Notebook", "horizon": "next",  "stage": "building",
+      "line": "An AI-native notebook built for learning, not just storing." },
+    { "id": "rhetor",   "name": "Rhetor",   "full": "Pentaliminal Rhetor",   "horizon": "later", "stage": "planning",
+      "line": "A practice room for speaking, communicating and telling stories." },
+    { "id": "forum",    "name": "Forum",    "full": "Pentaliminal Forum",    "horizon": "later", "stage": "planning",
+      "line": "A home for live debates, talks and podcasts about hard questions." },
+    { "id": "memory",   "name": "An open shared memory", "full": "An open shared memory", "horizon": "later", "stage": "planning",
+      "line": "Opening up the memory our products share, so other AI systems can build on it too." }
+  ]
+}
